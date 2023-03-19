@@ -6,7 +6,8 @@ import java.util.List;
 public class Montagem extends Servico{
     private List<Componente> componentesUsados;
 
-    public Montagem() {
+    public Montagem(double preco, double custo) {
+        super(preco, custo);
         this.componentesUsados = new LinkedList<Componente>();
     }
 

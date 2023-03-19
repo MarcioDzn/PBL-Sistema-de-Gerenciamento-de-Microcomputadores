@@ -8,7 +8,9 @@ public class Servico {
     private double custo;
     private List<OrdemServico> ordensServico;
 
-    public Servico() {
+    public Servico(double preco, double custo) {
+        this.preco = preco;
+        this.custo = custo;
         this.ordensServico = new LinkedList<OrdemServico>();
     }
 
