@@ -1,5 +1,7 @@
 package model;
 
+import dao.DAO;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,7 +11,7 @@ public class Cliente {
     private String endereco;
     private String telefone;
     private String email;
-    private List<OrdemServico> ordensServico;
+    private List<Integer> ordensServicoId;
 
     public Cliente(String nome, String endereco, String telefone, String email) {
         this.nome = nome;
@@ -18,7 +20,7 @@ public class Cliente {
         this.email = email;
         this.id = 0;
 
-        this.ordensServico = new LinkedList<OrdemServico>();
+        this.ordensServicoId = new LinkedList<Integer>();
     }
 
     // Fim Getters e Setters
@@ -63,11 +65,17 @@ public class Cliente {
     }
 
     public List<OrdemServico> getOrdensServico() {
-        return ordensServico;
+        List<OrdemServico> lista = new LinkedList<OrdemServico>();
+
+        for (Integer id : this.ordensServicoId){
+            lista.add(DAO.getOrdemServico().buscarPorId(id));
+        }
+
+        return lista;
     }
 
-    public void addOrdensServico(OrdemServico ordemServico) {
-        this.ordensServico.add(ordemServico);
+    public void addOrdensServico(Integer id) {
+        this.ordensServicoId.add(id);
     }
     // Fim Getters e Setters
 }
