@@ -1,13 +1,15 @@
 package model;
 
+import dao.DAO;
+
 import java.util.Date;
 import java.util.List;
 import java.util.LinkedList;
 
 public class OrdemServico {
     private int id;
-    private Cliente cliente;
-    private Tecnico tecnico;
+    private Integer clienteId;
+    private Integer tecnicoId;
     private String status;
     private List<Servico> servicos;
     private String descricao;
@@ -15,8 +17,8 @@ public class OrdemServico {
     private long finalizadoEm;
     private Date tempo = new Date();
 
-    public OrdemServico(Cliente cliente) {
-        this.cliente = cliente;
+    public OrdemServico(Integer clienteId) {
+        this.clienteId = clienteId;
         this.status = "Em andamento";
         this.servicos = new LinkedList<Servico>();
 
@@ -71,15 +73,15 @@ public class OrdemServico {
     }
 
     public Cliente getCliente() {
-        return cliente;
+        return DAO.getCliente().buscarPorId(this.clienteId);
     }
 
     public Tecnico getTecnico() {
-        return tecnico;
+        return DAO.getTecnico().buscarPorId(this.tecnicoId);
     }
 
-    public void setTecnico(Tecnico tecnico) {
-        this.tecnico = tecnico;
+    public void setTecnico(Integer id) {
+        this.tecnicoId = id;
     }
 
     public String getStatus() {
