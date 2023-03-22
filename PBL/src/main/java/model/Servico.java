@@ -1,17 +1,19 @@
 package model;
 
+import dao.DAO;
+
 import java.util.LinkedList;
 import java.util.List;
 
 public class Servico {
     private double preco;
     private double custo;
-    private List<OrdemServico> ordensServico;
+    private List<Integer> ordensServicoId;
 
     public Servico(double preco, double custo) {
         this.preco = preco;
         this.custo = custo;
-        this.ordensServico = new LinkedList<OrdemServico>();
+        this.ordensServicoId = new LinkedList<Integer>();
     }
 
     public double getPreco() {
@@ -31,10 +33,16 @@ public class Servico {
     }
 
     public List<OrdemServico> getOrdensServico() {
-        return ordensServico;
+        List<OrdemServico> lista = new LinkedList<OrdemServico>();
+
+        for (Integer id : this.ordensServicoId){
+            lista.add(DAO.getOrdemServico().buscarPorId(id));
+        }
+
+        return lista;
     }
 
-    public void setOrdensServico(OrdemServico ordemServico) {
-        this.ordensServico.add(ordemServico);
+    public void addOrdensServico(Integer id) {
+        this.ordensServicoId.add(id);
     }
 }
