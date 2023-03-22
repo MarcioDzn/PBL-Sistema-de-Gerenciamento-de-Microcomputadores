@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Componente {
+    private int id;
     private double custo;
     private double preco;
     private List<Montagem> montagensAssociadas;
@@ -36,5 +37,13 @@ public abstract class Componente {
 
     public void setMontagensAssociadas(Montagem montagem) {
         this.montagensAssociadas.add(montagem);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
