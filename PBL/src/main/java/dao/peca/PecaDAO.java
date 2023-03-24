@@ -6,5 +6,5 @@ import model.Peca;
 import java.util.List;
 
 public interface PecaDAO extends CRUD<Peca> {
-    public List<Peca> buscarPorNome(String nome);
+    public Peca buscarPorNome(String nome);
 }
