@@ -66,11 +66,13 @@ public class ClienteLista implements ClienteDAO{
     }
 
     @Override
-    public Cliente buscarPorNome(String nome) {
+    public List<Cliente> buscarPorNome(String nome) {
+        List<Cliente> lista = new LinkedList<Cliente>();
+
         for (Cliente cliente : listaClientes){
             if (cliente.getNome() == nome)
-                return cliente;
+                lista.add(cliente);
         }
-        return null;
+        return lista;
     }
 }
