@@ -64,4 +64,9 @@ public class LimpezaLista implements LimpezaDAO {
             }
         }
     }
+
+    @Override
+    public void delete_Many(Limpeza objeto) {
+        listaLimpeza.clear();
+    }
 }

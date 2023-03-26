@@ -66,6 +66,11 @@ public class TecnicoLista implements TecnicoDAO{
     }
 
     @Override
+    public void delete_Many(Tecnico objeto) {
+        listaTecnicos.clear();
+    }
+
+    @Override
     public Tecnico buscarPorNome(String nome) {
         for (Tecnico tecnico : listaTecnicos){
             if (tecnico.getNome() == nome)

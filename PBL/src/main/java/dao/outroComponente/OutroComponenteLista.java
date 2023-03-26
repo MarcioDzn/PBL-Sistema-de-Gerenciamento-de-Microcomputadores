@@ -65,4 +65,9 @@ public class OutroComponenteLista implements OutroComponenteDAO{
             }
         }
     }
+
+    @Override
+    public void delete_Many(OutroComponente objeto) {
+        listaOutrosComponentes.clear();
+    }
 }

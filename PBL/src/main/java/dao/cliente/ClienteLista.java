@@ -66,6 +66,11 @@ public class ClienteLista implements ClienteDAO{
     }
 
     @Override
+    public void delete_Many(Cliente objeto) {
+        listaClientes.clear();
+    }
+
+    @Override
     public List<Cliente> buscarPorNome(String nome) {
         List<Cliente> lista = new LinkedList<Cliente>();
 

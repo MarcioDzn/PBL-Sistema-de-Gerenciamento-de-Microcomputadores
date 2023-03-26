@@ -64,4 +64,9 @@ public class InstalacaoLista implements InstalacaoDAO{
             }
         }
     }
+
+    @Override
+    public void delete_Many(Instalacao objeto) {
+        listaInstalacoes.clear();
+    }
 }

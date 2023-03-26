@@ -64,4 +64,9 @@ public class MontagemLista implements MontagemDAO{
             }
         }
     }
+
+    @Override
+    public void delete_Many(Montagem objeto) {
+        listaMontagens.clear();
+    }
 }

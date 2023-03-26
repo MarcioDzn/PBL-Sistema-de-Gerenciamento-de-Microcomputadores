@@ -67,6 +67,11 @@ public class PecaLista implements PecaDAO{
     }
 
     @Override
+    public void delete_Many(Peca objeto) {
+        listaPecas.clear();
+    }
+
+    @Override
     public Peca buscarPorNome(String nome) {
         for (Peca peca : listaPecas){
             if (peca.getNome() == nome)

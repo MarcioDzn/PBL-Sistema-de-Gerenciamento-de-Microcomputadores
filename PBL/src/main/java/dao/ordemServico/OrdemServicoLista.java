@@ -68,6 +68,11 @@ public class OrdemServicoLista implements OrdemServicoDAO{
     }
 
     @Override
+    public void delete_Many(OrdemServico objeto) {
+        listaOrdensServico.clear();
+    }
+
+    @Override
     public List<OrdemServico> buscarPorCliente(int id) {
         List<OrdemServico> lista = new LinkedList<OrdemServico>();
 

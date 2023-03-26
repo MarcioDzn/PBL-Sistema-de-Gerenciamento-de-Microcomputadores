@@ -12,4 +12,6 @@ public interface CRUD<T> {
     public void atualizar(T objeto);
 
     public void remover(T objeto);
+
+    public void  delete_Many(T objeto);
 }
