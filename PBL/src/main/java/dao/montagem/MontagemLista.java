@@ -1,6 +1,5 @@
 package dao.montagem;
 
-import model.Limpeza;
 import model.Montagem;
 
 import java.util.LinkedList;
@@ -66,7 +65,8 @@ public class MontagemLista implements MontagemDAO{
     }
 
     @Override
-    public void delete_Many(Montagem objeto) {
-        listaMontagens.clear();
+    public void deletarTudo() {
+        this.listaMontagens = new LinkedList<Montagem>();
+        this.proxId = 0;
     }
 }

@@ -66,8 +66,9 @@ public class ClienteLista implements ClienteDAO{
     }
 
     @Override
-    public void delete_Many(Cliente objeto) {
-        listaClientes.clear();
+    public void deletarTudo() {
+        this.listaClientes = new LinkedList<Cliente>();
+        this.proxId = 0;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package dao.instalacao;
 
-import model.Cliente;
 import model.Instalacao;
 
 import java.util.LinkedList;
@@ -66,7 +65,8 @@ public class InstalacaoLista implements InstalacaoDAO{
     }
 
     @Override
-    public void delete_Many(Instalacao objeto) {
-        listaInstalacoes.clear();
+    public void deletarTudo() {
+        this.listaInstalacoes = new LinkedList<Instalacao>();
+        this.proxId = 0;
     }
 }

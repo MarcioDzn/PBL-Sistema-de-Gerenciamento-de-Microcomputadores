@@ -1,6 +1,5 @@
 package dao.tecnico;
 
-import model.Cliente;
 import model.Tecnico;
 
 import java.util.LinkedList;
@@ -66,8 +65,9 @@ public class TecnicoLista implements TecnicoDAO{
     }
 
     @Override
-    public void delete_Many(Tecnico objeto) {
-        listaTecnicos.clear();
+    public void deletarTudo() {
+        this.listaTecnicos = new LinkedList<Tecnico>();
+        this.proxId = 0;
     }
 
     @Override

@@ -13,5 +13,5 @@ public interface CRUD<T> {
 
     public void remover(T objeto);
 
-    public void  delete_Many(T objeto);
+    public void  deletarTudo();
 }

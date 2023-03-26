@@ -1,7 +1,5 @@
 package dao.peca;
 
-import model.Cliente;
-import model.OrdemServico;
 import model.Peca;
 
 import java.util.LinkedList;
@@ -67,8 +65,9 @@ public class PecaLista implements PecaDAO{
     }
 
     @Override
-    public void delete_Many(Peca objeto) {
-        listaPecas.clear();
+    public void deletarTudo() {
+        this.listaPecas = new LinkedList<Peca>();
+        this.proxId = 0;
     }
 
     @Override

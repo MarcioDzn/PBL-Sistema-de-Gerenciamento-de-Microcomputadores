@@ -1,7 +1,5 @@
 package dao.outroComponente;
 
-import model.Cliente;
-import model.OrdemServico;
 import model.OutroComponente;
 
 import java.util.LinkedList;
@@ -67,7 +65,8 @@ public class OutroComponenteLista implements OutroComponenteDAO{
     }
 
     @Override
-    public void delete_Many(OutroComponente objeto) {
-        listaOutrosComponentes.clear();
+    public void deletarTudo() {
+        this.listaOutrosComponentes = new LinkedList<OutroComponente>();
+        this.proxId = 0;
     }
 }

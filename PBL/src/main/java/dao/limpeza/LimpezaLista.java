@@ -1,6 +1,5 @@
 package dao.limpeza;
 
-import model.Instalacao;
 import model.Limpeza;
 
 import java.util.LinkedList;
@@ -66,7 +65,8 @@ public class LimpezaLista implements LimpezaDAO {
     }
 
     @Override
-    public void delete_Many(Limpeza objeto) {
-        listaLimpeza.clear();
+    public void deletarTudo() {
+        this.listaLimpeza = new LinkedList<Limpeza>();
+        this.proxId = 0;
     }
 }

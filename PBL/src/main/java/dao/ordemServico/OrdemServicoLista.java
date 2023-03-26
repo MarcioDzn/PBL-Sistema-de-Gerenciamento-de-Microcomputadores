@@ -1,9 +1,7 @@
 package dao.ordemServico;
 
 import dao.DAO;
-import model.Cliente;
 import model.OrdemServico;
-import model.Tecnico;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -68,8 +66,9 @@ public class OrdemServicoLista implements OrdemServicoDAO{
     }
 
     @Override
-    public void delete_Many(OrdemServico objeto) {
-        listaOrdensServico.clear();
+    public void deletarTudo() {
+        this.listaOrdensServico = new LinkedList<OrdemServico>();
+        this.proxId = 0;
     }
 
     @Override
