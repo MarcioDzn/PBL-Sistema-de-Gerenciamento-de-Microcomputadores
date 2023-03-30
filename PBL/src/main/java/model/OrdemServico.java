@@ -16,7 +16,7 @@ public class OrdemServico {
     private long criadoEm;
     private long finalizadoEm;
     private Date tempo = new Date();
-
+    private String metodoPagamento;
     private double preco;
     private double custo;
 
@@ -29,7 +29,6 @@ public class OrdemServico {
         this.finalizadoEm = 0;
 
         this.id = 0;
-
     }
 
     public double getPreco(){
@@ -117,6 +116,14 @@ public class OrdemServico {
 
     public void addServicos(Servico servico) {
         this.servicos.add(servico);
+    }
+
+    public String getMetodoPagamento() {
+        return metodoPagamento;
+    }
+
+    public void setMetodoPagamento(String metodoPagamento) {
+        this.metodoPagamento = metodoPagamento;
     }
 
     public String getDescricao() {
