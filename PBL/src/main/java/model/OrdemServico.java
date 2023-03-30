@@ -52,11 +52,13 @@ public class OrdemServico {
     }
 
     public void finalizar(){
+        this.status = "Finalizado";
         this.finalizadoEm = tempo.getTime();
     }
 
     public void cancelar(){
-
+        this.status = "Cancelado";
+        this.criadoEm = 0;
     }
 
     public boolean isFinalizado(){
