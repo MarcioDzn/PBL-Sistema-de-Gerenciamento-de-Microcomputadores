@@ -17,6 +17,9 @@ public class OrdemServico {
     private long finalizadoEm;
     private Date tempo = new Date();
 
+    private double preco;
+    private double custo;
+
     public OrdemServico(Integer clienteId) {
         this.clienteId = clienteId;
         this.status = "Em andamento";
@@ -30,7 +33,23 @@ public class OrdemServico {
     }
 
     public double getPreco(){
-        return 0;
+        double precoTotal = 0;
+
+        for (Servico servico : this.servicos){
+            precoTotal += servico.getPreco();
+        }
+
+        return precoTotal;
+    }
+
+    public double getCusto() {
+        double precoTotal = 0;
+
+        for (Servico servico : this.servicos){
+            precoTotal += servico.getPreco();
+        }
+
+        return precoTotal;
     }
 
     public void finalizar(){
