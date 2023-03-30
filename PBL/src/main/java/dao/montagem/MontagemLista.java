@@ -15,7 +15,7 @@ public class MontagemLista implements MontagemDAO{
     }
 
     @Override
-    public void adicionarNaLista(Montagem objeto) {
+    public void criar(Montagem objeto) {
         objeto.setId(this.proxId);
         listaMontagens.add(objeto);
 

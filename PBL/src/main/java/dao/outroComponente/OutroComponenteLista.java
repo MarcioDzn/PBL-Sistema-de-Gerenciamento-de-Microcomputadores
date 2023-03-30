@@ -15,7 +15,7 @@ public class OutroComponenteLista implements OutroComponenteDAO{
     }
 
     @Override
-    public void adicionarNaLista(OutroComponente objeto) {
+    public void criar(OutroComponente objeto) {
         objeto.setId(this.proxId);
         listaOutrosComponentes.add(objeto);
 

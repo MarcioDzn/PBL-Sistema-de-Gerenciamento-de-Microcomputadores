@@ -3,7 +3,7 @@ package dao;
 import java.util.List;
 
 public interface CRUD<T> {
-    public void adicionarNaLista(T objeto);
+    public void criar(T objeto);
 
     public T buscarPorId(int id);
 

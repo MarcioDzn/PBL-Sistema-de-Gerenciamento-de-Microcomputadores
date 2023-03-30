@@ -15,7 +15,7 @@ public class LimpezaLista implements LimpezaDAO {
     }
 
     @Override
-    public void adicionarNaLista(Limpeza objeto) {
+    public void criar(Limpeza objeto) {
         objeto.setId(this.proxId);
         listaLimpeza.add(objeto);
 

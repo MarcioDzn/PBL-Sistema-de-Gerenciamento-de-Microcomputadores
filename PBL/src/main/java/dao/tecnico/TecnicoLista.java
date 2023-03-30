@@ -15,7 +15,7 @@ public class TecnicoLista implements TecnicoDAO{
     }
 
     @Override
-    public void adicionarNaLista(Tecnico objeto) {
+    public void criar(Tecnico objeto) {
         objeto.setId(this.proxId);
         listaTecnicos.add(objeto);
 

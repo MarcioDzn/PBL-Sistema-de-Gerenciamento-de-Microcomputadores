@@ -16,7 +16,7 @@ public class OrdemServicoLista implements OrdemServicoDAO{
     }
 
     @Override
-    public void adicionarNaLista(OrdemServico objeto) {
+    public void criar(OrdemServico objeto) {
         objeto.setId(this.proxId);
         listaOrdensServico.add(objeto);
 

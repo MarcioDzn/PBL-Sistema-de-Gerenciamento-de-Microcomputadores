@@ -15,7 +15,7 @@ public class PecaLista implements PecaDAO{
     }
 
     @Override
-    public void adicionarNaLista(Peca objeto) {
+    public void criar(Peca objeto) {
         objeto.setId(this.proxId);
         listaPecas.add(objeto);
 

@@ -15,7 +15,7 @@ public class InstalacaoLista implements InstalacaoDAO{
     }
 
     @Override
-    public void adicionarNaLista(Instalacao objeto) {
+    public void criar(Instalacao objeto) {
         objeto.setId(this.proxId);
         listaInstalacoes.add(objeto);
 

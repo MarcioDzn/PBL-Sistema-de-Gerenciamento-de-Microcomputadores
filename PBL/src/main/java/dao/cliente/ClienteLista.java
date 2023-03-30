@@ -15,7 +15,7 @@ public class ClienteLista implements ClienteDAO{
     }
 
     @Override
-    public void adicionarNaLista(Cliente objeto) {
+    public void criar(Cliente objeto) {
         objeto.setId(this.proxId);
         listaClientes.add(objeto);
 
