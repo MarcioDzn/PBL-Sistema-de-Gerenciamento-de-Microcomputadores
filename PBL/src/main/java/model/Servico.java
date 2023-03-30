@@ -5,7 +5,7 @@ import dao.DAO;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Servico {
+public abstract class Servico {
     private double preco;
     private double custo;
     private List<Integer> ordensServicoId;
