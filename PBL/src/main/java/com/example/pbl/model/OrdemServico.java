@@ -15,7 +15,6 @@ public class OrdemServico {
     private String descricao;
     private long criadoEm;
     private long finalizadoEm;
-    private Date tempo = new Date();
     private String metodoPagamento;
     private double preco;
     private double custo;
@@ -25,7 +24,7 @@ public class OrdemServico {
         this.status = "Em andamento";
         this.servicos = new LinkedList<Servico>();
 
-        this.criadoEm = tempo.getTime();
+        this.criadoEm = new Date().getTime();
         this.finalizadoEm = 0;
 
         this.id = 0;
@@ -53,7 +52,7 @@ public class OrdemServico {
 
     public void finalizar(){
         this.status = "Finalizado";
-        this.finalizadoEm = tempo.getTime();
+        this.finalizadoEm = new Date().getTime();
     }
 
     public void cancelar(){
