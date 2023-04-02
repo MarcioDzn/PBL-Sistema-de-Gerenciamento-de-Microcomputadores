@@ -1,5 +1,6 @@
 package com.example.pbl.model;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Instalacao extends Servico{
@@ -9,6 +10,7 @@ public class Instalacao extends Servico{
 
     public Instalacao(double preco, double custo) {
         super(preco, custo);
+        this.programas = new LinkedList<String>();
     }
 
     public List<String> getProgramas() {
@@ -33,9 +35,5 @@ public class Instalacao extends Servico{
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void setProgramas(List<String> programas) {
-        this.programas = programas;
     }
 }
