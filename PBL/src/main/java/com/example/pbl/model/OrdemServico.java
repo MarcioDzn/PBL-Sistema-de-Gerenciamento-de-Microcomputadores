@@ -45,7 +45,7 @@ public class OrdemServico {
         double precoTotal = 0;
 
         for (Servico servico : this.servicos){
-            precoTotal += servico.getPreco();
+            precoTotal += servico.getCusto();
         }
 
         return precoTotal;
