@@ -7,17 +7,20 @@ public class Montagem extends Servico{
     private int id;
     private List<Componente> componentesUsados;
 
-    public Montagem(double preco, double custo) {
-        super(preco, custo);
+    public Montagem() {
+        super(0, 0);
         this.componentesUsados = new LinkedList<Componente>();
     }
 
-    public List<Componente> getComponentesUsados() {
+    public List<Componente> getComponentes() {
         return componentesUsados;
     }
 
-    public void setComponentesUsados(Componente componente) {
+    public void setComponente(Componente componente) {
         this.componentesUsados.add(componente);
+
+        this.setPreco(super.getPreco() + componente.getPreco());
+        this.setCusto(super.getCusto() + componente.getCusto());
     }
 
     public int getId() {
