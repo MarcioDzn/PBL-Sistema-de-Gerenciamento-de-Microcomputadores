@@ -95,12 +95,19 @@ public class OrdemServico {
         return DAO.getCliente().buscarPorId(this.clienteId);
     }
 
+    public Integer getClienteId() {
+        return clienteId;
+    }
     public Tecnico getTecnico() {
         return DAO.getTecnico().buscarPorId(this.tecnicoId);
     }
 
-    public void setTecnico(Integer id) {
+    public void setTecnicoId(Integer id) {
         this.tecnicoId = id;
+    }
+
+    public Integer getTecnicoId() {
+        return tecnicoId;
     }
 
     public String getStatus() {
