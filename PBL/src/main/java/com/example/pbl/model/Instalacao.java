@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Instalacao extends Servico{
-    private int id;
     private List<String> programas;
     private String sistemaOperacional;
 
@@ -27,13 +26,5 @@ public class Instalacao extends Servico{
 
     public void setSistemaOperacional(String sistemaOperacional) {
         this.sistemaOperacional = sistemaOperacional;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }

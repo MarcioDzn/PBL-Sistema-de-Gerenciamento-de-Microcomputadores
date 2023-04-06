@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Servico {
+    private int id;
     private double preco;
     private double custo;
     private List<Integer> ordensServicoId;
@@ -44,5 +45,13 @@ public abstract class Servico {
 
     public void addOrdensServico(Integer id) {
         this.ordensServicoId.add(id);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

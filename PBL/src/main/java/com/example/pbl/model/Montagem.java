@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Montagem extends Servico{
-    private int id;
     private List<Componente> componentesUsados;
 
     public Montagem() {
@@ -21,13 +20,5 @@ public class Montagem extends Servico{
 
         this.setPreco(super.getPreco() + componente.getPreco());
         this.setCusto(super.getCusto() + componente.getCusto());
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }
