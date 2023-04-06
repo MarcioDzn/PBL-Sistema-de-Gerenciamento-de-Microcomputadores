@@ -9,4 +9,6 @@ public interface OrdemServicoDAO extends CRUD<OrdemServico> {
     public List<OrdemServico> buscarPorCliente(int id);
 
     public List<OrdemServico> buscarPorTecnico(int id);
+
+    public List<OrdemServico> buscarPorServico(int id, String tipoServico);
 }

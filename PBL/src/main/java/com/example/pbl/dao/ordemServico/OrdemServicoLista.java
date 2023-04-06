@@ -1,7 +1,7 @@
 package com.example.pbl.dao.ordemServico;
 
 import com.example.pbl.dao.DAO;
-import com.example.pbl.model.OrdemServico;
+import com.example.pbl.model.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -88,6 +88,30 @@ public class OrdemServicoLista implements OrdemServicoDAO{
 
         for (OrdemServico ordemServico : DAO.getTecnico().buscarPorId(id).getOrdensServico()){
             lista.add(ordemServico);
+        }
+
+        return lista;
+    }
+
+    @Override
+    public List<OrdemServico> buscarPorServico(int id, String tipoServico) {
+        List<OrdemServico> lista = new LinkedList<OrdemServico>();
+
+        for (OrdemServico ordemServico : DAO.getOrdemServico().buscarTodos()) {
+            for (Servico servico : ordemServico.getServicos()){
+                if (tipoServico == "Montagem"){
+                    if (((Montagem) servico).getId() == id)
+                        lista.add(ordemServico);
+
+                } else if (tipoServico == "Limpeza"){
+                    if (((Limpeza) servico).getId() == id)
+                        lista.add(ordemServico);
+
+                } else if (tipoServico == "Instalacao"){
+                    if (((Instalacao) servico).getId() == id)
+                        lista.add(ordemServico);
+                }
+            }
         }
 
         return lista;
