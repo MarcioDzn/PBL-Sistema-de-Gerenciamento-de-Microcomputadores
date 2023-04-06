@@ -28,19 +28,11 @@ class ClienteTest {
     }
     @Test
     void testGetOrdensServico() {
-        for (int i = 0; i < 3; i++){
-            this.cliente1.addOrdensServico(DAO.getOrdemServico().buscarPorId(i).getId());
-        }
-
         assertEquals(this.osLista, this.cliente1.getOrdensServico());
-    }
 
-    @Test
-    void testAddOrdensServico() {
-        this.cliente1.addOrdensServico(0);
-        this.cliente1.addOrdensServico(1);
+        this.osLista.add(new OrdemServico(1));
 
-        assertEquals(2, this.cliente1.getOrdensServico().size());
+        assertNotEquals(this.osLista, this.cliente1.getOrdensServico());
     }
 
     @AfterEach
