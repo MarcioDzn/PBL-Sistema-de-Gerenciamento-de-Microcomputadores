@@ -102,15 +102,15 @@ public class OrdemServicoLista implements OrdemServicoDAO{
         for (OrdemServico ordemServico : DAO.getOrdemServico().buscarTodos()) {
             for (Servico servico : ordemServico.getServicos()){
                 if (tipoServico == "Montagem"){
-                    if (((Montagem) servico).getId() == id)
+                    if (servico instanceof Montagem && servico.getId() == id)
                         lista.add(ordemServico);
 
                 } else if (tipoServico == "Limpeza"){
-                    if (((Limpeza) servico).getId() == id)
+                    if (servico instanceof Limpeza && servico.getId() == id)
                         lista.add(ordemServico);
 
                 } else if (tipoServico == "Instalacao"){
-                    if (((Instalacao) servico).getId() == id)
+                    if (servico instanceof Instalacao && servico.getId() == id)
                         lista.add(ordemServico);
                 }
             }
