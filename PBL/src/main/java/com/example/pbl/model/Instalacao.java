@@ -1,5 +1,7 @@
 package com.example.pbl.model;
 
+import com.example.pbl.dao.DAO;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,5 +28,9 @@ public class Instalacao extends Servico{
 
     public void setSistemaOperacional(String sistemaOperacional) {
         this.sistemaOperacional = sistemaOperacional;
+    }
+
+    public List<OrdemServico> getOrdensServico(){
+        return DAO.getOrdemServico().buscarPorServico(super.getId(), "Instalacao");
     }
 }

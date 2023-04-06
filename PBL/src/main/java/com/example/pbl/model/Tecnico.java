@@ -53,5 +53,9 @@ public class Tecnico {
         this.ordemServicoAtualId = ordemServicoAtualId;
     }
 
+    public List<OrdemServico> getOrdensServico() {
+        return DAO.getOrdemServico().buscarPorTecnico(this.id);
+    }
+
     // Fim Getters e Setters
 }

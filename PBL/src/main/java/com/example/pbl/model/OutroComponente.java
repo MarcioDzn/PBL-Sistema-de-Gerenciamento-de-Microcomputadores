@@ -1,5 +1,9 @@
 package com.example.pbl.model;
 
+import com.example.pbl.dao.DAO;
+
+import java.util.List;
+
 public class OutroComponente extends Componente{
     private String descricao;
 
@@ -15,4 +19,9 @@ public class OutroComponente extends Componente{
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    public List<Montagem> getMontagens() {
+        return DAO.getMontagem().buscarPorComponente(super.getId(), "OutroComponente");
+    }
+
 }

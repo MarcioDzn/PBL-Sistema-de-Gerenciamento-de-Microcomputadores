@@ -1,5 +1,7 @@
 package com.example.pbl.model;
 
+import com.example.pbl.dao.DAO;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,5 +22,9 @@ public class Montagem extends Servico{
 
         this.setPreco(super.getPreco() + componente.getPreco());
         this.setCusto(super.getCusto() + componente.getCusto());
+    }
+
+    public List<OrdemServico> getOrdensServico(){
+        return DAO.getOrdemServico().buscarPorServico(super.getId(), "Montagem");
     }
 }

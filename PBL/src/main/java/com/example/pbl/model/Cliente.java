@@ -11,7 +11,6 @@ public class Cliente {
     private String endereco;
     private String telefone;
     private String email;
-    private List<Integer> ordensServicoId;
 
     public Cliente(String nome, String endereco, String telefone, String email) {
         this.nome = nome;
@@ -19,8 +18,6 @@ public class Cliente {
         this.telefone = telefone;
         this.email = email;
         this.id = 0;
-
-        this.ordensServicoId = new LinkedList<Integer>();
     }
 
     // Fim Getters e Setters
@@ -65,17 +62,7 @@ public class Cliente {
     }
 
     public List<OrdemServico> getOrdensServico() {
-        List<OrdemServico> lista = new LinkedList<OrdemServico>();
-
-        for (Integer id : this.ordensServicoId){
-            lista.add(DAO.getOrdemServico().buscarPorId(id));
-        }
-
-        return lista;
+        return DAO.getOrdemServico().buscarPorCliente(this.id);
     }
 
-    public void addOrdensServico(Integer id) {
-        this.ordensServicoId.add(id);
-    }
-    // Fim Getters e Setters
 }

@@ -40,4 +40,8 @@ public class Peca extends Componente {
         this.quantidade = quantidade;
     }
 
+    public List<Montagem> getMontagens() {
+        return DAO.getMontagem().buscarPorComponente(super.getId(), "Peca");
+    }
+
 }
