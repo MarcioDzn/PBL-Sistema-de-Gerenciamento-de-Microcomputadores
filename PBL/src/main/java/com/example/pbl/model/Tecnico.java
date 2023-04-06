@@ -9,8 +9,7 @@ public class Tecnico {
     private int id;
     private String nome;
     private String email;
-
-    private List<Integer> ordensServicoId;
+    private Integer ordemServicoAtualId;
 
 
     public Tecnico(String nome, String email) {
@@ -18,10 +17,8 @@ public class Tecnico {
         this.email = email;
         this.id = 0;
 
-        this.ordensServicoId = new LinkedList<Integer>();
+        this.ordemServicoAtualId = -1;
     }
-
-
 
     // Getters e Setters
     public int getId() {
@@ -48,18 +45,12 @@ public class Tecnico {
         this.email = email;
     }
 
-    public List<OrdemServico> getOrdensServico() {
-        List<OrdemServico> lista = new LinkedList<OrdemServico>();
-
-        for (Integer id : this.ordensServicoId){
-            lista.add(DAO.getOrdemServico().buscarPorId(id));
-        }
-
-        return lista;
+    public OrdemServico getOrdemServicoAtual() {
+        return DAO.getOrdemServico().buscarPorId(this.ordemServicoAtualId);
     }
 
-    public void addOrdensServico(Integer id) {
-        this.ordensServicoId.add(id);
+    public void addOrdemServicoAtual(Integer ordemServicoAtualId) {
+        this.ordemServicoAtualId = ordemServicoAtualId;
     }
 
     // Fim Getters e Setters
