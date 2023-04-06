@@ -75,8 +75,9 @@ public class OrdemServicoLista implements OrdemServicoDAO{
     public List<OrdemServico> buscarPorCliente(int id) {
         List<OrdemServico> lista = new LinkedList<OrdemServico>();
 
-        for (OrdemServico ordemServico : DAO.getCliente().buscarPorId(id).getOrdensServico()){
-            lista.add(ordemServico);
+        for (OrdemServico ordemServico : DAO.getOrdemServico().buscarTodos()){
+            if (ordemServico.getClienteId() == id)
+                lista.add(ordemServico);
         }
 
         return lista;
@@ -86,8 +87,9 @@ public class OrdemServicoLista implements OrdemServicoDAO{
     public List<OrdemServico> buscarPorTecnico(int id) {
         List<OrdemServico> lista = new LinkedList<OrdemServico>();
 
-        for (OrdemServico ordemServico : DAO.getTecnico().buscarPorId(id).getOrdensServico()){
-            lista.add(ordemServico);
+        for (OrdemServico ordemServico : DAO.getOrdemServico().buscarTodos()){
+            if (ordemServico.getTecnicoId() == id)
+                lista.add(ordemServico);
         }
 
         return lista;
