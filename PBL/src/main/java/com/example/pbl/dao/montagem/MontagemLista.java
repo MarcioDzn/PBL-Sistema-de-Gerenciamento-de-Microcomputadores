@@ -1,6 +1,7 @@
 package com.example.pbl.dao.montagem;
 
-import com.example.pbl.model.Montagem;
+import com.example.pbl.dao.DAO;
+import com.example.pbl.model.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -68,5 +69,25 @@ public class MontagemLista implements MontagemDAO{
     public void deletarTudo() {
         this.listaMontagens = new LinkedList<Montagem>();
         this.proxId = 0;
+    }
+
+    @Override
+    public List<Montagem> buscarPorComponente(int id, String tipoComponente) {
+        List<Montagem> lista = new LinkedList<Montagem>();
+
+        for (Montagem montagem : DAO.getMontagem().buscarTodos()) {
+            for (Componente componente : montagem.getComponentes()) {
+                if (tipoComponente == "Peca") {
+                    if (componente instanceof Peca && componente.getId() == id)
+                        lista.add(montagem);
+
+                } else if (tipoComponente == "OutroComponente") {
+                    if (componente instanceof OutroComponente && componente.getId() == id)
+                        lista.add(montagem);
+                }
+            }
+        }
+
+        return lista;
     }
 }
