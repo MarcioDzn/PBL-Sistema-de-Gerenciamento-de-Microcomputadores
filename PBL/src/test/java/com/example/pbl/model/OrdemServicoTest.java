@@ -20,8 +20,8 @@ class OrdemServicoTest {
 
     @Test
     void testGetPreco() {
-        Peca peca1 = new Peca(10, 20, "RAM1", "fabricante1");
-        Peca peca2 = new Peca(15, 25, "RAM2", "fabricante2");
+        Peca peca1 = new Peca(10, 10, 20, "RAM1", "fabricante1");
+        Peca peca2 = new Peca(10, 15, 25, "RAM2", "fabricante2");
 
         Montagem montagem = new Montagem();
         montagem.setComponente(peca1);
@@ -37,8 +37,8 @@ class OrdemServicoTest {
 
     @Test
     void testGetCusto() {
-        Peca peca1 = new Peca(10, 20, "RAM1", "fabricante1");
-        Peca peca2 = new Peca(15, 25, "RAM2", "fabricante2");
+        Peca peca1 = new Peca(10, 10, 20, "RAM1", "fabricante1");
+        Peca peca2 = new Peca(10, 15, 25, "RAM2", "fabricante2");
 
         Montagem montagem = new Montagem();
         montagem.setComponente(peca1);
@@ -95,7 +95,7 @@ class OrdemServicoTest {
 
         DAO.getTecnico().criar(tecnico1);
 
-        this.os1.setTecnico(0);
+        this.os1.setTecnicoId(0);
 
         assertEquals(tecnico1, this.os1.getTecnico());
     }
@@ -104,7 +104,7 @@ class OrdemServicoTest {
     void testGetServicos() {
         List<Servico> lista = new LinkedList<Servico>();
 
-        Peca peca1 = new Peca(10, 20, "RAM1", "fabricante1");
+        Peca peca1 = new Peca(10, 10, 20, "RAM1", "fabricante1");
 
         Montagem montagem = new Montagem();
         montagem.setComponente(peca1);
@@ -127,7 +127,7 @@ class OrdemServicoTest {
 
     @Test
     void testAddServicos() {
-        Peca peca1 = new Peca(10, 20, "RAM1", "fabricante1");
+        Peca peca1 = new Peca(10, 10, 20, "RAM1", "fabricante1");
 
         Montagem montagem = new Montagem();
         montagem.setComponente(peca1);
