@@ -1,6 +1,7 @@
 package com.example.pbl.model;
 
 import com.example.pbl.dao.DAO;
+import com.example.pbl.exceptions.QuantidadeException;
 
 import java.util.List;
 
@@ -36,8 +37,12 @@ public class Peca extends Componente {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setQuantidade(int quantidade) throws QuantidadeException {
+        if (quantidade <= this.quantidade)
+            this.quantidade = quantidade;
+        else{
+            throw new QuantidadeException(quantidade);
+        }
     }
 
     public List<Montagem> getMontagens() {
