@@ -1,6 +1,7 @@
 package com.example.pbl.model;
 
 import com.example.pbl.dao.DAO;
+import com.example.pbl.exceptions.OrdemServicoAtualException;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,7 +16,6 @@ public class Tecnico {
     public Tecnico(String nome, String email) {
         this.nome = nome;
         this.email = email;
-        this.id = 0;
 
         this.ordemServicoAtualId = -1;
     }
@@ -49,8 +49,13 @@ public class Tecnico {
         return DAO.getOrdemServico().buscarPorId(this.ordemServicoAtualId);
     }
 
-    public void addOrdemServicoAtual(Integer ordemServicoAtualId) {
-        this.ordemServicoAtualId = ordemServicoAtualId;
+    public void addOrdemServicoAtual(Integer ordemServicoAtualId) throws OrdemServicoAtualException {
+        if (this.ordemServicoAtualId == -1 || ordemServicoAtualId == -1)
+            this.ordemServicoAtualId = ordemServicoAtualId;
+
+        else{
+            throw new OrdemServicoAtualException(this.ordemServicoAtualId);
+        }
     }
 
     public List<OrdemServico> getOrdensServico() {
