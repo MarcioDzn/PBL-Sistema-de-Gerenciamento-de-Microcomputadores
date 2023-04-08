@@ -63,4 +63,15 @@ public class Tecnico {
     }
 
     // Fim Getters e Setters
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj instanceof Tecnico){
+            Tecnico i = (Tecnico) obj;
+            if (this.getId() == i.getId()){
+                return true;
+            }
+        }
+        return false;
+    }
 }

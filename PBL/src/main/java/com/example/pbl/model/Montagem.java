@@ -27,4 +27,15 @@ public class Montagem extends Servico{
     public List<OrdemServico> getOrdensServico(){
         return DAO.getOrdemServico().buscarPorServico(super.getId(), "Montagem");
     }
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj instanceof Montagem){
+            Montagem i = (Montagem) obj;
+            if (this.getId() == i.getId()){
+                return true;
+            }
+        }
+        return false;
+    }
 }

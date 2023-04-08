@@ -49,4 +49,14 @@ public class Peca extends Componente {
         return DAO.getMontagem().buscarPorComponente(super.getId(), "Peca");
     }
 
+    @Override
+    public boolean equals(Object obj){
+        if (obj instanceof Peca){
+            Peca i = (Peca) obj;
+            if (this.getId() == i.getId()){
+                return true;
+            }
+        }
+        return false;
+    }
 }

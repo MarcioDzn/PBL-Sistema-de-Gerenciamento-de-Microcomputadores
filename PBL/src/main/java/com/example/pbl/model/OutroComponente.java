@@ -24,4 +24,15 @@ public class OutroComponente extends Componente{
         return DAO.getMontagem().buscarPorComponente(super.getId(), "OutroComponente");
     }
 
+    @Override
+    public boolean equals(Object obj){
+        if (obj instanceof OutroComponente){
+            OutroComponente i = (OutroComponente) obj;
+            if (this.getId() == i.getId()){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

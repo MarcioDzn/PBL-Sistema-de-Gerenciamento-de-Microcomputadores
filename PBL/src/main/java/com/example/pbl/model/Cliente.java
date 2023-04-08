@@ -2,7 +2,6 @@ package com.example.pbl.model;
 
 import com.example.pbl.dao.DAO;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class Cliente {
@@ -63,6 +62,17 @@ public class Cliente {
 
     public List<OrdemServico> getOrdensServico() {
         return DAO.getOrdemServico().buscarPorCliente(this.id);
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj instanceof Cliente){
+            Cliente i = (Cliente) obj;
+            if (this.getId() == i.getId()){
+                return true;
+            }
+        }
+        return false;
     }
 
 }

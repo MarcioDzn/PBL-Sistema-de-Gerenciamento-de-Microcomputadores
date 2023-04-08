@@ -142,4 +142,15 @@ public class OrdemServico {
         this.descricao = descricao;
     }
     // Fim Getters e Setters
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj instanceof OrdemServico){
+            OrdemServico i = (OrdemServico) obj;
+            if (this.getId() == i.getId()){
+                return true;
+            }
+        }
+        return false;
+    }
 }

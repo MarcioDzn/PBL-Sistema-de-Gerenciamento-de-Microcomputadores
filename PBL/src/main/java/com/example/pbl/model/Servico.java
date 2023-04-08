@@ -1,8 +1,5 @@
 package com.example.pbl.model;
 
-import com.example.pbl.dao.DAO;
-
-import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Servico {
@@ -40,5 +37,8 @@ public abstract class Servico {
     }
 
     public abstract List<OrdemServico> getOrdensServico();
+
+    @Override
+    public abstract boolean equals(Object obj);
 
 }

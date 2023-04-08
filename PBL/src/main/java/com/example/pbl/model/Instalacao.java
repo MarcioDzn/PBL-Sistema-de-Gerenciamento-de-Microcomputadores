@@ -33,4 +33,15 @@ public class Instalacao extends Servico{
     public List<OrdemServico> getOrdensServico(){
         return DAO.getOrdemServico().buscarPorServico(super.getId(), "Instalacao");
     }
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj instanceof Instalacao){
+            Instalacao i = (Instalacao) obj;
+            if (this.getId() == i.getId()){
+                return true;
+            }
+        }
+        return false;
+    }
 }

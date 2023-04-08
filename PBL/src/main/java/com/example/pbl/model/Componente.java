@@ -1,10 +1,5 @@
 package com.example.pbl.model;
 
-import com.example.pbl.dao.DAO;
-
-import java.util.LinkedList;
-import java.util.List;
-
 public abstract class Componente {
     private int id;
     private double custo;
@@ -38,4 +33,7 @@ public abstract class Componente {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public abstract boolean equals(Object obj);
 }

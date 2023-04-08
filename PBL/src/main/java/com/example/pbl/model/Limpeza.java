@@ -12,4 +12,15 @@ public class Limpeza extends Servico{
     public List<OrdemServico> getOrdensServico(){
         return DAO.getOrdemServico().buscarPorServico(super.getId(), "Limpeza");
     }
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj instanceof Limpeza){
+            Limpeza i = (Limpeza) obj;
+            if (this.getId() == i.getId()){
+                return true;
+            }
+        }
+        return false;
+    }
 }
