@@ -122,7 +122,6 @@ class OrdemServicoTest {
         lista.add(instalacao);
 
         assertEquals(lista, os1.getServicos());
-
     }
 
     @Test
@@ -141,6 +140,18 @@ class OrdemServicoTest {
         this.os1.addServicos(instalacao);
 
         assertEquals(3, os1.getServicos().size());
+    }
+
+    @Test
+    void testEquals(){
+        OrdemServico os2 = new OrdemServico(0);
+        os2.setId(0);
+
+        assertTrue(this.os1.equals(os2));
+
+        os2.setId(1);
+
+        assertFalse(this.os1.equals(os2));
     }
 
     @AfterEach
