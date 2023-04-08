@@ -35,6 +35,18 @@ class ClienteTest {
         assertNotEquals(osLista, this.cliente1.getOrdensServico());
     }
 
+    @Test
+    void testEquals(){
+        Cliente cliente2 = new Cliente("GLaDOS", "Aperture", "telefone2", "email2");
+        cliente2.setId(0);
+
+        assertTrue(this.cliente1.equals(cliente2));
+
+        cliente2.setId(1);
+
+        assertFalse(this.cliente1.equals(cliente2));
+    }
+
     @AfterEach
     void tearDown(){
         DAO.getCliente().deletarTudo();
