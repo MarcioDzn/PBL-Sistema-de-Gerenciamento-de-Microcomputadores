@@ -1,5 +1,7 @@
 package com.example.pbl.model;
 
+import com.example.pbl.dao.DAO;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,20 +19,46 @@ class InstalacaoTest {
 
         instalacao.setProgramas("Steam");
         instalacao.setProgramas("Adobe");
+
+        DAO.getInstalacao().criar(this.instalacao);
     }
-    
+
     @Test
-    void testGetProgramas() {
-        List<String> lista = new LinkedList<String>();
+    void testGetOrdensServico(){
+        List<OrdemServico> lista = new LinkedList<OrdemServico>();
 
-        lista.add("Steam");
-        lista.add("Adobe");
+        for (int i = 0; i < 2; i++){
+            lista.add(new OrdemServico(i));
+            lista.get(i).addServicos(this.instalacao);
+            DAO.getOrdemServico().criar(lista.get(i));
+        }
 
-        assertEquals(lista, this.instalacao.getProgramas());
+        assertEquals(lista, DAO.getOrdemServico().buscarPorServico(0, "Instalacao"));
+
+        lista.add(new OrdemServico(4));
+
+        assertNotEquals(lista, DAO.getOrdemServico().buscarPorServico(0, "Instalacao"));
     }
 
     @Test
     void testSetProgramas() {
         assertEquals(2, this.instalacao.getProgramas().size());
+    }
+
+    @Test
+    void testEquals(){
+        Instalacao instalacao2 = new Instalacao(10, 15);
+        instalacao2.setId(0);
+
+        assertTrue(this.instalacao.equals(instalacao2));
+
+        instalacao2.setId(1);
+
+        assertFalse(this.instalacao.equals(instalacao2));
+    }
+
+    @AfterEach
+    void tearDown(){
+        DAO.getInstalacao().deletarTudo();
     }
 }
