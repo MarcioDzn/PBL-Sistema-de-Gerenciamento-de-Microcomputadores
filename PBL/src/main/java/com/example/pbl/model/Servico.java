@@ -38,4 +38,7 @@ public abstract class Servico {
     public void setId(int id) {
         this.id = id;
     }
+
+    public abstract List<OrdemServico> getOrdensServico();
+
 }
