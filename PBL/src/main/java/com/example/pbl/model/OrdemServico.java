@@ -126,6 +126,27 @@ public class OrdemServico {
         this.servicos.add(servico);
     }
 
+    public void removerServico(int id, String tipo){
+        int indiceServicoRemov = -1;
+
+        for (int i = 0; i < this.servicos.size(); i++){
+            if (tipo == "Montagem"){
+                if (this.servicos.get(i) instanceof Montagem && this.servicos.get(i).getId() == id)
+                    indiceServicoRemov = i;
+
+            } else if (tipo == "Instalacao"){
+                if (this.servicos.get(i) instanceof Instalacao && this.servicos.get(i).getId() == id)
+                    indiceServicoRemov = i;
+
+            } else if (tipo == "Limpeza"){
+                if (this.servicos.get(i) instanceof Limpeza && this.servicos.get(i).getId() == id)
+                    indiceServicoRemov = i;
+            }
+        }
+
+        this.servicos.remove(indiceServicoRemov);
+    }
+
     public String getMetodoPagamento() {
         return metodoPagamento;
     }
