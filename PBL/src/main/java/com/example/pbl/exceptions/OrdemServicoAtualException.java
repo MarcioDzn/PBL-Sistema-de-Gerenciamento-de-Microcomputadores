@@ -4,7 +4,7 @@ public class OrdemServicoAtualException extends Exception{
     private Integer ordemServicoAtual;
 
     public OrdemServicoAtualException(Integer ordemServicoAtual){
-        super("O técnico já tem uma ordem de serviço!");
+        super("O técnico ainda tem uma ordem se serviço em aberto!");
         this.ordemServicoAtual = ordemServicoAtual;
     }
 
