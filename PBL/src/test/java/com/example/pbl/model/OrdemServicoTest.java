@@ -111,7 +111,7 @@ class OrdemServicoTest {
 
         Limpeza limpeza = new Limpeza(20, 30);
 
-        Instalacao instalacao = new Instalacao(90, 10);
+        Instalacao instalacao = new Instalacao(90, 10, "Portal 2");
 
         this.os1.addServicos(montagem);
         this.os1.addServicos(limpeza);
@@ -133,7 +133,7 @@ class OrdemServicoTest {
 
         Limpeza limpeza = new Limpeza(20, 30);
 
-        Instalacao instalacao = new Instalacao(90, 10);
+        Instalacao instalacao = new Instalacao(90, 10, "Cyberpunk 2077");
 
         this.os1.addServicos(montagem);
         this.os1.addServicos(limpeza);
@@ -141,7 +141,7 @@ class OrdemServicoTest {
 
         assertEquals(3, os1.getServicos().size());
     }
-
+    
     @Test
     void testEquals(){
         OrdemServico os2 = new OrdemServico(0);

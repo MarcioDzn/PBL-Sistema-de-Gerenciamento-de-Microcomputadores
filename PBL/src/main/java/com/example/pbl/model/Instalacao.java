@@ -6,28 +6,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Instalacao extends Servico{
-    private List<String> programas;
-    private String sistemaOperacional;
+    private String instalacao; // Instalação de programas ou formatação
 
-    public Instalacao(double preco, double custo) {
+
+    public Instalacao(double preco, double custo, String instalacao) {
         super(preco, custo);
-        this.programas = new LinkedList<String>();
+        this.instalacao = instalacao;
     }
 
-    public List<String> getProgramas() {
-        return programas;
+    public String getInstalacao() {
+        return instalacao;
     }
 
-    public void setProgramas(String programa) {
-        this.programas.add(programa);
-    }
-
-    public String getSistemaOperacional() {
-        return sistemaOperacional;
-    }
-
-    public void setSistemaOperacional(String sistemaOperacional) {
-        this.sistemaOperacional = sistemaOperacional;
+    public void setInstalacao(String tipoInstalacao) {
+        this.instalacao = tipoInstalacao;
     }
 
     public List<OrdemServico> getOrdensServico(){

@@ -15,10 +15,10 @@ class InstalacaoTest {
 
     @BeforeEach
     void setUp(){
-        this.instalacao = new Instalacao(20, 40);
+        this.instalacao = new Instalacao(20, 40, "Half-Life 2");
 
-        instalacao.setProgramas("Steam");
-        instalacao.setProgramas("Adobe");
+        instalacao.setInstalacao("Steam");
+        instalacao.setInstalacao("Adobe");
 
         DAO.getInstalacao().criar(this.instalacao);
     }
@@ -41,13 +41,8 @@ class InstalacaoTest {
     }
 
     @Test
-    void testSetProgramas() {
-        assertEquals(2, this.instalacao.getProgramas().size());
-    }
-
-    @Test
     void testEquals(){
-        Instalacao instalacao2 = new Instalacao(10, 15);
+        Instalacao instalacao2 = new Instalacao(10, 15, "Elden Ring");
         instalacao2.setId(0);
 
         assertTrue(this.instalacao.equals(instalacao2));
