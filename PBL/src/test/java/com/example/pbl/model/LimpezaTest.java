@@ -19,14 +19,8 @@ class LimpezaTest {
     }
 
     @Test
-    void getOrdensServico() {
+    void testGetOrdensServico() {
         List<OrdemServico> lista = new LinkedList<OrdemServico>();
-
-//        for (int i = 0; i < 2; i++){
-//            lista.add(new OrdemServico(i));
-//            lista.get(i).addServicos(this.limpeza);
-//            DAO.getOrdemServico().criar(lista.get(i));
-//        }
 
         OrdemServico os1 = new OrdemServico(0);
         os1.addServicos(this.limpeza);
