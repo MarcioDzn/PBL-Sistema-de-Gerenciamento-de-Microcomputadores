@@ -14,7 +14,7 @@ class LimpezaTest {
     private Limpeza limpeza;
     @BeforeEach
     void setUp(){
-        this.limpeza = new Limpeza(10, 10);
+        this.limpeza = new Limpeza(10, 10, "limpeza");
         DAO.getLimpeza().criar(this.limpeza);
     }
 
@@ -37,7 +37,7 @@ class LimpezaTest {
 
     @Test
     void testEquals() {
-        Limpeza limpeza2 = new Limpeza(10, 15);
+        Limpeza limpeza2 = new Limpeza(10, 15, "limpeza");
         limpeza2.setId(0);
 
         assertTrue(this.limpeza.equals(limpeza2));
