@@ -38,8 +38,9 @@ public class Peca extends Componente {
     }
 
     public void setQuantidade(int quantidade) throws QuantidadeException {
-        if (quantidade <= this.quantidade)
+        if (quantidade >= 0)
             this.quantidade = quantidade;
+
         else{
             throw new QuantidadeException(quantidade);
         }
