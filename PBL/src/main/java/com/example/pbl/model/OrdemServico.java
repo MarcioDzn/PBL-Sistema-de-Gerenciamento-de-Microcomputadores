@@ -17,7 +17,6 @@ public class OrdemServico {
     private long finalizadoEm;
     private String metodoPagamento;
     private double preco;
-    private double custo;
 
     public OrdemServico(Integer clienteId) {
         this.clienteId = clienteId;
@@ -35,16 +34,6 @@ public class OrdemServico {
 
         for (Servico servico : this.servicos){
             precoTotal += servico.getPreco();
-        }
-
-        return precoTotal;
-    }
-
-    public double getCusto() {
-        double precoTotal = 0;
-
-        for (Servico servico : this.servicos){
-            precoTotal += servico.getCusto();
         }
 
         return precoTotal;
@@ -98,6 +87,7 @@ public class OrdemServico {
     public Integer getClienteId() {
         return clienteId;
     }
+
     public Tecnico getTecnico() {
         return DAO.getTecnico().buscarPorId(this.tecnicoId);
     }
