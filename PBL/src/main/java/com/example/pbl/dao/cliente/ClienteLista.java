@@ -1,5 +1,6 @@
 package com.example.pbl.dao.cliente;
 
+import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 import com.example.pbl.model.Cliente;
 
 import java.util.LinkedList;
@@ -44,18 +45,20 @@ public class ClienteLista implements ClienteDAO {
     }
 
     @Override
-    public void atualizar(Cliente objeto) {
+    public void atualizar(Cliente objeto) throws ObjetoNaoEncontradoException {
         for (int i = 0; i < this.listaClientes.size(); i++){
             if (listaClientes.get(i).getId() == objeto.getId()){
-                this.listaClientes.add(objeto.getId(), objeto);
+                this.listaClientes.set(i, objeto);
 
-                return; // Para o laço assim que entrar no if e atualizar a lista
+                return;
             }
         }
+
+        throw new ObjetoNaoEncontradoException("Cliente");
     }
 
     @Override
-    public void remover(Cliente objeto) {
+    public void remover(Cliente objeto) throws ObjetoNaoEncontradoException {
         for (int i = 0; i < this.listaClientes.size(); i++){
             if (listaClientes.get(i).getId() == objeto.getId()){
                 this.listaClientes.remove(objeto);
@@ -63,6 +66,8 @@ public class ClienteLista implements ClienteDAO {
                 return;
             }
         }
+
+        throw new ObjetoNaoEncontradoException("Cliente");
     }
 
     @Override

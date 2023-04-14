@@ -1,5 +1,6 @@
 package com.example.pbl.dao.limpeza;
 
+import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 import com.example.pbl.model.Limpeza;
 
 import java.util.LinkedList;
@@ -43,18 +44,19 @@ public class LimpezaLista implements LimpezaDAO {
     }
 
     @Override
-    public void atualizar(Limpeza objeto) {
+    public void atualizar(Limpeza objeto) throws ObjetoNaoEncontradoException {
         for (int i = 0; i < this.listaLimpeza.size(); i++){
             if (listaLimpeza.get(i).getId() == objeto.getId()){
-                this.listaLimpeza.add(objeto.getId(), objeto);
+                this.listaLimpeza.set(i, objeto);
 
-                return; // Para o laço assim que entrar no if e atualizar a lista
+                return;
             }
         }
+        throw new ObjetoNaoEncontradoException("Limpeza");
     }
 
     @Override
-    public void remover(Limpeza objeto) {
+    public void remover(Limpeza objeto) throws ObjetoNaoEncontradoException {
         for (int i = 0; i < this.listaLimpeza.size(); i++){
             if (listaLimpeza.get(i).getId() == objeto.getId()){
                 this.listaLimpeza.remove(objeto);
@@ -62,6 +64,7 @@ public class LimpezaLista implements LimpezaDAO {
                 return;
             }
         }
+        throw new ObjetoNaoEncontradoException("Limpeza");
     }
 
     @Override

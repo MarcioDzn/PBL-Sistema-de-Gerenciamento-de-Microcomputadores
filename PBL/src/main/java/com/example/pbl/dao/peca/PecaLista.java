@@ -1,5 +1,6 @@
 package com.example.pbl.dao.peca;
 
+import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 import com.example.pbl.model.Peca;
 
 import java.util.LinkedList;
@@ -43,18 +44,19 @@ public class PecaLista implements PecaDAO{
     }
 
     @Override
-    public void atualizar(Peca objeto) {
+    public void atualizar(Peca objeto) throws ObjetoNaoEncontradoException {
         for (int i = 0; i < this.listaPecas.size(); i++){
             if (listaPecas.get(i).getId() == objeto.getId()){
-                this.listaPecas.add(objeto.getId(), objeto);
+                this.listaPecas.set(i, objeto);
 
-                return; // Para o laço assim que entrar no if e atualizar a lista
+                return;
             }
         }
+        throw new ObjetoNaoEncontradoException("Peça");
     }
 
     @Override
-    public void remover(Peca objeto) {
+    public void remover(Peca objeto) throws ObjetoNaoEncontradoException {
         for (int i = 0; i < this.listaPecas.size(); i++){
             if (listaPecas.get(i).getId() == objeto.getId()){
                 this.listaPecas.remove(objeto);
@@ -62,6 +64,7 @@ public class PecaLista implements PecaDAO{
                 return;
             }
         }
+        throw new ObjetoNaoEncontradoException("Peça");
     }
 
     @Override

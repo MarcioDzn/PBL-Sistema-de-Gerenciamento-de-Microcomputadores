@@ -1,6 +1,7 @@
 package com.example.pbl.dao.ordemServico;
 
 import com.example.pbl.dao.DAO;
+import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 import com.example.pbl.model.*;
 
 import java.util.LinkedList;
@@ -44,18 +45,19 @@ public class OrdemServicoLista implements OrdemServicoDAO{
     }
 
     @Override
-    public void atualizar(OrdemServico objeto) {
+    public void atualizar(OrdemServico objeto) throws ObjetoNaoEncontradoException {
         for (int i = 0; i < this.listaOrdensServico.size(); i++){
             if (listaOrdensServico.get(i).getId() == objeto.getId()){
-                this.listaOrdensServico.add(objeto.getId(), objeto);
+                this.listaOrdensServico.set(i, objeto);
 
-                return; // Para o laço assim que entrar no if e atualizar a lista
+                return;
             }
         }
+        throw new ObjetoNaoEncontradoException("OrdemServico");
     }
 
     @Override
-    public void remover(OrdemServico objeto) {
+    public void remover(OrdemServico objeto) throws ObjetoNaoEncontradoException {
         for (int i = 0; i < this.listaOrdensServico.size(); i++){
             if (listaOrdensServico.get(i).getId() == objeto.getId()){
                 this.listaOrdensServico.remove(objeto);
@@ -63,6 +65,7 @@ public class OrdemServicoLista implements OrdemServicoDAO{
                 return;
             }
         }
+        throw new ObjetoNaoEncontradoException("OrdemServico");
     }
 
     @Override

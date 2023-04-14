@@ -1,5 +1,6 @@
 package com.example.pbl.dao.tecnico;
 
+import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 import com.example.pbl.model.Tecnico;
 
 import java.util.LinkedList;
@@ -43,18 +44,19 @@ public class TecnicoLista implements TecnicoDAO{
     }
 
     @Override
-    public void atualizar(Tecnico objeto) {
+    public void atualizar(Tecnico objeto) throws ObjetoNaoEncontradoException {
         for (int i = 0; i < this.listaTecnicos.size(); i++){
             if (listaTecnicos.get(i).getId() == objeto.getId()){
-                this.listaTecnicos.add(objeto.getId(), objeto);
+                this.listaTecnicos.set(i, objeto);
 
-                return; // Para o laço assim que entrar no if e atualizar a lista
+                return;
             }
         }
+        throw new ObjetoNaoEncontradoException("Tecnico");
     }
 
     @Override
-    public void remover(Tecnico objeto) {
+    public void remover(Tecnico objeto) throws ObjetoNaoEncontradoException {
         for (int i = 0; i < this.listaTecnicos.size(); i++){
             if (listaTecnicos.get(i).getId() == objeto.getId()){
                 this.listaTecnicos.remove(objeto);
@@ -62,6 +64,7 @@ public class TecnicoLista implements TecnicoDAO{
                 return;
             }
         }
+        throw new ObjetoNaoEncontradoException("Tecnico");
     }
 
     @Override

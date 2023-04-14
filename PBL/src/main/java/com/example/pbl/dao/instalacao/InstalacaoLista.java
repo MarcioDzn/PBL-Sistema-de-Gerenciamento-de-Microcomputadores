@@ -1,5 +1,6 @@
 package com.example.pbl.dao.instalacao;
 
+import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 import com.example.pbl.model.Instalacao;
 
 import java.util.LinkedList;
@@ -43,18 +44,19 @@ public class InstalacaoLista implements InstalacaoDAO{
     }
 
     @Override
-    public void atualizar(Instalacao objeto) {
+    public void atualizar(Instalacao objeto) throws ObjetoNaoEncontradoException {
         for (int i = 0; i < this.listaInstalacoes.size(); i++){
             if (listaInstalacoes.get(i).getId() == objeto.getId()){
-                this.listaInstalacoes.add(objeto.getId(), objeto);
+                this.listaInstalacoes.set(objeto.getId(), objeto);
 
-                return; // Para o laço assim que entrar no if e atualizar a lista
+                return;
             }
         }
+        throw new ObjetoNaoEncontradoException("Instalacao");
     }
 
     @Override
-    public void remover(Instalacao objeto) {
+    public void remover(Instalacao objeto) throws ObjetoNaoEncontradoException {
         for (int i = 0; i < this.listaInstalacoes.size(); i++){
             if (listaInstalacoes.get(i).getId() == objeto.getId()){
                 this.listaInstalacoes.remove(objeto);
@@ -62,6 +64,7 @@ public class InstalacaoLista implements InstalacaoDAO{
                 return;
             }
         }
+        throw new ObjetoNaoEncontradoException("Instalacao");
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.pbl.dao.outroComponente;
 
+import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 import com.example.pbl.model.OutroComponente;
 
 import java.util.LinkedList;
@@ -43,25 +44,29 @@ public class OutroComponenteLista implements OutroComponenteDAO{
     }
 
     @Override
-    public void atualizar(OutroComponente objeto) {
+    public void atualizar(OutroComponente objeto) throws ObjetoNaoEncontradoException {
         for (int i = 0; i < this.listaOutrosComponentes.size(); i++){
             if (listaOutrosComponentes.get(i).getId() == objeto.getId()){
-                this.listaOutrosComponentes.add(objeto.getId(), objeto);
+                this.listaOutrosComponentes.set(i, objeto);
 
                 return; 
             }
         }
+
+        throw new ObjetoNaoEncontradoException("OutroComponente");
     }
 
     @Override
-    public void remover(OutroComponente objeto) {
+    public void remover(OutroComponente objeto) throws ObjetoNaoEncontradoException {
         for (int i = 0; i < this.listaOutrosComponentes.size(); i++){
             if (listaOutrosComponentes.get(i).getId() == objeto.getId()){
+                this.listaOutrosComponentes.remove(i);
                 this.listaOutrosComponentes.remove(objeto);
 
                 return;
             }
         }
+        throw new ObjetoNaoEncontradoException("OutroComponente");
     }
 
     @Override

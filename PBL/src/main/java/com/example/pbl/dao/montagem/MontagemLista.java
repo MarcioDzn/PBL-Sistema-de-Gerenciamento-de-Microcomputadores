@@ -1,6 +1,7 @@
 package com.example.pbl.dao.montagem;
 
 import com.example.pbl.dao.DAO;
+import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 import com.example.pbl.model.*;
 
 import java.util.LinkedList;
@@ -44,18 +45,20 @@ public class MontagemLista implements MontagemDAO{
     }
 
     @Override
-    public void atualizar(Montagem objeto) {
+    public void atualizar(Montagem objeto) throws ObjetoNaoEncontradoException {
         for (int i = 0; i < this.listaMontagens.size(); i++){
             if (listaMontagens.get(i).getId() == objeto.getId()){
-                this.listaMontagens.add(objeto.getId(), objeto);
+                this.listaMontagens.set(i, objeto);
 
-                return; // Para o laço assim que entrar no if e atualizar a lista
+                return;
             }
         }
+
+        throw new ObjetoNaoEncontradoException("Montagem");
     }
 
     @Override
-    public void remover(Montagem objeto) {
+    public void remover(Montagem objeto) throws ObjetoNaoEncontradoException {
         for (int i = 0; i < this.listaMontagens.size(); i++){
             if (listaMontagens.get(i).getId() == objeto.getId()){
                 this.listaMontagens.remove(objeto);
@@ -63,6 +66,7 @@ public class MontagemLista implements MontagemDAO{
                 return;
             }
         }
+        throw new ObjetoNaoEncontradoException("Montagem");
     }
 
     @Override
