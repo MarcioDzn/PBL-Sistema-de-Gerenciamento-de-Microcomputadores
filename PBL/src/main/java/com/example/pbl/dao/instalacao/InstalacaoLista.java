@@ -47,7 +47,7 @@ public class InstalacaoLista implements InstalacaoDAO{
     public void atualizar(Instalacao objeto) throws ObjetoNaoEncontradoException {
         for (int i = 0; i < this.listaInstalacoes.size(); i++){
             if (listaInstalacoes.get(i).getId() == objeto.getId()){
-                this.listaInstalacoes.set(objeto.getId(), objeto);
+                this.listaInstalacoes.set(i, objeto);
 
                 return;
             }
