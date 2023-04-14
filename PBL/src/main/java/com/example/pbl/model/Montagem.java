@@ -24,6 +24,23 @@ public class Montagem extends Servico{
         this.setCusto(super.getCusto() + componente.getCusto());
     }
 
+    public void removerComponente(int id, String tipo){
+        int indiceCompRemov = -1;
+
+        for (int i = 0; i < this.componentesUsados.size(); i++){
+            if (tipo == "OutroComponente"){
+                if (this.componentesUsados.get(i) instanceof OutroComponente && this.componentesUsados.get(i).getId() == id)
+                    indiceCompRemov = i;
+
+            } else if (tipo == "Peca"){
+                if (this.componentesUsados.get(i) instanceof Peca && this.componentesUsados.get(i).getId() == id)
+                    indiceCompRemov = i;
+            }
+        }
+
+        this.componentesUsados.remove(indiceCompRemov);
+    }
+
     public List<OrdemServico> getOrdensServico(){
         return DAO.getOrdemServico().buscarPorServico(super.getId(), "Montagem");
     }
