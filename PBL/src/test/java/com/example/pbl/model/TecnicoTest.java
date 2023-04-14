@@ -1,6 +1,7 @@
 package com.example.pbl.model;
 
 import com.example.pbl.dao.DAO;
+import com.example.pbl.exceptions.OrdemServicoAtualException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,8 +32,38 @@ class TecnicoTest {
     void testGetOrdemServicoAtual(){
         assertEquals(null, this.tecnico.getOrdemServicoAtual());
 
-        this.tecnico.addOrdemServicoAtual(0);
+        try {
+            this.tecnico.addOrdemServicoAtual(0);
+
+        } catch (OrdemServicoAtualException e) {
+            System.out.println(e);
+        }
+
         assertEquals(this.os1, this.tecnico.getOrdemServicoAtual());
+    }
+
+    @Test
+    void testAddOrdemServicoAtualNaoOcupado(){
+        try {
+            this.tecnico.addOrdemServicoAtual(0);
+
+        } catch (OrdemServicoAtualException e) {
+            System.out.println(e);
+        }
+
+        assertEquals(this.os1, this.tecnico.getOrdemServicoAtual());
+    }
+
+    @Test
+    void testAddOrdemServicoAtualJaOcupado(){
+        try {
+            this.tecnico.addOrdemServicoAtual(0);
+
+        } catch (OrdemServicoAtualException e) {
+            System.out.println(e);
+        }
+
+        assertThrows(OrdemServicoAtualException.class, () -> tecnico.addOrdemServicoAtual(1));
     }
 
     @Test
@@ -52,6 +83,18 @@ class TecnicoTest {
         lista.add(os3);
 
         assertNotEquals(lista, this.tecnico.getOrdensServico());
+    }
+
+    @Test
+    void testEquals() {
+        Tecnico tecnico2 = new Tecnico("nome2", "email2");
+        tecnico2.setId(0);
+
+        assertTrue(this.tecnico.equals(tecnico2));
+
+        tecnico2.setId(1);
+
+        assertFalse(this.tecnico.equals(tecnico2));
     }
 
     @AfterEach
