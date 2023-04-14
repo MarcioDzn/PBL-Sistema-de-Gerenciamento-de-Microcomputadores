@@ -109,7 +109,7 @@ class OrdemServicoTest {
         Montagem montagem = new Montagem();
         montagem.setComponente(peca1);
 
-        Limpeza limpeza = new Limpeza(20, 30);
+        Limpeza limpeza = new Limpeza(20, 30, "limpeza");
 
         Instalacao instalacao = new Instalacao(90, 10, "Portal 2");
 
@@ -131,7 +131,7 @@ class OrdemServicoTest {
         Montagem montagem = new Montagem();
         montagem.setComponente(peca1);
 
-        Limpeza limpeza = new Limpeza(20, 30);
+        Limpeza limpeza = new Limpeza(20, 30, "limpeza");
 
         Instalacao instalacao = new Instalacao(90, 10, "Cyberpunk 2077");
 
@@ -141,7 +141,30 @@ class OrdemServicoTest {
 
         assertEquals(3, os1.getServicos().size());
     }
-    
+
+    @Test
+    void testRemoverServico(){
+        List<Servico> lista = new LinkedList<Servico>();
+
+        Montagem montagem1 = new Montagem();
+        montagem1.setId(0);
+        this.os1.addServicos(montagem1);
+
+        Montagem montagem2 = new Montagem();
+        montagem2.setId(1);
+        this.os1.addServicos(montagem2);
+        lista.add(montagem2);
+
+        Limpeza limpeza1 = new Limpeza(10, 10, "limpeza");
+        limpeza1.setId(0);
+        this.os1.addServicos(limpeza1);
+        lista.add(limpeza1);
+
+        this.os1.removerServico(0, "Montagem");
+
+        assertEquals(lista, this.os1.getServicos());
+    }
+
     @Test
     void testEquals(){
         OrdemServico os2 = new OrdemServico(0);
