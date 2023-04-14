@@ -49,9 +49,14 @@ public class Tecnico {
         return DAO.getOrdemServico().buscarPorId(this.ordemServicoAtualId);
     }
 
-    public void addOrdemServicoAtual(Integer ordemServicoAtualId) throws OrdemServicoAtualException {
-        if (this.ordemServicoAtualId == -1 || ordemServicoAtualId == -1)
-            this.ordemServicoAtualId = ordemServicoAtualId;
+    public void addOrdemServicoAtual(Integer novaOrdemServicoAtualId) throws OrdemServicoAtualException {
+        if (this.ordemServicoAtualId == -1){
+            this.ordemServicoAtualId = novaOrdemServicoAtualId;
+        }
+        
+        else if (novaOrdemServicoAtualId == -1 && this.getOrdemServicoAtual().isFinalizado()){
+            this.ordemServicoAtualId = -1;
+        }
 
         else{
             throw new OrdemServicoAtualException(this.ordemServicoAtualId);
