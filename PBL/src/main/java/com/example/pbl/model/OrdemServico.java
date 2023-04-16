@@ -207,8 +207,8 @@ public class OrdemServico {
     }
 
     /**
-     * Método que retorna a lista de serviços associados a esta ordem de serviço
-     * @return Lista de serviços
+     * Método que retorna a lista de serviços de montagem dessa ordem de serviço
+     * @return Lista de serviços de montagens
      */
     public List<Montagem> getMontagens() {
         List<Montagem> lista = new LinkedList<Montagem>();
@@ -219,6 +219,11 @@ public class OrdemServico {
 
         return lista;
     }
+
+    /**
+     * Método que retorna a lista de serviços de limpeza dessa ordem de serviço
+     * @return Lista de serviços de limpeza
+     */
     public List<Limpeza> getLimpezas() {
         List<Limpeza> lista = new LinkedList<Limpeza>();
 
@@ -228,6 +233,11 @@ public class OrdemServico {
 
         return lista;
     }
+
+    /**
+     * Método que retorna a lista de serviços de instalação dessa ordem de serviço
+     * @return Lista de serviços de instalação
+     */
     public List<Instalacao> getInstalacoes() {
         List<Instalacao> lista = new LinkedList<Instalacao>();
 
@@ -239,8 +249,12 @@ public class OrdemServico {
     }
 
     /**
-     * Método que adiciona um serviço na lista de ordem de serviços
-     * @param servico Servico
+     * Método que adiciona um id de um serviço em uma das listas de serviços.
+     * Se o elemento for Montagem, adiciona na lista de montagens.
+     * Se o elemento for Limpeza, adiciona na lista de montagens.
+     * Se o elemento for Instalação, adiciona na lista de instalações.
+     * @param servico Serviço a ser armazenado
+     * @param quantidade Quantidade do serviço
      */
     public void addServicos(Servico servico, int quantidade) {
         for(int i = 0; i < quantidade; i++) {
@@ -257,8 +271,9 @@ public class OrdemServico {
     }
 
     /**
-     * Método que remove um serviço da lista de serviços
+     * Método que remove um serviço de uma das listas de serviço
      * @param id Id do serviço a ser removido
+     * @param quantidade Quantidade do serviço a ser removida
      * @param tipo Tipo da classe do serviço a ser removido
      */
     public void removerServico(int id, int quantidade, String tipo) throws ObjetoNaoEncontradoException {
