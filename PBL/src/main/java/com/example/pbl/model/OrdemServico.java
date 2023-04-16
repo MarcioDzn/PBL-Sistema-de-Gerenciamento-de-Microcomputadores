@@ -263,7 +263,7 @@ public class OrdemServico {
      */
     public void removerServico(int id, int quantidade, String tipo) throws ObjetoNaoEncontradoException {
         for (int j = 0; j < quantidade; j++){
-            Integer idRemovido = -1;
+            int idRemovido = -1;
 
             // Remove o elemento do tipo Montagem da lista de montagens
             if (tipo.equals("Montagem")){
@@ -272,7 +272,8 @@ public class OrdemServico {
                         idRemovido = i;
                 }
 
-                this.montagens.remove(idRemovido);
+                if (idRemovido != -1)
+                    this.montagens.remove(idRemovido);
 
                 // Remove o elemento do tipo Limpeza da lista de limpezas
             } else if (tipo.equals("Limpeza")){
@@ -281,7 +282,8 @@ public class OrdemServico {
                         idRemovido = i;
                 }
 
-                this.limpezas.remove(idRemovido);
+                if (idRemovido != -1)
+                    this.limpezas.remove(idRemovido);
 
                 // Remove o elemento do tipo Instalacao da lista de instalações
             } else if (tipo.equals("Instalacao")){
@@ -290,7 +292,8 @@ public class OrdemServico {
                         idRemovido = i;
                 }
 
-                this.instalacoes.remove(idRemovido);
+                if (idRemovido != -1)
+                    this.instalacoes.remove(idRemovido);
             }
 
             if (idRemovido == -1){

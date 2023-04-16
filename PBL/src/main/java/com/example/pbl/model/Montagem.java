@@ -53,7 +53,7 @@ public class Montagem extends Servico{
     public List<OutroComponente> getOutrosComponentes() {
         List<OutroComponente> lista = new LinkedList<OutroComponente>();
 
-        for (Integer id : this.pecas){
+        for (Integer id : this.outrosComponentes){
             lista.add(DAO.getOutroComponente().buscarPorId(id));
         }
 
@@ -84,7 +84,7 @@ public class Montagem extends Servico{
      */
     public void removerComponente(int id, int quantidade, String tipo) throws ObjetoNaoEncontradoException {
         for (int j = 0; j < quantidade; j++){
-            Integer idRemovido = -1;
+            int idRemovido = -1;
 
             // Remove o elemento do tipo Peca da lista de pecas
             if (tipo.equals("Peca")){
@@ -93,7 +93,8 @@ public class Montagem extends Servico{
                         idRemovido = i;
                 }
 
-                this.pecas.remove(idRemovido);
+                if (idRemovido != -1)
+                    this.pecas.remove(idRemovido);
 
                 // Remove o elemento do tipo OutroComponente da lista de outrosComponentes
             } else if (tipo.equals("OutroComponente")) {
@@ -102,7 +103,8 @@ public class Montagem extends Servico{
                         idRemovido = i;
                 }
 
-                this.outrosComponentes.remove(idRemovido);
+                if (idRemovido != -1)
+                    this.outrosComponentes.remove(idRemovido);
             }
 
             if (idRemovido == -1) {
