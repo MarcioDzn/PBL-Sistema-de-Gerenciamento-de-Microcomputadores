@@ -261,39 +261,41 @@ public class OrdemServico {
      * @param id Id do serviço a ser removido
      * @param tipo Tipo da classe do serviço a ser removido
      */
-    public void removerServico(int id, String tipo) throws ObjetoNaoEncontradoException {
-        Integer idRemovido = -1;
+    public void removerServico(int id, int quantidade, String tipo) throws ObjetoNaoEncontradoException {
+        for (int j = 0; j < quantidade; j++){
+            Integer idRemovido = -1;
 
-        // Remove o elemento do tipo Montagem da lista de montagens
-        if (tipo.equals("Montagem")){
-            for (int i = 0; i < this.montagens.size(); i++){
-                if (this.montagens.get(i) == id)
-                    idRemovido = i;
+            // Remove o elemento do tipo Montagem da lista de montagens
+            if (tipo.equals("Montagem")){
+                for (int i = 0; i < this.montagens.size(); i++){
+                    if (this.montagens.get(i) == id)
+                        idRemovido = i;
+                }
+
+                this.montagens.remove(idRemovido);
+
+                // Remove o elemento do tipo Limpeza da lista de limpezas
+            } else if (tipo.equals("Limpeza")){
+                for (int i = 0; i < this.limpezas.size(); i++){
+                    if (this.limpezas.get(i) == id)
+                        idRemovido = i;
+                }
+
+                this.limpezas.remove(idRemovido);
+
+                // Remove o elemento do tipo Instalacao da lista de instalações
+            } else if (tipo.equals("Instalacao")){
+                for (int i = 0; i < this.instalacoes.size(); i++){
+                    if (this.instalacoes.get(i) == id)
+                        idRemovido = i;
+                }
+
+                this.instalacoes.remove(idRemovido);
             }
 
-            this.montagens.remove(idRemovido);
-
-            // Remove o elemento do tipo Limpeza da lista de limpezas
-        } else if (tipo.equals("Limpeza")){
-            for (int i = 0; i < this.limpezas.size(); i++){
-                if (this.limpezas.get(i) == id)
-                    idRemovido = i;
+            if (idRemovido == -1){
+                throw new ObjetoNaoEncontradoException("Serviço");
             }
-
-            this.limpezas.remove(idRemovido);
-
-            // Remove o elemento do tipo Instalacao da lista de instalações
-        } else if (tipo.equals("Instalacao")){
-            for (int i = 0; i < this.instalacoes.size(); i++){
-                if (this.instalacoes.get(i) == id)
-                    idRemovido = i;
-            }
-
-            this.instalacoes.remove(idRemovido);
-        }
-
-        if (idRemovido == -1){
-            throw new ObjetoNaoEncontradoException("Serviço");
         }
     }
 

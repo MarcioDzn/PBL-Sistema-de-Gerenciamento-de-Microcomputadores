@@ -82,26 +82,28 @@ public class Montagem extends Servico{
      * @param id Id do componente a ser removido
      * @param tipo Tipo da classe do componente a ser removido
      */
-    public void removerComponente(int id, String tipo) throws ObjetoNaoEncontradoException {
-        Integer idRemovido = -1;
+    public void removerComponente(int id, int quantidade, String tipo) throws ObjetoNaoEncontradoException {
+        for (int j = 0; j < quantidade; j++){
+            Integer idRemovido = -1;
 
-        // Remove o elemento do tipo Peca da lista de pecas
-        if (tipo.equals("Peca")){
-            for (int i = 0; i < this.pecas.size(); i++){
-                if (this.pecas.get(i) == id)
-                    idRemovido = i;
+            // Remove o elemento do tipo Peca da lista de pecas
+            if (tipo.equals("Peca")){
+                for (int i = 0; i < this.pecas.size(); i++){
+                    if (this.pecas.get(i) == id)
+                        idRemovido = i;
+                }
+
+                this.pecas.remove(idRemovido);
+
+                // Remove o elemento do tipo OutroComponente da lista de outrosComponentes
+            } else if (tipo.equals("OutroComponente")) {
+                for (int i = 0; i < this.outrosComponentes.size(); i++) {
+                    if (this.outrosComponentes.get(i) == id)
+                        idRemovido = i;
+                }
+
+                this.outrosComponentes.remove(idRemovido);
             }
-
-            this.pecas.remove(idRemovido);
-
-            // Remove o elemento do tipo OutroComponente da lista de outrosComponentes
-        } else if (tipo.equals("OutroComponente")) {
-            for (int i = 0; i < this.outrosComponentes.size(); i++) {
-                if (this.outrosComponentes.get(i) == id)
-                    idRemovido = i;
-            }
-
-            this.outrosComponentes.remove(idRemovido);
 
             if (idRemovido == -1) {
                 throw new ObjetoNaoEncontradoException("Montagem");
