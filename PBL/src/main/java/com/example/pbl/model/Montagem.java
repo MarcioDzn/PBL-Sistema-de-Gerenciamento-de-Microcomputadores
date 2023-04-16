@@ -38,8 +38,8 @@ public class Montagem extends Servico{
     }
 
     /**
-     * Método que retorna uma lista de componentes referentes a esta montagem
-     * @return Lista de componentes
+     * Método que retorna a lista de peças desse serviço de montagem
+     * @return Lista de peças
      */
     public List<Peca> getPecas() {
         List<Peca> lista = new LinkedList<Peca>();
@@ -50,6 +50,11 @@ public class Montagem extends Servico{
 
         return lista;
     }
+
+    /**
+     * Método que retorna a lista de "outros" componentes desse serviço de montagem
+     * @return Lista de "outros" componentes
+     */
     public List<OutroComponente> getOutrosComponentes() {
         List<OutroComponente> lista = new LinkedList<OutroComponente>();
 
@@ -61,7 +66,10 @@ public class Montagem extends Servico{
     }
 
     /**
-     * Método que adiciona um componente na lista de componentes. Também atualiza o preço e o custo.
+     * Método que adiciona um componente na lista de componentes. Também atualiza o preço e o custo totais.
+     * Se o elemento for Peca, adiciona na lista de peças.
+     * Se o elemento for OutroComponente, adiciona na lista de "outros" componentes.
+     * @param quantidade Quantidade do componente
      * @param componente Novo componente
      */
     public void setComponente(Componente componente, Integer quantidade) {
@@ -78,8 +86,9 @@ public class Montagem extends Servico{
     }
 
     /**
-     * Método que remove um componente da lista de componentes
+     * Método que remove um componente de uma das listas de componente
      * @param id Id do componente a ser removido
+     * @param quantidade Quantidade do componente a ser removido
      * @param tipo Tipo da classe do componente a ser removido
      */
     public void removerComponente(int id, int quantidade, String tipo) throws ObjetoNaoEncontradoException {
