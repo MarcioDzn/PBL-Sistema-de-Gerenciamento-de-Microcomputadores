@@ -24,22 +24,39 @@ import java.util.List;
  * @author Márcio Roberto, Amanda Lima Bezerra
  */
 public class Montagem extends Servico{
-    private List<Componente> componentesUsados;
+    private List<Integer> pecas;
+    private List<Integer> outrosComponentes;
 
     /**
      * Dados para gerar um objeto montagem.
      */
     public Montagem() {
         super(0, 0);
-        this.componentesUsados = new LinkedList<Componente>();
+        this.pecas = new LinkedList<Integer>();
+        this.outrosComponentes = new LinkedList<Integer>();
     }
 
     /**
      * Método que retorna uma lista de componentes referentes a esta montagem
      * @return Lista de componentes
      */
-    public List<Componente> getComponentes() {
-        return componentesUsados;
+    public List<Peca> getPecas() {
+        List<Peca> lista = new LinkedList<Peca>();
+
+        for (Integer id : this.pecas){
+            lista.add(DAO.getPeca().buscarPorId(id));
+        }
+
+        return lista;
+    }
+    public List<OutroComponente> getOutrosComponentes() {
+        List<OutroComponente> lista = new LinkedList<OutroComponente>();
+
+        for (Integer id : this.pecas){
+            lista.add(DAO.getOutroComponente().buscarPorId(id));
+        }
+
+        return lista;
     }
 
     /**
@@ -47,7 +64,11 @@ public class Montagem extends Servico{
      * @param componente Novo componente
      */
     public void setComponente(Componente componente) {
-        this.componentesUsados.add(componente);
+        if(componente instanceof Peca)
+            this.pecas.add(componente.getId());
+
+        else if(componente instanceof OutroComponente)
+            this.outrosComponentes.add(componente.getId());
 
         this.setPreco(super.getPreco() + componente.getPreco());
         this.setCusto(super.getCusto() + componente.getCusto());
