@@ -242,15 +242,17 @@ public class OrdemServico {
      * Método que adiciona um serviço na lista de ordem de serviços
      * @param servico Servico
      */
-    public void addServicos(Servico servico) {
-        if (servico instanceof Montagem){
-            this.montagens.add(servico.getId());
+    public void addServicos(Servico servico, int quantidade) {
+        for(int i = 0; i < quantidade; i++) {
+            if (servico instanceof Montagem) {
+                this.montagens.add(servico.getId());
 
-        } else if (servico instanceof Limpeza){
-            this.limpezas.add(servico.getId());
+            } else if (servico instanceof Limpeza) {
+                this.limpezas.add(servico.getId());
 
-        } else if (servico instanceof Instalacao){
-            this.instalacoes.add(servico.getId());
+            } else if (servico instanceof Instalacao) {
+                this.instalacoes.add(servico.getId());
+            }
         }
     }
 

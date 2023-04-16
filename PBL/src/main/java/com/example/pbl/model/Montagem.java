@@ -64,15 +64,17 @@ public class Montagem extends Servico{
      * Método que adiciona um componente na lista de componentes. Também atualiza o preço e o custo.
      * @param componente Novo componente
      */
-    public void setComponente(Componente componente) {
-        if(componente instanceof Peca)
-            this.pecas.add(componente.getId());
+    public void setComponente(Componente componente, Integer quantidade) {
+        for(int i = 0; i < quantidade; i++){
+            if(componente instanceof Peca)
+                this.pecas.add(componente.getId());
 
-        else if(componente instanceof OutroComponente)
-            this.outrosComponentes.add(componente.getId());
+            else if(componente instanceof OutroComponente)
+                this.outrosComponentes.add(componente.getId());
 
-        this.setPreco(super.getPreco() + componente.getPreco());
-        this.setCusto(super.getCusto() + componente.getCusto());
+            this.setPreco(super.getPreco() + componente.getPreco());
+            this.setCusto(super.getCusto() + componente.getCusto());
+        }
     }
 
     /**
