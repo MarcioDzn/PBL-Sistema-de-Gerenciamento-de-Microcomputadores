@@ -17,7 +17,10 @@ import com.example.pbl.dao.peca.PecaLista;
 import com.example.pbl.dao.tecnico.TecnicoDAO;
 import com.example.pbl.dao.tecnico.TecnicoLista;
 
-
+/**
+ * Permite buscar cada DAO do model
+ * @author Márcio Roberto, Amanda Lima Bezerra
+ */
 public class DAO {
     private static ClienteDAO clienteDAO;
 
@@ -35,6 +38,10 @@ public class DAO {
 
     private static PecaDAO pecaDAO;
 
+    /**
+     * Retorna uma instância da implementação do DAO de Cliente
+     * @return Implementação do DAO de Cliente
+     */
     public static ClienteDAO getCliente(){
         if (clienteDAO == null){
             clienteDAO = new ClienteLista();
@@ -42,6 +49,10 @@ public class DAO {
         return clienteDAO;
     }
 
+    /**
+     * Retorna uma instância da implementação do DAO de Instalacao
+     * @return Implementação do DAO de Instalacao
+     */
     public static InstalacaoDAO getInstalacao(){
         if (instalacaoDAO == null){
             instalacaoDAO = new InstalacaoLista();
@@ -50,6 +61,10 @@ public class DAO {
         return instalacaoDAO;
     }
 
+    /**
+     * Retorna uma instância da implementação do DAO de Limpeza
+     * @return Implementação do DAO de Limpeza
+     */
     public static LimpezaDAO getLimpeza(){
         if (limpezaDAO == null){
             limpezaDAO = new LimpezaLista();
@@ -58,6 +73,10 @@ public class DAO {
         return limpezaDAO;
     }
 
+    /**
+     * Retorna uma instância da implementação do DAO de Montagem
+     * @return Implementação do DAO de Montagem
+     */
     public static MontagemDAO getMontagem(){
         if (montagemDAO == null){
             montagemDAO = new MontagemLista();
@@ -66,6 +85,10 @@ public class DAO {
         return montagemDAO;
     }
 
+    /**
+     * Retorna uma instância da implementação do DAO de Tecnico
+     * @return Implementação do DAO  de Tecnico
+     */
     public static TecnicoDAO getTecnico(){
         if (tecnicoDAO == null){
             tecnicoDAO = new TecnicoLista();
@@ -73,6 +96,10 @@ public class DAO {
         return tecnicoDAO;
     }
 
+    /**
+     * Retorna uma instância da implementação do DAO de OrdemServico
+     * @return Implementação do DAO de OrdemServico
+     */
     public static OrdemServicoDAO getOrdemServico(){
         if (ordemServicoDAO == null){
             ordemServicoDAO = new OrdemServicoLista();
@@ -80,6 +107,10 @@ public class DAO {
         return ordemServicoDAO;
     }
 
+    /**
+     * Retorna uma instância da implementação do DAO de OutroComponente
+     * @return Implementação do DAO de OutroComponente
+     */
     public static OutroComponenteDAO getOutroComponente(){
         if (outroComponenteDAO == null){
             outroComponenteDAO = new OutroComponenteLista();
@@ -87,6 +118,10 @@ public class DAO {
         return outroComponenteDAO;
     }
 
+    /**
+     * Retorna uma instância da implementação do DAO de Peca
+     * @return Implementação do DAO de Peca
+     */
     public static PecaDAO getPeca(){
         if (pecaDAO == null){
             pecaDAO = new PecaLista();

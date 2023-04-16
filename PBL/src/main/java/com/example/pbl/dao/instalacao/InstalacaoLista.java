@@ -6,6 +6,10 @@ import com.example.pbl.model.Instalacao;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Implementação em lista encadeada do DAO da Instalacao
+ * @author Márcio Roberto, Amanda Lima Bezerra
+ */
 public class InstalacaoLista implements InstalacaoDAO{
     private List<Instalacao> listaInstalacoes;
     private int proxId;
@@ -15,6 +19,11 @@ public class InstalacaoLista implements InstalacaoDAO{
         this.proxId = 0;
     }
 
+    /**
+     * Guarda um objeto do tipo Instalacao em uma lista.
+     * Cada objeto tem um id único.
+     * @param objeto Objeto do tipo Instalacao
+     */
     @Override
     public void criar(Instalacao objeto) {
         objeto.setId(this.proxId);
@@ -23,6 +32,11 @@ public class InstalacaoLista implements InstalacaoDAO{
         this.proxId++;
     }
 
+    /**
+     * Busca pelo id e retorna um objeto do tipo Instalacao
+     * @param id Id referente à instalação
+     * @return Objeto do tipo Instalacao ou null
+     */
     @Override
     public Instalacao buscarPorId(int id) {
         for (Instalacao instalacao : listaInstalacoes){
@@ -32,6 +46,10 @@ public class InstalacaoLista implements InstalacaoDAO{
         return null;
     }
 
+    /**
+     * Retorna uma lista de todos os objetos do tipo Instalacao
+     * @return Lista de objetos do tipo Instalacao
+     */
     @Override
     public List<Instalacao> buscarTodos() {
         List<Instalacao> lista = new LinkedList<Instalacao>();
@@ -43,6 +61,11 @@ public class InstalacaoLista implements InstalacaoDAO{
         return lista;
     }
 
+    /**
+     * Substitui um objeto do tipo Instalacao por outro de mesmo id
+     * @param objeto Objeto do tipo Instalacao
+     * @exception ObjetoNaoEncontradoException Se o id da instalação a ser atualizada não for encontrado
+     */
     @Override
     public void atualizar(Instalacao objeto) throws ObjetoNaoEncontradoException {
         for (int i = 0; i < this.listaInstalacoes.size(); i++){
@@ -55,6 +78,11 @@ public class InstalacaoLista implements InstalacaoDAO{
         throw new ObjetoNaoEncontradoException("Instalacao");
     }
 
+    /**
+     * Remove um objeto do tipo Instalacao da lista
+     * @param objeto Objeto do tipo Instalacao
+     * @exception ObjetoNaoEncontradoException Se o id da instalação a ser removida não for encontrado
+     */
     @Override
     public void remover(Instalacao objeto) throws ObjetoNaoEncontradoException {
         for (int i = 0; i < this.listaInstalacoes.size(); i++){
@@ -67,6 +95,9 @@ public class InstalacaoLista implements InstalacaoDAO{
         throw new ObjetoNaoEncontradoException("Instalacao");
     }
 
+    /**
+     * Esvazia a lista de instalações
+     */
     @Override
     public void deletarTudo() {
         this.listaInstalacoes = new LinkedList<Instalacao>();

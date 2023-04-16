@@ -6,6 +6,10 @@ import com.example.pbl.model.Limpeza;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Implementação em lista encadeada do DAO da Limpeza
+ * @author Márcio Roberto, Amanda Lima Bezerra
+ */
 public class LimpezaLista implements LimpezaDAO {
     private List<Limpeza> listaLimpeza;
     private int proxId;
@@ -15,6 +19,11 @@ public class LimpezaLista implements LimpezaDAO {
         this.proxId = 0;
     }
 
+    /**
+     * Guarda um objeto do tipo Limpeza em uma lista
+     * Cada objeto tem um id único.
+     * @param objeto Objeto do tipo Limpeza
+     */
     @Override
     public void criar(Limpeza objeto) {
         objeto.setId(this.proxId);
@@ -23,6 +32,11 @@ public class LimpezaLista implements LimpezaDAO {
         this.proxId++;
     }
 
+    /**
+     * Busca pelo id e retorna um objeto do tipo Limpeza
+     * @param id Id referente à limpeza
+     * @return Objeto do tipo Limpeza ou null
+     */
     @Override
     public Limpeza buscarPorId(int id) {
         for (Limpeza limpeza : listaLimpeza){
@@ -32,6 +46,10 @@ public class LimpezaLista implements LimpezaDAO {
         return null;
     }
 
+    /**
+     * Retorna uma lista de todos os objetos do tipo Instalacao
+     * @return Lista de objetos do tipo Instalacao
+     */
     @Override
     public List<Limpeza> buscarTodos() {
         List<Limpeza> lista = new LinkedList<Limpeza>();
@@ -43,6 +61,11 @@ public class LimpezaLista implements LimpezaDAO {
         return lista;
     }
 
+    /**
+         * Substitui um objeto do tipo Limpeza por outro de mesmo id
+     * @param objeto Objeto do tipo Limpeza
+     * @exception ObjetoNaoEncontradoException Se o id da limpeza a ser atualizada não for encontrado
+     */
     @Override
     public void atualizar(Limpeza objeto) throws ObjetoNaoEncontradoException {
         for (int i = 0; i < this.listaLimpeza.size(); i++){
@@ -55,6 +78,11 @@ public class LimpezaLista implements LimpezaDAO {
         throw new ObjetoNaoEncontradoException("Limpeza");
     }
 
+    /**
+     * Remove um objeto do tipo Limpeza da lista
+     * @param objeto Objeto do tipo Limpeza
+     * @exception ObjetoNaoEncontradoException Se o id da limpeza a ser removida não for encontrado
+     */
     @Override
     public void remover(Limpeza objeto) throws ObjetoNaoEncontradoException {
         for (int i = 0; i < this.listaLimpeza.size(); i++){
@@ -67,6 +95,9 @@ public class LimpezaLista implements LimpezaDAO {
         throw new ObjetoNaoEncontradoException("Limpeza");
     }
 
+    /**
+     * Esvazia a lista de limpezas
+     */
     @Override
     public void deletarTudo() {
         this.listaLimpeza = new LinkedList<Limpeza>();
