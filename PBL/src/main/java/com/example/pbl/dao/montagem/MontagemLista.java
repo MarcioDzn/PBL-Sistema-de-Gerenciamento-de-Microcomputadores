@@ -80,13 +80,15 @@ public class MontagemLista implements MontagemDAO{
         List<Montagem> lista = new LinkedList<Montagem>();
 
         for (Montagem montagem : DAO.getMontagem().buscarTodos()) {
-            for (Componente componente : montagem.getComponentes()) {
-                if (tipoComponente == "Peca") {
-                    if (componente instanceof Peca && componente.getId() == id)
+            if (tipoComponente.equals("Peca")){
+                for (Peca peca : montagem.getPecas()){
+                    if (peca.getId() == id)
                         lista.add(montagem);
+                }
 
-                } else if (tipoComponente == "OutroComponente") {
-                    if (componente instanceof OutroComponente && componente.getId() == id)
+            } else if (tipoComponente.equals("OutroComponente")){
+                for (OutroComponente outroComponente : montagem.getOutrosComponentes()){
+                    if (outroComponente.getId() == id)
                         lista.add(montagem);
                 }
             }

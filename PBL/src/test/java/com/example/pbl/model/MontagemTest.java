@@ -1,6 +1,7 @@
 package com.example.pbl.model;
 
 import com.example.pbl.dao.DAO;
+import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,50 +22,128 @@ class MontagemTest {
     }
 
     @Test
-    void testSetComponente() {
+    void testSetComponentePeca() {
         Peca peca1 = new Peca(10, 15, 20, "nome1", "");
+        DAO.getPeca().criar(peca1);
+
         Peca peca2 = new Peca(10, 15, 20, "nome2", "");
+        DAO.getPeca().criar(peca2);
 
-        this.montagem.setComponente(peca1);
-        this.montagem.setComponente(peca1);
+        this.montagem.setComponente(peca1, 2);
+        this.montagem.setComponente(peca2, 4);
 
-        assertEquals(2, this.montagem.getComponentes().size());
+        assertEquals(6, this.montagem.getPecas().size());
     }
 
     @Test
-    void testRemoverComponente(){
+    void testSetComponenteOutroComponente() {
+        OutroComponente outroComp1 = new OutroComponente(10, 10, "outro");
+        DAO.getOutroComponente().criar(outroComp1);
+
+        OutroComponente outroComp2 = new OutroComponente(10, 10, "outro2");
+        DAO.getOutroComponente().criar(outroComp2);
+
+        this.montagem.setComponente(outroComp1, 2);
+        this.montagem.setComponente(outroComp2, 4);
+
+        assertEquals(6, this.montagem.getOutrosComponentes().size());
+    }
+
+    @Test
+    void testGetPecas(){
         List<Componente> lista = new LinkedList<Componente>();
 
-        Peca peca1 = new Peca(10, 20, 10, "nome1", "fabricante1");
-        peca1.setId(0);
-        this.montagem.setComponente(peca1);
+        Peca peca1 = new Peca(10, 10, 10, "nome", "fab");
+        DAO.getPeca().criar(peca1);
 
-        Peca peca2 = new Peca(10, 20, 10, "nome2", "fabricante2");
-        peca2.setId(1);
-        this.montagem.setComponente(peca2);
+        Peca peca2 = new Peca(10, 10, 10, "nome", "fab");
+        DAO.getPeca().criar(peca2);
+
+        this.montagem.setComponente(peca1, 2);
+        this.montagem.setComponente(peca2, 1);
+
+        lista.add(peca1);
+        lista.add(peca1);
         lista.add(peca2);
 
-        OutroComponente outro1 = new OutroComponente(10, 20, "descricao");
-        outro1.setId(0);
-        this.montagem.setComponente(outro1);
-        lista.add(outro1);
-
-        this.montagem.removerComponente(0, "Peca");
-
-        assertEquals(lista, this.montagem.getComponentes());
+        assertEquals(lista, this.montagem.getPecas());
     }
 
     @Test
-    void testGetOrdensServico() {
-        List<OrdemServico> osLista = new LinkedList<OrdemServico>();
+    void testGeOutrosComponentes(){
+        List<Componente> lista = new LinkedList<Componente>();
 
-        for (int i = 0; i < 3; i++){
-            osLista.add(new OrdemServico(0));
-            osLista.get(i).addServicos(this.montagem);
-            DAO.getOrdemServico().criar(osLista.get(i));
+        OutroComponente outroComp1 = new OutroComponente(10, 10, "desc");
+        DAO.getOutroComponente().criar(outroComp1);
+
+        OutroComponente outroComp2 = new OutroComponente(10, 10, "nome");
+        DAO.getOutroComponente().criar(outroComp2);
+
+        this.montagem.setComponente(outroComp1, 2);
+        this.montagem.setComponente(outroComp2, 1);
+
+        lista.add(outroComp1);
+        lista.add(outroComp1);
+        lista.add(outroComp2);
+
+        assertEquals(lista, this.montagem.getOutrosComponentes());
+    }
+
+    @Test
+    void testRemoverPeca(){
+        Peca peca1 = new Peca(10, 10, 10, "nome", "fab");
+        DAO.getPeca().criar(peca1);
+
+        Peca peca2 = new Peca(10, 10, 10, "nome", "fab");
+        DAO.getPeca().criar(peca2);
+
+        this.montagem.setComponente(peca1, 3);
+        this.montagem.setComponente(peca2, 1);
+
+        try {
+            this.montagem.removerComponente(peca1.getId(), 2, "Peca");
+
+        } catch (ObjetoNaoEncontradoException e) {
+            throw new RuntimeException(e);
         }
 
-        assertEquals(osLista, DAO.getOrdemServico().buscarPorServico(0, "Montagem"));
+        assertEquals(2, this.montagem.getPecas().size());
+    }
+
+    @Test
+    void testRemoverOutroComponente(){
+        OutroComponente outroComp1 = new OutroComponente(10, 10, "nome");
+        DAO.getOutroComponente().criar(outroComp1);
+
+        OutroComponente outroComp2 = new OutroComponente(10, 10, "nome");
+        DAO.getOutroComponente().criar(outroComp2);
+
+        this.montagem.setComponente(outroComp1, 3);
+        this.montagem.setComponente(outroComp2, 1);
+
+        try {
+            this.montagem.removerComponente(outroComp1.getId(), 2, "OutroComponente");
+
+        } catch (ObjetoNaoEncontradoException e) {
+            throw new RuntimeException(e);
+        }
+
+        assertEquals(2, this.montagem.getOutrosComponentes().size());
+    }
+
+    @Test
+    void testRemoverServicoInexistente(){
+        assertThrows(ObjetoNaoEncontradoException.class, () -> this.montagem.removerComponente(1, 4, "Peca"));
+    }
+
+    @Test
+    void testRemoverServicoExcesso(){
+        Peca peca1 = new Peca(10, 10, 10, "nome", "fab");
+        DAO.getPeca().criar(peca1);
+
+        this.montagem.setComponente(peca1, 3);
+
+        assertThrows(ObjetoNaoEncontradoException.class, () -> this.montagem.removerComponente(0, 4, "Peca"));
     }
 
     @Test
@@ -79,9 +158,24 @@ class MontagemTest {
         assertFalse(this.montagem.equals(montagem2));
     }
 
+    @Test
+    void testGetOrdensServico() {
+        List<OrdemServico> osLista = new LinkedList<OrdemServico>();
+
+        for (int i = 0; i < 3; i++){
+            osLista.add(new OrdemServico(0));
+            osLista.get(i).addServicos(this.montagem, 1);
+            DAO.getOrdemServico().criar(osLista.get(i));
+        }
+
+        assertEquals(osLista, DAO.getOrdemServico().buscarPorServico(0, "Montagem"));
+    }
+
     @AfterEach
     void tearDown(){
         DAO.getMontagem().deletarTudo();
         DAO.getOrdemServico().deletarTudo();
+        DAO.getPeca().deletarTudo();
+        DAO.getOutroComponente().deletarTudo();
     }
 }

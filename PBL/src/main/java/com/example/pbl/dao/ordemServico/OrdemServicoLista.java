@@ -102,18 +102,20 @@ public class OrdemServicoLista implements OrdemServicoDAO{
     public List<OrdemServico> buscarPorServico(int id, String tipoServico) {
         List<OrdemServico> lista = new LinkedList<OrdemServico>();
 
-        for (OrdemServico ordemServico : DAO.getOrdemServico().buscarTodos()) {
-            for (Servico servico : ordemServico.getServicos()){
-                if (tipoServico == "Montagem"){
-                    if (servico instanceof Montagem && servico.getId() == id)
+        for (OrdemServico ordemServico : this.listaOrdensServico) {
+            if (tipoServico.equals("Montagem")){
+                for (Montagem montagem : ordemServico.getMontagens()){
+                    if (montagem.getId() == id)
                         lista.add(ordemServico);
-
-                } else if (tipoServico == "Limpeza"){
-                    if (servico instanceof Limpeza && servico.getId() == id)
+                }
+            } else if (tipoServico.equals("Limpeza")){
+                for (Limpeza limpeza : ordemServico.getLimpezas()){
+                    if (limpeza.getId() == id)
                         lista.add(ordemServico);
-
-                } else if (tipoServico == "Instalacao"){
-                    if (servico instanceof Instalacao && servico.getId() == id)
+                }
+            } else if (tipoServico.equals("Instalacao")){
+                for (Instalacao instalacao : ordemServico.getInstalacoes()){
+                    if (instalacao.getId() == id)
                         lista.add(ordemServico);
                 }
             }

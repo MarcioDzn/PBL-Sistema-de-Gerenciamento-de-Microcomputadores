@@ -1,6 +1,7 @@
 package com.example.pbl.model;
 
 import com.example.pbl.dao.DAO;
+import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 
 import java.util.Date;
 import java.util.List;
@@ -29,7 +30,9 @@ public class OrdemServico {
     private Integer clienteId;
     private Integer tecnicoId;
     private String status;
-    private List<Servico> servicos;
+    private List<Integer> montagens;
+    private List<Integer> limpezas;
+    private List<Integer> instalacoes;
     private String descricao;
     private long criadoEm;
     private long finalizadoEm;
@@ -43,7 +46,10 @@ public class OrdemServico {
     public OrdemServico(Integer clienteId) {
         this.clienteId = clienteId;
         this.status = "Em andamento";
-        this.servicos = new LinkedList<Servico>();
+
+        this.montagens = new LinkedList<Integer>();
+        this.limpezas = new LinkedList<Integer>();
+        this.instalacoes = new LinkedList<Integer>();
 
         this.criadoEm = new Date().getTime();
         this.finalizadoEm = 0;
@@ -58,22 +64,16 @@ public class OrdemServico {
     public double getPreco(){
         double precoTotal = 0;
 
-        for (Servico servico : this.servicos){
-            precoTotal += servico.getPreco();
+        for (Integer id : this.montagens){
+            precoTotal += DAO.getMontagem().buscarPorId(id).getPreco();
         }
 
-        return precoTotal;
-    }
+        for (Integer id : this.limpezas){
+            precoTotal += DAO.getLimpeza().buscarPorId(id).getPreco();
+        }
 
-    /**
-     * Método que retorna o custo total dos serviços dessa ordem de serviço
-     * @return Custo total dos serviços
-     */
-    public double getCusto() {
-        double precoTotal = 0;
-
-        for (Servico servico : this.servicos){
-            precoTotal += servico.getCusto();
+        for (Integer id : this.instalacoes){
+            precoTotal += DAO.getInstalacao().buscarPorId(id).getPreco();
         }
 
         return precoTotal;
@@ -210,16 +210,50 @@ public class OrdemServico {
      * Método que retorna a lista de serviços associados a esta ordem de serviço
      * @return Lista de serviços
      */
-    public List<Servico> getServicos() {
-        return servicos;
+    public List<Montagem> getMontagens() {
+        List<Montagem> lista = new LinkedList<Montagem>();
+
+        for (Integer id : montagens){
+            lista.add(DAO.getMontagem().buscarPorId(id));
+        }
+
+        return lista;
+    }
+    public List<Limpeza> getLimpezas() {
+        List<Limpeza> lista = new LinkedList<Limpeza>();
+
+        for (Integer id : limpezas){
+            lista.add(DAO.getLimpeza().buscarPorId(id));
+        }
+
+        return lista;
+    }
+    public List<Instalacao> getInstalacoes() {
+        List<Instalacao> lista = new LinkedList<Instalacao>();
+
+        for (Integer id : instalacoes){
+            lista.add(DAO.getInstalacao().buscarPorId(id));
+        }
+
+        return lista;
     }
 
     /**
      * Método que adiciona um serviço na lista de ordem de serviços
      * @param servico Servico
      */
-    public void addServicos(Servico servico) {
-        this.servicos.add(servico);
+    public void addServicos(Servico servico, int quantidade) {
+        for(int i = 0; i < quantidade; i++) {
+            if (servico instanceof Montagem) {
+                this.montagens.add(servico.getId());
+
+            } else if (servico instanceof Limpeza) {
+                this.limpezas.add(servico.getId());
+
+            } else if (servico instanceof Instalacao) {
+                this.instalacoes.add(servico.getId());
+            }
+        }
     }
 
     /**
@@ -227,25 +261,45 @@ public class OrdemServico {
      * @param id Id do serviço a ser removido
      * @param tipo Tipo da classe do serviço a ser removido
      */
-    public void removerServico(int id, String tipo){
-        int indiceServicoRemov = -1;
+    public void removerServico(int id, int quantidade, String tipo) throws ObjetoNaoEncontradoException {
+        for (int j = 0; j < quantidade; j++){
+            int idRemovido = -1;
 
-        for (int i = 0; i < this.servicos.size(); i++){
-            if (tipo == "Montagem"){
-                if (this.servicos.get(i) instanceof Montagem && this.servicos.get(i).getId() == id)
-                    indiceServicoRemov = i;
+            // Remove o elemento do tipo Montagem da lista de montagens
+            if (tipo.equals("Montagem")){
+                for (int i = 0; i < this.montagens.size(); i++){
+                    if (this.montagens.get(i) == id)
+                        idRemovido = i;
+                }
 
-            } else if (tipo == "Instalacao"){
-                if (this.servicos.get(i) instanceof Instalacao && this.servicos.get(i).getId() == id)
-                    indiceServicoRemov = i;
+                if (idRemovido != -1)
+                    this.montagens.remove(idRemovido);
 
-            } else if (tipo == "Limpeza"){
-                if (this.servicos.get(i) instanceof Limpeza && this.servicos.get(i).getId() == id)
-                    indiceServicoRemov = i;
+                // Remove o elemento do tipo Limpeza da lista de limpezas
+            } else if (tipo.equals("Limpeza")){
+                for (int i = 0; i < this.limpezas.size(); i++){
+                    if (this.limpezas.get(i) == id)
+                        idRemovido = i;
+                }
+
+                if (idRemovido != -1)
+                    this.limpezas.remove(idRemovido);
+
+                // Remove o elemento do tipo Instalacao da lista de instalações
+            } else if (tipo.equals("Instalacao")){
+                for (int i = 0; i < this.instalacoes.size(); i++){
+                    if (this.instalacoes.get(i) == id)
+                        idRemovido = i;
+                }
+
+                if (idRemovido != -1)
+                    this.instalacoes.remove(idRemovido);
+            }
+
+            if (idRemovido == -1){
+                throw new ObjetoNaoEncontradoException("Serviço");
             }
         }
-
-        this.servicos.remove(indiceServicoRemov);
     }
 
     /**

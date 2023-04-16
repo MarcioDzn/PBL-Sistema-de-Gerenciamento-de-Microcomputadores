@@ -1,6 +1,8 @@
 package com.example.pbl.model;
 
 import com.example.pbl.dao.DAO;
+import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
+import com.example.pbl.exceptions.OrdemServicoAtualException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,31 +26,16 @@ class OrdemServicoTest {
         Peca peca2 = new Peca(10, 15, 25, "RAM2", "fabricante2");
 
         Montagem montagem = new Montagem();
-        montagem.setComponente(peca1);
-        montagem.setComponente(peca2);
+        montagem.setComponente(peca1, 1);
+        montagem.setComponente(peca2, 1);
 
-        this.os1.addServicos(montagem);
+        DAO.getMontagem().criar(montagem);
+
+        this.os1.addServicos(montagem, 1);
 
         double valorPreco = this.os1.getPreco();
 
         assertEquals(45, valorPreco);
-
-    }
-
-    @Test
-    void testGetCusto() {
-        Peca peca1 = new Peca(10, 10, 20, "RAM1", "fabricante1");
-        Peca peca2 = new Peca(10, 15, 25, "RAM2", "fabricante2");
-
-        Montagem montagem = new Montagem();
-        montagem.setComponente(peca1);
-        montagem.setComponente(peca2);
-
-        this.os1.addServicos(montagem);
-
-        double valorCusto = this.os1.getCusto();
-
-        assertEquals(25, valorCusto);
     }
 
     @Test
@@ -101,68 +88,181 @@ class OrdemServicoTest {
     }
 
     @Test
-    void testGetServicos() {
-        List<Servico> lista = new LinkedList<Servico>();
-
-        Peca peca1 = new Peca(10, 10, 20, "RAM1", "fabricante1");
-
+    void testAddServicosMontagem(){
         Montagem montagem = new Montagem();
-        montagem.setComponente(peca1);
-
-        Limpeza limpeza = new Limpeza(20, 30, "limpeza");
-
-        Instalacao instalacao = new Instalacao(90, 10, "Portal 2");
-
-        this.os1.addServicos(montagem);
-        this.os1.addServicos(limpeza);
-        this.os1.addServicos(instalacao);
-
-        lista.add(montagem);
-        lista.add(limpeza);
-        lista.add(instalacao);
-
-        assertEquals(lista, os1.getServicos());
-    }
-
-    @Test
-    void testAddServicos() {
-        Peca peca1 = new Peca(10, 10, 20, "RAM1", "fabricante1");
-
-        Montagem montagem = new Montagem();
-        montagem.setComponente(peca1);
-
-        Limpeza limpeza = new Limpeza(20, 30, "limpeza");
-
-        Instalacao instalacao = new Instalacao(90, 10, "Cyberpunk 2077");
-
-        this.os1.addServicos(montagem);
-        this.os1.addServicos(limpeza);
-        this.os1.addServicos(instalacao);
-
-        assertEquals(3, os1.getServicos().size());
-    }
-
-    @Test
-    void testRemoverServico(){
-        List<Servico> lista = new LinkedList<Servico>();
-
-        Montagem montagem1 = new Montagem();
-        montagem1.setId(0);
-        this.os1.addServicos(montagem1);
+        DAO.getMontagem().criar(montagem);
 
         Montagem montagem2 = new Montagem();
-        montagem2.setId(1);
-        this.os1.addServicos(montagem2);
+        DAO.getMontagem().criar(montagem2);
+
+        this.os1.addServicos(montagem, 3);
+        this.os1.addServicos(montagem2, 1);
+
+        assertEquals(4, this.os1.getMontagens().size());
+    }
+
+    @Test
+    void testAddServicosLimpeza(){
+        Limpeza limpeza = new Limpeza(10, 5, "Limpeza de algo");
+        DAO.getLimpeza().criar(limpeza);
+
+        Limpeza limpeza2 = new Limpeza(10, 5, "Limpeza de outro algo");
+        DAO.getLimpeza().criar(limpeza2);
+
+        this.os1.addServicos(limpeza, 5);
+        this.os1.addServicos(limpeza2, 2);
+
+        assertEquals(7, this.os1.getLimpezas().size());
+    }
+
+    @Test
+    void testAddServicosInstalacao(){
+        Instalacao instalacao = new Instalacao(10, 5, "Inst de algo");
+        DAO.getInstalacao().criar(instalacao);
+
+        Instalacao instalacao2 = new Instalacao(10, 5, "Inst de algo");
+        DAO.getInstalacao().criar(instalacao2);
+
+        this.os1.addServicos(instalacao, 2);
+        this.os1.addServicos(instalacao2, 2);
+
+        assertEquals(4, this.os1.getInstalacoes().size());
+    }
+
+    @Test
+    void testGetMontagens(){
+        List<Servico> lista = new LinkedList<Servico>();
+
+        Montagem montagem = new Montagem();
+        DAO.getMontagem().criar(montagem);
+
+        Montagem montagem2 = new Montagem();
+        DAO.getMontagem().criar(montagem2);
+
+        this.os1.addServicos(montagem, 2);
+        this.os1.addServicos(montagem2, 1);
+
+        lista.add(montagem);
+        lista.add(montagem);
         lista.add(montagem2);
 
-        Limpeza limpeza1 = new Limpeza(10, 10, "limpeza");
-        limpeza1.setId(0);
-        this.os1.addServicos(limpeza1);
-        lista.add(limpeza1);
+        assertEquals(lista, this.os1.getMontagens());
+    }
 
-        this.os1.removerServico(0, "Montagem");
+    @Test
+    void testGetLimpezas(){
+        List<Servico> lista = new LinkedList<Servico>();
 
-        assertEquals(lista, this.os1.getServicos());
+        Limpeza limpeza = new Limpeza(10, 5, "Limpeza de algo");
+        DAO.getLimpeza().criar(limpeza);
+
+        Limpeza limpeza2 = new Limpeza(12, 6, "Limpeza de outro algo");
+        DAO.getLimpeza().criar(limpeza2);
+
+        this.os1.addServicos(limpeza, 2);
+        this.os1.addServicos(limpeza2, 1);
+
+        lista.add(limpeza);
+        lista.add(limpeza);
+        lista.add(limpeza2);
+
+        assertEquals(lista, this.os1.getLimpezas());
+    }
+
+    @Test
+    void testGetInstalacoes(){
+        List<Servico> lista = new LinkedList<Servico>();
+
+        Instalacao instalacao = new Instalacao(10, 5, "Inst de algo");
+        DAO.getInstalacao().criar(instalacao);
+
+        Instalacao instalacao2 = new Instalacao(10, 5, "Inst de outro algo");
+        DAO.getInstalacao().criar(instalacao2);
+
+        this.os1.addServicos(instalacao, 2);
+        this.os1.addServicos(instalacao2, 1);
+
+        lista.add(instalacao);
+        lista.add(instalacao);
+        lista.add(instalacao2);
+
+        assertEquals(lista, this.os1.getInstalacoes());
+    }
+
+    @Test
+    void removerServicoMontagem(){
+        Montagem montagem = new Montagem();
+        DAO.getMontagem().criar(montagem);
+
+        Montagem montagem2 = new Montagem();
+        DAO.getMontagem().criar(montagem2);
+
+        this.os1.addServicos(montagem, 5);
+        this.os1.addServicos(montagem2, 1);
+
+        try {
+            this.os1.removerServico(0, 2, "Montagem");
+
+        } catch (ObjetoNaoEncontradoException e) {
+            throw new RuntimeException(e);
+        }
+
+        assertEquals(4, this.os1.getMontagens().size());
+    }
+    @Test
+    void removerServicoLimpeza(){
+        Limpeza limpeza = new Limpeza(10, 5, "Limpeza de algo");
+        DAO.getLimpeza().criar(limpeza);
+
+        Limpeza limpeza2 = new Limpeza(12, 6, "Limpeza de outro algo");
+        DAO.getLimpeza().criar(limpeza2);
+
+        this.os1.addServicos(limpeza, 1);
+        this.os1.addServicos(limpeza2, 2);
+
+        try {
+            this.os1.removerServico(1, 2, "Limpeza");
+
+        } catch (ObjetoNaoEncontradoException e) {
+            throw new RuntimeException(e);
+        }
+
+        assertEquals(1, this.os1.getLimpezas().size());
+    }
+    @Test
+    void removerServicoInstalacao(){
+        Instalacao instalacao = new Instalacao(10, 5, "Inst de algo");
+        DAO.getInstalacao().criar(instalacao);
+
+        Instalacao instalacao2 = new Instalacao(10, 5, "Inst de outro algo");
+        DAO.getInstalacao().criar(instalacao2);
+
+        this.os1.addServicos(instalacao, 3);
+        this.os1.addServicos(instalacao2, 1);
+
+        try {
+            this.os1.removerServico(0, 2, "Instalacao");
+
+        } catch (ObjetoNaoEncontradoException e) {
+            throw new RuntimeException(e);
+        }
+
+        assertEquals(2, this.os1.getInstalacoes().size());
+    }
+
+    @Test
+    void testRemoverServicoInexistente(){
+        assertThrows(ObjetoNaoEncontradoException.class, () -> this.os1.removerServico(1, 4, "Instalacao"));
+    }
+
+    @Test
+    void testRemoverServicoExcesso(){
+        Instalacao instalacao = new Instalacao(10, 5, "Inst de algo");
+        DAO.getInstalacao().criar(instalacao);
+
+        this.os1.addServicos(instalacao, 3);
+
+        assertThrows(ObjetoNaoEncontradoException.class, () -> this.os1.removerServico(0, 4, "Instalacao"));
     }
 
     @Test
@@ -181,5 +281,8 @@ class OrdemServicoTest {
     void tearDown(){
         DAO.getCliente().deletarTudo();
         DAO.getTecnico().deletarTudo();
+        DAO.getMontagem().deletarTudo();
+        DAO.getLimpeza().deletarTudo();
+        DAO.getInstalacao().deletarTudo();
     }
 }

@@ -23,7 +23,7 @@ class LimpezaTest {
         List<OrdemServico> lista = new LinkedList<OrdemServico>();
 
         OrdemServico os1 = new OrdemServico(0);
-        os1.addServicos(this.limpeza);
+        os1.addServicos(this.limpeza, 1);
         DAO.getOrdemServico().criar(os1);
 
         lista.add(os1);
