@@ -222,7 +222,7 @@ public class OrdemServico {
     public List<Limpeza> getLimpezas() {
         List<Limpeza> lista = new LinkedList<Limpeza>();
 
-        for (Integer id : montagens){
+        for (Integer id : limpezas){
             lista.add(DAO.getLimpeza().buscarPorId(id));
         }
 
@@ -231,7 +231,7 @@ public class OrdemServico {
     public List<Instalacao> getInstalacoes() {
         List<Instalacao> lista = new LinkedList<Instalacao>();
 
-        for (Integer id : montagens){
+        for (Integer id : instalacoes){
             lista.add(DAO.getInstalacao().buscarPorId(id));
         }
 
