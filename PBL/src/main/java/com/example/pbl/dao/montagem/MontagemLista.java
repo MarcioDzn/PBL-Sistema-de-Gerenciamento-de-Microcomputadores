@@ -118,13 +118,13 @@ public class MontagemLista implements MontagemDAO{
         for (Montagem montagem : DAO.getMontagem().buscarTodos()) {
             if (tipoComponente.equals("Peca")){
                 for (Peca peca : montagem.getPecas()){
-                    if (peca.getId() == id)
+                    if (peca.getId() == id && !lista.contains(montagem))
                         lista.add(montagem);
                 }
 
             } else if (tipoComponente.equals("OutroComponente")){
                 for (OutroComponente outroComponente : montagem.getOutrosComponentes()){
-                    if (outroComponente.getId() == id)
+                    if (outroComponente.getId() == id && !lista.contains(montagem))
                         lista.add(montagem);
                 }
             }

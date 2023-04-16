@@ -151,17 +151,17 @@ public class OrdemServicoLista implements OrdemServicoDAO{
         for (OrdemServico ordemServico : this.listaOrdensServico) {
             if (tipoServico.equals("Montagem")){
                 for (Montagem montagem : ordemServico.getMontagens()){
-                    if (montagem.getId() == id)
+                    if (montagem.getId() == id && !lista.contains(ordemServico))
                         lista.add(ordemServico);
                 }
             } else if (tipoServico.equals("Limpeza")){
                 for (Limpeza limpeza : ordemServico.getLimpezas()){
-                    if (limpeza.getId() == id)
+                    if (limpeza.getId() == id && !lista.contains(ordemServico))
                         lista.add(ordemServico);
                 }
             } else if (tipoServico.equals("Instalacao")){
                 for (Instalacao instalacao : ordemServico.getInstalacoes()){
-                    if (instalacao.getId() == id)
+                    if (instalacao.getId() == id && !lista.contains(ordemServico))
                         lista.add(ordemServico);
                 }
             }
