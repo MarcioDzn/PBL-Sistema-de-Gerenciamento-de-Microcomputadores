@@ -1,6 +1,7 @@
 package com.example.pbl.model;
 
 import com.example.pbl.dao.DAO;
+import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -79,21 +80,31 @@ public class Montagem extends Servico{
      * @param id Id do componente a ser removido
      * @param tipo Tipo da classe do componente a ser removido
      */
-    public void removerComponente(int id, String tipo){
-        int indiceCompRemov = -1;
+    public void removerComponente(int id, String tipo) throws ObjetoNaoEncontradoException {
+        Integer idRemovido = -1;
 
-        for (int i = 0; i < this.componentesUsados.size(); i++){
-            if (tipo == "OutroComponente"){
-                if (this.componentesUsados.get(i) instanceof OutroComponente && this.componentesUsados.get(i).getId() == id)
-                    indiceCompRemov = i;
+        // Remove o elemento do tipo Peca da lista de pecas
+        if (tipo.equals("Peca")){
+            for (int i = 0; i < this.pecas.size(); i++){
+                if (this.pecas.get(i) == id)
+                    idRemovido = i;
+            }
 
-            } else if (tipo == "Peca"){
-                if (this.componentesUsados.get(i) instanceof Peca && this.componentesUsados.get(i).getId() == id)
-                    indiceCompRemov = i;
+            this.pecas.remove(idRemovido);
+
+            // Remove o elemento do tipo OutroComponente da lista de outrosComponentes
+        } else if (tipo.equals("OutroComponente")) {
+            for (int i = 0; i < this.outrosComponentes.size(); i++) {
+                if (this.outrosComponentes.get(i) == id)
+                    idRemovido = i;
+            }
+
+            this.outrosComponentes.remove(idRemovido);
+
+            if (idRemovido == -1) {
+                throw new ObjetoNaoEncontradoException("Montagem");
             }
         }
-
-        this.componentesUsados.remove(indiceCompRemov);
     }
 
     /**
