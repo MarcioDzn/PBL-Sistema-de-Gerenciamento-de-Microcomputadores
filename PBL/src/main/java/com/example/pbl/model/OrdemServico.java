@@ -210,7 +210,7 @@ public class OrdemServico {
      * Método que retorna a lista de serviços associados a esta ordem de serviço
      * @return Lista de serviços
      */
-    public List<Montagem> getMonatagens() {
+    public List<Montagem> getMontagens() {
         List<Montagem> lista = new LinkedList<Montagem>();
 
         for (Integer id : montagens){
