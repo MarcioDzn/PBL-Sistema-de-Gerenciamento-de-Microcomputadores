@@ -36,22 +36,6 @@ class OrdemServicoTest {
     }
 
     @Test
-    void testGetCusto() {
-        Peca peca1 = new Peca(10, 10, 20, "RAM1", "fabricante1");
-        Peca peca2 = new Peca(10, 15, 25, "RAM2", "fabricante2");
-
-        Montagem montagem = new Montagem();
-        montagem.setComponente(peca1);
-        montagem.setComponente(peca2);
-
-        this.os1.addServicos(montagem);
-
-        double valorCusto = this.os1.getCusto();
-
-        assertEquals(25, valorCusto);
-    }
-
-    @Test
     void testIsFinalizado() {
         this.os1.finalizar();
 

@@ -80,20 +80,6 @@ public class OrdemServico {
     }
 
     /**
-     * Método que retorna o custo total dos serviços dessa ordem de serviço
-     * @return Custo total dos serviços
-     */
-    public double getCusto() {
-        double precoTotal = 0;
-
-        for (Servico servico : this.montagens){
-            precoTotal += servico.getCusto();
-        }
-
-        return precoTotal;
-    }
-
-    /**
      * Método que define o status como "Finalizado"
      */
     public void finalizar(){
