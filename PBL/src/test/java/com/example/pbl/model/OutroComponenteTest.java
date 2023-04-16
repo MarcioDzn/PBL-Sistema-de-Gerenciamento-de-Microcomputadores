@@ -25,7 +25,7 @@ class OutroComponenteTest {
 
         for (int i = 0; i < 2; i++){
             listaMontagens.add(new Montagem());
-            listaMontagens.get(i).setComponente(this.outroComp);
+            listaMontagens.get(i).setComponente(this.outroComp, 1);
             DAO.getMontagem().criar(listaMontagens.get(i));
         }
 

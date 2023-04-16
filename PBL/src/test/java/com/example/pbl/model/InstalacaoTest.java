@@ -29,7 +29,7 @@ class InstalacaoTest {
 
         for (int i = 0; i < 2; i++){
             lista.add(new OrdemServico(i));
-            lista.get(i).addServicos(this.instalacao);
+            lista.get(i).addServicos(this.instalacao, 1);
             DAO.getOrdemServico().criar(lista.get(i));
         }
 

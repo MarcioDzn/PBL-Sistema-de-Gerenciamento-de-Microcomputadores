@@ -38,8 +38,8 @@ class PecaTest {
         DAO.getMontagem().criar(montagem2);
         lista.add(montagem2);
 
-        montagem1.setComponente(this.peca1);
-        montagem2.setComponente(this.peca1);
+        montagem1.setComponente(this.peca1, 1);
+        montagem2.setComponente(this.peca1, 1);
 
         assertEquals(lista, this.peca1.getMontagens());
     }
