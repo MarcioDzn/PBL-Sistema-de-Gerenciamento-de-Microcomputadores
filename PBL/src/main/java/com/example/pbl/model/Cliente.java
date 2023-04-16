@@ -4,6 +4,24 @@ import com.example.pbl.dao.DAO;
 
 import java.util.List;
 
+/**
+ * <p>
+ * Classe referente à Cliente.
+ * </p>
+ *
+ * <p>
+ * Um Cliente possui id, nome, endereço, telefone e email,
+ * </p>
+ *
+ * <p>
+ * Esta classe contém métodos para manipular seus atributos,
+ * bem como para buscar todas as ordens de serviço da qual
+ * este Cliente faz parte. Também contém um método para comparar
+ * a si mesma com outro objeto pelo id.
+ * </p>
+ *
+ * @author Márcio Roberto, Amanda Lima Bezerra
+ */
 public class Cliente {
     private int id;
     private String nome;
@@ -11,12 +29,12 @@ public class Cliente {
     private String telefone;
     private String email;
 
-    /***
+    /**
      * Dados para gerar um objeto cliente.
-     * @param nome
-     * @param endereco
-     * @param telefone
-     * @param email
+     * @param nome Nome do cliente
+     * @param endereco Endereço do cliente
+     * @param telefone Telefone do cliente
+     * @param email Email do cliente
      */
     public Cliente(String nome, String endereco, String telefone, String email) {
         this.nome = nome;
@@ -26,81 +44,81 @@ public class Cliente {
         this.id = 0;
     }
 
-    /***
-     * Get id
-     * @return id
+    /**
+     * Método que retorna o id do cliente
+     * @return Id do cliente
      */
     public int getId() {
         return id;
     }
 
-    /***
-     * Set Id
-     * @param id
+    /**
+     * Método que define o id do cliente
+     * @param id Novo id do cliente
      */
     public void setId(int id) {
         this.id = id;
     }
 
-    /***
-     * Get nome
-     * @return nome
+    /**
+     * Método que retorna o nome do cliente
+     * @return Nome do cliente
      */
     public String getNome() {
         return nome;
     }
 
-    /***
-     * Set nome
-     * @param nome
+    /**
+     * Método que define o nome do cliente
+     * @param nome Novo nome do cliente
      */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    /***
-     * Get endereço
-     * @return endereço
+    /**
+     * Método que retorna o endereço do cliente
+     * @return Endereço do cliente
      */
     public String getEndereco() {
         return endereco;
     }
 
-    /***
-     * Set endereço
-     * @param endereco
+    /**
+     * Método que define o endereço do cliente
+     * @param endereco Novo endereço do cliente
      */
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
 
-    /***
-     * Get telefone
-     * @return telefone
+    /**
+     * Método que retorna o telefone do cliente
+     * @return Telefone do cliente
      */
     public String getTelefone() {
         return telefone;
     }
 
-    /***
-     * Set telefone
-     * @param telefone
+    /**
+     * Método que define o telefone do cliente
+     * @param telefone Novo telefone do cliente
      */
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
-    /***
-     * Get email
-     * @return email
+    /**
+     * Método que retorna o email do cliente
+     * @return Email do cliente
      */
     public String getEmail() {
         return email;
     }
 
-    /***
-     * Set email
-     * @param email
+    /**
+     * Método que define o email do cliente
+     * @param email Novo email do cliente
      */
     public void setEmail(String email) {
         this.email = email;
@@ -108,18 +126,18 @@ public class Cliente {
 
     // Fim Getters e Setters
 
-    /***
-     * Busca pelo DAO de todas as ordens de serviço relacionadas a um determinado cliente.
-     * @return ordens de servço
+    /**
+     * Método que retorna uma lista de ordens de serviço associadas a este cliente
+     * @return Lista de objetos do tipo OrdemServico
      */
     public List<OrdemServico> getOrdensServico() {
         return DAO.getOrdemServico().buscarPorCliente(this.id);
     }
 
-    /***
-     * Compara dois clientes pelo id.
-     * @param obj
-     * @return booleano
+    /**
+     * Método para comparar o objeto de um Cliente com este objeto pelo id
+     * @param obj Objeto do tipo Cliente a ser comparado
+     * @return Valor booleano true para id's iguais e false para id's diferentes
      */
     @Override
     public boolean equals(Object obj){

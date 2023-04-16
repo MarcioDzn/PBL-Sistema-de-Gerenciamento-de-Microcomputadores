@@ -6,6 +6,24 @@ import java.util.Date;
 import java.util.List;
 import java.util.LinkedList;
 
+/**
+ * <p>
+ * Classe referente à OrdemServico.
+ * </p>
+ *
+ * <p>
+ * Uma OrdemServico possui id, clienteId, tecnicoId, status, lista de serviços, descrição,
+ * data de criação, data de finalização, método de pagamento e preço.
+ * </p>
+ *
+ * <p>
+ * Esta classe contém métodos para manipular seus atributos, modificar seu status,
+ * verificar seu status e verificar seu tempo de existência. Também contém um método para comparar
+ * a si mesma com outro objeto pelo id.
+ * </p>
+ *
+ * @author Márcio Roberto, Amanda Lima Bezerra
+ */
 public class OrdemServico {
     private int id;
     private Integer clienteId;
@@ -18,9 +36,9 @@ public class OrdemServico {
     private String metodoPagamento;
     private double preco;
 
-    /***
+    /**
      * Dados para gerar um objeto ordem de serviço.
-     * @param clienteId
+     * @param clienteId Id do cliente associado a esta ordem de serviço
      */
     public OrdemServico(Integer clienteId) {
         this.clienteId = clienteId;
@@ -33,9 +51,9 @@ public class OrdemServico {
         this.id = 0;
     }
 
-    /***
-     * Get preço da ordem de serviço
-     * @return preço total
+    /**
+     * Método que retorna o preço total dos serviços dessa ordem de serviço
+     * @return Preço total dos serviços
      */
     public double getPreco(){
         double precoTotal = 0;
@@ -47,9 +65,9 @@ public class OrdemServico {
         return precoTotal;
     }
 
-    /***
-     * Get custo total da ordem de serviço
-     * @return custo total
+    /**
+     * Método que retorna o custo total dos serviços dessa ordem de serviço
+     * @return Custo total dos serviços
      */
     public double getCusto() {
         double precoTotal = 0;
@@ -61,25 +79,25 @@ public class OrdemServico {
         return precoTotal;
     }
 
-    /***
-     * Colocar ordem de serviço como finalizada
+    /**
+     * Método que define o status como "Finalizado"
      */
     public void finalizar(){
         this.status = "Finalizado";
         this.finalizadoEm = new Date().getTime();
     }
 
-    /***
-     * Colocar ordem de serviço como cancelada
+    /**
+     * Método que define o status como "Cancelado"F
      */
     public void cancelar(){
         this.status = "Cancelado";
         this.criadoEm = 0;
     }
 
-    /***
-     * Verificar se a ordem de serviço está finalizada
-     * @return booleano
+    /**
+     * Método que verifica se o status for "Finalizado"
+     * @return true se o status for "Finalizado", false caso contrário
      */
     public boolean isFinalizado(){
         if (this.status.equals("Finalizado"))
@@ -87,9 +105,9 @@ public class OrdemServico {
         return false;
     }
 
-    /***
-     * Verificar se a ordem de serviço está cancelada
-     * @return booleano
+    /**
+     * Método que verifica se o status for "Cancelado"
+     * @return true se o status for "Cancelado", false caso contrário
      */
     public boolean isCancelado(){
         if (this.status.equals("Cancelado"))
@@ -97,9 +115,9 @@ public class OrdemServico {
         return false;
     }
 
-    /***
-     *Verificar se a ordem de serviço está na fila para atendimento
-     * @return booleano
+    /**
+     * Método que verifica se o status for "Em andamento"
+     * @return true se o status for "Em andamento", false caso contrário
      */
     public boolean isEmAndamento(){
         if (this.status.equals("Em andamento"))
@@ -107,107 +125,107 @@ public class OrdemServico {
         return false;
     }
 
-    /***
-     * Get tempo de duração do servço
-     * @return tempode de duração do serviço
+    /**
+     * Método que retorna o tempo desde a criação do objeto até o status ser "finalizado" ou "cancelado"
+     * @return Tempo até a ordem de serviço ser finalizada ou cancelada
      */
     public long getTempoTotal(){
         return this.finalizadoEm - this.criadoEm;
     }
 
-    /***
-     * Get id
-     * @return id
+    /**
+     * Método que retorna o id da ordem de serviço
+     * @return Id da ordem de serviço
      */
     // Getters e Setters
     public int getId() {
         return id;
     }
 
-    /***
-     * Set id
-     * @param id
+    /**
+     * Método que define o id da ordem de serviço
+     * @param id Novo id da ordem de serviço
      */
     public void setId(int id) {
         this.id = id;
     }
 
-    /***
-     * Get cliente
-     * @return cliente
+    /**
+     * Método que retorna o cliente referente a esta ordem de serviço
+     * @return Objeto de cliente referente à esta ordem de serviço
      */
     public Cliente getCliente() {
         return DAO.getCliente().buscarPorId(this.clienteId);
     }
 
-    /***
-     * Get cliente id
-     * @return cliente id
+     /**
+     * Método que retorna o id do cliente referente a esta ordem de serviço
+     * @return Id do cliente referente à esta ordem de serviço
      */
     public Integer getClienteId() {
         return clienteId;
     }
 
-    /***
-     * Get tecnico
-     * @return tecnico
+    /**
+     * Método que retorna o tecnico referente a esta ordem de serviço
+     * @return Objeto do tecnico referente a esta ordem de serviço
      */
     public Tecnico getTecnico() {
         return DAO.getTecnico().buscarPorId(this.tecnicoId);
     }
 
-    /***
-     * Set tecnico id
-     * @param id
+    /**
+     * Método que define o id do tecnico referente a esta ordem de serviço
+     * @param id Novo id do tecnico
      */
     public void setTecnicoId(Integer id) {
         this.tecnicoId = id;
     }
 
-    /***
-     * Get tecnico id
-     * @return tecnico id
+    /**
+     * Metodo que retorna o id do tecnico referente a esta ordem de sevriço
+     * @return Id do tecnico referente a esta ordem de serviço
      */
     public Integer getTecnicoId() {
         return tecnicoId;
     }
 
-    /***
-     * Get status da ordem de serviço
-     * @return status
+    /**
+     * Método que retorna o status da ordem de serviço
+     * @return status da ordem de serviço
      */
     public String getStatus() {
         return status;
     }
 
-    /***
-     * Set status da ordem de serviço
-     * @param status
+    /**
+     * Método que define o status da ordem de serviço
+     * @param status Status da ordem de serviço
      */
     public void setStatus(String status) {
         this.status = status;
     }
 
-    /***
-     * Get lista de serviços
-     * @return lista de serviços
+    /**
+     * Método que retorna a lista de serviços associados a esta ordem de serviço
+     * @return Lista de serviços
      */
     public List<Servico> getServicos() {
         return servicos;
     }
 
-    /***
-     * Adcionar um serviço a ordem de serviço
-     * @param servico
+    /**
+     * Método que adiciona um serviço na lista de ordem de serviços
+     * @param servico Servico
      */
     public void addServicos(Servico servico) {
         this.servicos.add(servico);
     }
 
-    /***
-     * Remover serviços da ordem de serviços.
-     * @param id
-     * @param tipo
+    /**
+     * Método que remove um serviço da lista de serviços
+     * @param id Id do serviço a ser removido
+     * @param tipo Tipo da classe do serviço a ser removido
      */
     public void removerServico(int id, String tipo){
         int indiceServicoRemov = -1;
@@ -230,43 +248,43 @@ public class OrdemServico {
         this.servicos.remove(indiceServicoRemov);
     }
 
-    /***
-     * Get metodo de pagamento
-     * @return metodo de pagamento
+    /**
+     * Método que retorna o método de pagamento
+     * @return Metodo de pagamento
      */
     public String getMetodoPagamento() {
         return metodoPagamento;
     }
 
-    /***
-     * Set metodo de pagamento
-     * @param metodoPagamento
+    /**
+     * Método que define o método de pagamento
+     * @param metodoPagamento Método de pagamento
      */
     public void setMetodoPagamento(String metodoPagamento) {
         this.metodoPagamento = metodoPagamento;
     }
 
-    /***
-     * Get descrição
-     * @return descrição
+    /**
+     * Método que retorna a descrição desta ordem de serviço
+     * @return Descrição da ordem de serviço
      */
     public String getDescricao() {
         return descricao;
     }
 
-    /***
-     * Set descrição
-     * @param descricao
+    /**
+     * Método que define a descrição desta ordem de serviço
+     * @param descricao Descrição da ordem de serviço
      */
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
     // Fim Getters e Setters
 
-    /***
-     * Compara duas ordens de serviço
-     * @param obj
-     * @return booleano
+    /**
+     * Método para comparar o objeto de uma OrdemServiço com este objeto pelo id
+     * @param obj Objeto do tipo OrdemServiço a ser comparado
+     * @return Valor booleano true para id's iguais e false para id's diferentes
      */
     @Override
     public boolean equals(Object obj){

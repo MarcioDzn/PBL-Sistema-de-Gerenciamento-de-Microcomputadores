@@ -4,49 +4,67 @@ import com.example.pbl.dao.DAO;
 
 import java.util.List;
 
+/**
+ * <p>
+ * Classe referente à Limpeza.
+ * </p>
+ *
+ * <p>
+ * Uma Limpeza possui uma descrição do tipo de limpeza.
+ * </p>
+ *
+ * <p>
+ * Esta classe contém métodos para manipular seus atributos,
+ * bem como para buscar todas as ordens de serviço da qual
+ * esta Limpeza faz parte. Também contém um método para comparar
+ * a si mesma com outro objeto pelo id.
+ * </p>
+ *
+ * @author Márcio Roberto, Amanda Lima Bezerra
+ */
 public class Limpeza extends Servico{
     String limpeza;
 
-    /***
+    /**
      * Dados para gerar um objeto limpeza.
-     * @param preco
-     * @param custo
-     * @param limpeza
+     * @param preco Preço da limpeza
+     * @param custo Custo da limpeza
+     * @param limpeza Descrição do serviço de limpeza
      */
     public Limpeza(double preco, double custo, String limpeza) {
         super(preco, custo);
         this.limpeza = limpeza;
     }
 
-    /***
-     * Busca pelo DAO de todos os serviços de limpeza.
-     * @return lista de serviços do tipo limpeza
+    /**
+     * Método que retorna uma lista de ordens de serviço associadas a este serviço de limpeza
+     * @return lista de objetos do tipo OrdemServico
      */
     public List<OrdemServico> getOrdensServico(){
         return DAO.getOrdemServico().buscarPorServico(super.getId(), "Limpeza");
     }
 
-    /***
-     * Get limpeza
-     * @return limpeza
+    /**
+     * Método que retorna a descrição deste serviço de limpeza
+     * @return Descrição do serviço de limpeza
      */
     public String getLimpeza() {
         return limpeza;
     }
 
-    /***
-     * Set limpeza
-     * @param limpeza
+    /**
+     * Método que define a descrição deste serviço de limpeza
+     * @param limpeza Nova descrição do serviço de limpeza
      */
     public void setLimpeza(String limpeza) {
         this.limpeza = limpeza;
     }
 
 
-    /***
-     * Comparar se duas lmpezas são iguais
-     * @param obj
-     * @return booleano
+    /**
+     * Método para comparar o objeto de uma Limpeza com este objeto pelo id
+     * @param obj Objeto do tipo Limpeza a ser comparado
+     * @return Valor booleano true para id's iguais e false para id's diferentes
      */
     @Override
     public boolean equals(Object obj){
