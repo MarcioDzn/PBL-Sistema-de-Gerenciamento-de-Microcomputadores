@@ -2,6 +2,7 @@ package com.example.pbl.model;
 
 import com.example.pbl.dao.DAO;
 import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
+import com.example.pbl.exceptions.OrdemServicoException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -164,7 +165,11 @@ class MontagemTest {
 
         for (int i = 0; i < 3; i++){
             osLista.add(new OrdemServico(0));
-            osLista.get(i).addServicos(this.montagem, 1);
+            try {
+                osLista.get(i).addServicos(this.montagem, 1);
+            } catch (OrdemServicoException e) {
+                throw new RuntimeException(e);
+            }
             DAO.getOrdemServico().criar(osLista.get(i));
         }
 

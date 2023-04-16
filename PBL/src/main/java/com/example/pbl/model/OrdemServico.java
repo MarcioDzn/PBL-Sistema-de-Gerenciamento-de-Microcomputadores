@@ -2,6 +2,7 @@ package com.example.pbl.model;
 
 import com.example.pbl.dao.DAO;
 import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
+import com.example.pbl.exceptions.OrdemServicoException;
 
 import java.util.Date;
 import java.util.List;
@@ -82,15 +83,21 @@ public class OrdemServico {
     /**
      * Método que define o status como "Finalizado"
      */
-    public void finalizar(){
+    public void finalizar() throws OrdemServicoException {
+        if (this.isFinalizado() || this.isCancelado())
+            throw new OrdemServicoException(this.status);
+
         this.status = "Finalizado";
         this.finalizadoEm = new Date().getTime();
     }
 
     /**
-     * Método que define o status como "Cancelado"F
+     * Método que define o status como "Cancelado"
      */
-    public void cancelar(){
+    public void cancelar() throws OrdemServicoException {
+        if (this.isFinalizado() || this.isCancelado())
+            throw new OrdemServicoException(this.status);
+
         this.status = "Cancelado";
         this.criadoEm = 0;
     }
@@ -178,7 +185,10 @@ public class OrdemServico {
      * Método que define o id do tecnico referente a esta ordem de serviço
      * @param id Novo id do tecnico
      */
-    public void setTecnicoId(Integer id) {
+    public void setTecnicoId(Integer id) throws OrdemServicoException {
+        if (this.isFinalizado() || this.isCancelado())
+            throw new OrdemServicoException(this.status);
+
         this.tecnicoId = id;
     }
 
@@ -188,22 +198,6 @@ public class OrdemServico {
      */
     public Integer getTecnicoId() {
         return tecnicoId;
-    }
-
-    /**
-     * Método que retorna o status da ordem de serviço
-     * @return status da ordem de serviço
-     */
-    public String getStatus() {
-        return status;
-    }
-
-    /**
-     * Método que define o status da ordem de serviço
-     * @param status Status da ordem de serviço
-     */
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     /**
@@ -256,7 +250,10 @@ public class OrdemServico {
      * @param servico Serviço a ser armazenado
      * @param quantidade Quantidade do serviço
      */
-    public void addServicos(Servico servico, int quantidade) {
+    public void addServicos(Servico servico, int quantidade) throws OrdemServicoException {
+        if (this.isFinalizado() || this.isCancelado())
+            throw new OrdemServicoException(this.status);
+
         for(int i = 0; i < quantidade; i++) {
             if (servico instanceof Montagem) {
                 this.montagens.add(servico.getId());
@@ -276,7 +273,10 @@ public class OrdemServico {
      * @param quantidade Quantidade do serviço a ser removida
      * @param tipo Tipo da classe do serviço a ser removido
      */
-    public void removerServico(int id, int quantidade, String tipo) throws ObjetoNaoEncontradoException {
+    public void removerServico(int id, int quantidade, String tipo) throws ObjetoNaoEncontradoException, OrdemServicoException {
+        if (this.isFinalizado() || this.isCancelado())
+            throw new OrdemServicoException(this.status);
+
         for (int j = 0; j < quantidade; j++){
             int idRemovido = -1;
 
@@ -329,7 +329,10 @@ public class OrdemServico {
      * Método que define o método de pagamento
      * @param metodoPagamento Método de pagamento
      */
-    public void setMetodoPagamento(String metodoPagamento) {
+    public void setMetodoPagamento(String metodoPagamento) throws OrdemServicoException {
+        if (this.isFinalizado() || this.isCancelado())
+            throw new OrdemServicoException(this.status);
+
         this.metodoPagamento = metodoPagamento;
     }
 
@@ -345,7 +348,10 @@ public class OrdemServico {
      * Método que define a descrição desta ordem de serviço
      * @param descricao Descrição da ordem de serviço
      */
-    public void setDescricao(String descricao) {
+    public void setDescricao(String descricao) throws OrdemServicoException {
+        if (this.isFinalizado() || this.isCancelado())
+            throw new OrdemServicoException(this.status);
+
         this.descricao = descricao;
     }
     // Fim Getters e Setters

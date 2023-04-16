@@ -2,6 +2,7 @@ package com.example.pbl.model;
 
 import com.example.pbl.dao.DAO;
 import com.example.pbl.exceptions.OrdemServicoAtualException;
+import com.example.pbl.exceptions.OrdemServicoException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -70,16 +71,28 @@ class TecnicoTest {
     void testGetOrdensServico() {
         List<OrdemServico> lista = new LinkedList<OrdemServico>();
 
-        this.os1.setTecnicoId(0);
+        try {
+            this.os1.setTecnicoId(0);
+        } catch (OrdemServicoException e) {
+            throw new RuntimeException(e);
+        }
         lista.add(this.os1);
 
-        this.os2.setTecnicoId(0);
+        try {
+            this.os2.setTecnicoId(0);
+        } catch (OrdemServicoException e) {
+            throw new RuntimeException(e);
+        }
         lista.add(this.os2);
 
         assertEquals(lista, this.tecnico.getOrdensServico());
 
         OrdemServico os3 = new OrdemServico(0);
-        os3.setTecnicoId(1);
+        try {
+            os3.setTecnicoId(1);
+        } catch (OrdemServicoException e) {
+            throw new RuntimeException(e);
+        }
         lista.add(os3);
 
         assertNotEquals(lista, this.tecnico.getOrdensServico());

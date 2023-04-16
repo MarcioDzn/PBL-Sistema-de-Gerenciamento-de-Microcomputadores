@@ -1,6 +1,7 @@
 package com.example.pbl.model;
 
 import com.example.pbl.dao.DAO;
+import com.example.pbl.exceptions.OrdemServicoException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,11 @@ class LimpezaTest {
         List<OrdemServico> lista = new LinkedList<OrdemServico>();
 
         OrdemServico os1 = new OrdemServico(0);
-        os1.addServicos(this.limpeza, 1);
+        try {
+            os1.addServicos(this.limpeza, 1);
+        } catch (OrdemServicoException e) {
+            throw new RuntimeException(e);
+        }
         DAO.getOrdemServico().criar(os1);
 
         lista.add(os1);
