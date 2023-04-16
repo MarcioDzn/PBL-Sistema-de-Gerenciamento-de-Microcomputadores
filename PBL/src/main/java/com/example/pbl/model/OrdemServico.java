@@ -64,8 +64,16 @@ public class OrdemServico {
     public double getPreco(){
         double precoTotal = 0;
 
-        for (Servico servico : this.servicos){
-            precoTotal += servico.getPreco();
+        for (Integer id : this.montagens){
+            precoTotal += DAO.getMontagem().buscarPorId(id).getPreco();
+        }
+
+        for (Integer id : this.limpezas){
+            precoTotal += DAO.getLimpeza().buscarPorId(id).getPreco();
+        }
+
+        for (Integer id : this.instalacoes){
+            precoTotal += DAO.getInstalacao().buscarPorId(id).getPreco();
         }
 
         return precoTotal;
@@ -78,7 +86,7 @@ public class OrdemServico {
     public double getCusto() {
         double precoTotal = 0;
 
-        for (Servico servico : this.servicos){
+        for (Servico servico : this.montagens){
             precoTotal += servico.getCusto();
         }
 
