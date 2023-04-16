@@ -29,7 +29,9 @@ public class OrdemServico {
     private Integer clienteId;
     private Integer tecnicoId;
     private String status;
-    private List<Servico> servicos;
+    private List<Integer> montagens;
+    private List<Integer> limpezas;
+    private List<Integer> instalacoes;
     private String descricao;
     private long criadoEm;
     private long finalizadoEm;
@@ -43,7 +45,10 @@ public class OrdemServico {
     public OrdemServico(Integer clienteId) {
         this.clienteId = clienteId;
         this.status = "Em andamento";
-        this.servicos = new LinkedList<Servico>();
+
+        this.montagens = new LinkedList<Integer>();
+        this.limpezas = new LinkedList<Integer>();
+        this.instalacoes = new LinkedList<Integer>();
 
         this.criadoEm = new Date().getTime();
         this.finalizadoEm = 0;
@@ -210,8 +215,32 @@ public class OrdemServico {
      * Método que retorna a lista de serviços associados a esta ordem de serviço
      * @return Lista de serviços
      */
-    public List<Servico> getServicos() {
-        return servicos;
+    public List<Montagem> getMonatagens() {
+        List<Montagem> lista = new LinkedList<Montagem>();
+
+        for (Integer id : montagens){
+            lista.add(DAO.getMontagem().buscarPorId(id));
+        }
+
+        return lista;
+    }
+    public List<Limpeza> getLimpezas() {
+        List<Limpeza> lista = new LinkedList<Limpeza>();
+
+        for (Integer id : montagens){
+            lista.add(DAO.getLimpeza().buscarPorId(id));
+        }
+
+        return lista;
+    }
+    public List<Instalacao> getInstalacoes() {
+        List<Instalacao> lista = new LinkedList<Instalacao>();
+
+        for (Integer id : montagens){
+            lista.add(DAO.getInstalacao().buscarPorId(id));
+        }
+
+        return lista;
     }
 
     /**
@@ -219,7 +248,15 @@ public class OrdemServico {
      * @param servico Servico
      */
     public void addServicos(Servico servico) {
-        this.servicos.add(servico);
+        if (servico instanceof Montagem){
+            this.montagens.add(servico.getId());
+
+        } else if (servico instanceof Limpeza){
+            this.limpezas.add(servico.getId());
+
+        } else if (servico instanceof Instalacao){
+            this.instalacoes.add(servico.getId());
+        }
     }
 
     /**
