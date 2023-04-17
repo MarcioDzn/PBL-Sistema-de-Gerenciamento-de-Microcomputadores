@@ -160,6 +160,28 @@ class OrdemServicoListaTest {
 
         assertEquals(lista, DAO.getOrdemServico().buscarPorServico(0, "Montagem"));
     }
+    @Test
+    void setOrdemFinalizada(){
+        try{
+            ordem1.finalizar();
+        } catch (OrdemServicoException e) {
+            fail();
+        }
+
+        assertThrows(OrdemServicoException.class, () -> ordem1.setDescricao("teste1"));
+
+    }
+
+    @Test
+    void setOrdemNaoFinalizada(){
+        try{
+            ordem2.setDescricao("Teste2");
+        } catch (OrdemServicoException e) {
+            fail();
+        }
+
+        assertEquals("Teste2", ordem2.getDescricao());
+    }
 
     @AfterEach
     void tearDown(){
