@@ -7,11 +7,13 @@
 
 </div>
 
+
 ## 📖 Descrição do projeto
 
 Sistema para controlar e gerenciar a execução de serviços relacionados à assistência técnica de microcomputadores.
 
-## 🚀 Funcionalidades
+
+## 📋 Funcionalidades
 
 ### Registro de clientes
 O sistema deve ser capaz de armazenar as informações dos clientes que precisam de assistência técnica. Isso inclui nome, endereço, número de telefone e outras informações relevantes.
@@ -37,6 +39,13 @@ O sistema deve permitir que o técnico de assistência técnica gere faturas par
 ### Relatórios
 O sistema deve ser capaz de gerar relatórios sobre o desempenho do serviço, incluindo tempo médio de espera, custos de peças e estoque, bem como satisfação do cliente.
 
+## 📊 Diagrama de Classes
+![Diagrama de Classes do projeto](https://github.com/MarcioDzn/PBL-Sistema-de-Gerenciamento-de-Microcomputadores/blob/main/Diagrama%20de%20Classes%20PBL.png)
 
+## 🚀 Instalação
+Clone o repositório:
+```bash
+$ git clone https://github.com/MarcioDzn/PBL-Sistema-de-Gerenciamento-de-Microcomputadores.git
+```
 
-
+Abra o projeto no IntelliJ IDEA.
