@@ -1,0 +1,13 @@
+module:com.example.pbl
+com.example.pbl
+com.example.pbl.dao
+com.example.pbl.dao.cliente
+com.example.pbl.dao.instalacao
+com.example.pbl.dao.limpeza
+com.example.pbl.dao.montagem
+com.example.pbl.dao.ordemServico
+com.example.pbl.dao.outroComponente
+com.example.pbl.dao.peca
+com.example.pbl.dao.tecnico
+com.example.pbl.exceptions
+com.example.pbl.model
