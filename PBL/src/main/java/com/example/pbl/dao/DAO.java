@@ -1,5 +1,6 @@
 package com.example.pbl.dao;
 
+import com.example.pbl.dao.cliente.ClienteArquivo;
 import com.example.pbl.dao.cliente.ClienteDAO;
 import com.example.pbl.dao.cliente.ClienteLista;
 import com.example.pbl.dao.instalacao.InstalacaoDAO;
@@ -44,7 +45,7 @@ public class DAO {
      */
     public static ClienteDAO getCliente(){
         if (clienteDAO == null){
-            clienteDAO = new ClienteLista();
+            clienteDAO = new ClienteArquivo();
         }
         return clienteDAO;
     }
