@@ -14,6 +14,7 @@ public class ClienteArquivo implements ClienteDAO{
      * Dados para gerar um objeto ClienteArquivo.
      */
     public ClienteArquivo() {
+        ManipuladorArquivo.guardarBinario(new LinkedList<Cliente>(), "clientes.dat");
         this.proxId = 0;
     }
 
