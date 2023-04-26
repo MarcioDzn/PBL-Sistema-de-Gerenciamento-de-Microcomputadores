@@ -69,6 +69,8 @@ class PecaListaTest {
         } catch (ObjetoNaoEncontradoException e) {
             throw new RuntimeException(e);
         }
+
+        assertEquals(1, DAO.getPeca().buscarTodos().size());
     }
 
     @Test
