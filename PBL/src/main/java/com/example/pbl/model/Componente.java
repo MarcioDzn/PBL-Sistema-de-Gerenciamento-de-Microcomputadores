@@ -1,5 +1,7 @@
 package com.example.pbl.model;
 
+import java.io.Serializable;
+
 /**
  * <p>
  * Classe abstrata referente à Componente.
@@ -15,7 +17,7 @@ package com.example.pbl.model;
  *
  * @author Márcio Roberto, Amanda Lima Bezerra
  */
-public abstract class Componente {
+public abstract class Componente implements Serializable {
     private int id;
     private double custo;
     private double preco;

@@ -27,7 +27,7 @@ import java.util.LinkedList;
  *
  * @author Márcio Roberto, Amanda Lima Bezerra
  */
-public class OrdemServico{
+public class OrdemServico implements Serializable{
     private int id;
     private Integer clienteId;
     private Integer tecnicoId;

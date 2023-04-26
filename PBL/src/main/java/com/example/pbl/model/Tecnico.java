@@ -3,6 +3,7 @@ package com.example.pbl.model;
 import com.example.pbl.dao.DAO;
 import com.example.pbl.exceptions.OrdemServicoAtualException;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -24,7 +25,7 @@ import java.util.List;
  * @author Márcio Roberto, Amanda Lima Bezerra
  */
 
-public class Tecnico {
+public class Tecnico implements Serializable {
     private int id;
     private String nome;
     private String email;

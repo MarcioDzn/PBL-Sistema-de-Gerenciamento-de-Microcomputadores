@@ -1,5 +1,6 @@
 package com.example.pbl.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ import java.util.List;
  *
  * @author Márcio Roberto, Amanda Lima Bezerra
  */
-public abstract class Servico {
+public abstract class Servico implements Serializable {
     private int id;
     private double preco;
     private double custo;
