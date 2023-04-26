@@ -4,6 +4,7 @@ import com.example.pbl.dao.DAO;
 import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 import com.example.pbl.exceptions.OrdemServicoException;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.LinkedList;
@@ -26,7 +27,7 @@ import java.util.LinkedList;
  *
  * @author Márcio Roberto, Amanda Lima Bezerra
  */
-public class OrdemServico {
+public class OrdemServico{
     private int id;
     private Integer clienteId;
     private Integer tecnicoId;
@@ -46,7 +47,7 @@ public class OrdemServico {
      */
     public OrdemServico(Integer clienteId) {
         this.clienteId = clienteId;
-        this.status = "Em andamento";
+        this.status = "Em aberto";
 
         this.montagens = new LinkedList<Integer>();
         this.limpezas = new LinkedList<Integer>();
@@ -81,10 +82,20 @@ public class OrdemServico {
     }
 
     /**
+     * Método que define o status como "Em andamento"
+     */
+    public void colocarEmAndamento() throws OrdemServicoException {
+        if (this.isFinalizado() || this.isCancelado())
+            throw new OrdemServicoException(this.status);
+
+        this.status = "Em andamento";
+    }
+
+    /**
      * Método que define o status como "Finalizado"
      */
     public void finalizar() throws OrdemServicoException {
-        if (this.isFinalizado() || this.isCancelado())
+        if (this.isFinalizado() || this.isCancelado() || this.isEmAberto())
             throw new OrdemServicoException(this.status);
 
         this.status = "Finalizado";
@@ -128,6 +139,16 @@ public class OrdemServico {
      */
     public boolean isEmAndamento(){
         if (this.status.equals("Em andamento"))
+            return true;
+        return false;
+    }
+
+    /**
+     * Método que verifica se o status for "Em aberto"
+     * @return true se o status for "Em andamento", false caso contrário
+     */
+    public boolean isEmAberto(){
+        if (this.status.equals("Em aberto"))
             return true;
         return false;
     }
@@ -186,7 +207,7 @@ public class OrdemServico {
      * @param id Novo id do tecnico
      */
     public void setTecnicoId(Integer id) throws OrdemServicoException {
-        if (this.isFinalizado() || this.isCancelado())
+        if (this.isFinalizado() || this.isCancelado() || this.isEmAberto())
             throw new OrdemServicoException(this.status);
 
         this.tecnicoId = id;
@@ -251,7 +272,7 @@ public class OrdemServico {
      * @param quantidade Quantidade do serviço
      */
     public void addServicos(Servico servico, int quantidade) throws OrdemServicoException {
-        if (this.isFinalizado() || this.isCancelado())
+        if (this.isFinalizado() || this.isCancelado() || this.isEmAberto())
             throw new OrdemServicoException(this.status);
 
         for(int i = 0; i < quantidade; i++) {
@@ -274,7 +295,7 @@ public class OrdemServico {
      * @param tipo Tipo da classe do serviço a ser removido
      */
     public void removerServico(int id, int quantidade, String tipo) throws ObjetoNaoEncontradoException, OrdemServicoException {
-        if (this.isFinalizado() || this.isCancelado())
+        if (this.isFinalizado() || this.isCancelado() || this.isEmAberto())
             throw new OrdemServicoException(this.status);
 
         for (int j = 0; j < quantidade; j++){
@@ -330,7 +351,7 @@ public class OrdemServico {
      * @param metodoPagamento Método de pagamento
      */
     public void setMetodoPagamento(String metodoPagamento) throws OrdemServicoException {
-        if (this.isFinalizado() || this.isCancelado())
+        if (this.isFinalizado() || this.isCancelado() || this.isEmAberto())
             throw new OrdemServicoException(this.status);
 
         this.metodoPagamento = metodoPagamento;
@@ -349,7 +370,7 @@ public class OrdemServico {
      * @param descricao Descrição da ordem de serviço
      */
     public void setDescricao(String descricao) throws OrdemServicoException {
-        if (this.isFinalizado() || this.isCancelado())
+        if (this.isFinalizado() || this.isCancelado() || this.isEmAberto())
             throw new OrdemServicoException(this.status);
 
         this.descricao = descricao;
