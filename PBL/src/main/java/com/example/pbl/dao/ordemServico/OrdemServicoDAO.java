@@ -26,4 +26,17 @@ public interface OrdemServicoDAO extends CRUD<OrdemServico> {
      * @return Lista de objetos do tipo OrdemServico
      */
     public List<OrdemServico> buscarPorServico(int id, String tipoServico);
+
+    /**
+     * Busca uma lista de ordens em aberto armazenadas no DAO
+     * @return Lista de objetos do tipo OrdemServico
+     */
+    public List<OrdemServico> buscarOrdensEmAberto();
+
+    /**
+     * Busca a primeira ordem de serviço em aberto armazenada no DAO
+     * @return Objeto do tipo OrdemServico
+     */
+    public OrdemServico buscarPrimeiraOrdem();
+
 }
