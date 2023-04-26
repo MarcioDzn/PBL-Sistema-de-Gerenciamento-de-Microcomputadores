@@ -14,13 +14,15 @@ public class ClienteArquivo implements ClienteDAO{
      * Dados para gerar um objeto ClienteArquivo.
      */
     public ClienteArquivo() {
-        ManipuladorArquivo.guardarBinario(new LinkedList<Cliente>(), "clientes.dat");
-        this.proxId = 0;
+        List<Cliente> lista = ManipuladorArquivo.recuperarBinario("clientes.dat");
+        // Garante que o proxId não zere sempre que o programa for reiniciado
+        // Pega o id do último elemento adicionado na lista
+        this.proxId = lista.size() > 0 ? lista.get(0).getId() : 0;
     }
 
     @Override
     public void criar(Cliente objeto) {
-        List<Cliente> lista =  ManipuladorArquivo.recuperarBinario("clientes.dat");
+        List<Cliente> lista = ManipuladorArquivo.recuperarBinario("clientes.dat");
 
         objeto.setId(this.proxId);
         lista.add(objeto);
