@@ -14,15 +14,25 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class OrdemServicoListaTest {
-
-
     private OrdemServico ordem1;
     private OrdemServico ordem2;
     @BeforeEach
     void setUp(){
         this.ordem1 = new OrdemServico(0);
+        try {
+            this.ordem1.colocarEmAndamento();
+        } catch (OrdemServicoException e) {
+            throw new RuntimeException(e);
+        }
         DAO.getOrdemServico().criar(ordem1);
+
         this.ordem2 = new OrdemServico(0);
+        try {
+            this.ordem2.colocarEmAndamento();
+
+        } catch (OrdemServicoException e) {
+            throw new RuntimeException(e);
+        }
         DAO.getOrdemServico().criar(ordem2);
     }
     @Test
@@ -50,12 +60,14 @@ class OrdemServicoListaTest {
     void testAtualizarExistente() {
         OrdemServico ordem3 = new OrdemServico(0);
         ordem3.setId(0);
-        try{
+
+        try {
             DAO.getOrdemServico().atualizar(ordem3);
-            assertEquals(ordem3, DAO.getOrdemServico().buscarPorId(0));
         } catch (ObjetoNaoEncontradoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
+
+        assertEquals(ordem3, DAO.getOrdemServico().buscarPorId(0));
     }
 
     @Test
@@ -68,12 +80,14 @@ class OrdemServicoListaTest {
 
     @Test
     void testRemoverExistente() {
-        try{
+
+        try {
             DAO.getOrdemServico().remover(this.ordem2);
-            assertEquals(1, DAO.getOrdemServico().buscarTodos().size());
         } catch (ObjetoNaoEncontradoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
+
+        assertEquals(1, DAO.getOrdemServico().buscarTodos().size());
     }
 
     @Test
@@ -131,7 +145,14 @@ class OrdemServicoListaTest {
         try {
             this.ordem1.setTecnicoId(0);
             this.ordem2.setTecnicoId(0);
+
+            DAO.getOrdemServico().atualizar(this.ordem1);
+            DAO.getOrdemServico().atualizar(this.ordem2);
+
         } catch (OrdemServicoException e) {
+            throw new RuntimeException(e);
+
+        } catch (ObjetoNaoEncontradoException e) {
             throw new RuntimeException(e);
         }
 
@@ -151,7 +172,14 @@ class OrdemServicoListaTest {
         try {
             this.ordem1.addServicos(montagem1, 2);
             this.ordem2.addServicos(montagem1, 2);
+
+            DAO.getOrdemServico().atualizar(this.ordem1);
+            DAO.getOrdemServico().atualizar(this.ordem2);
+
         } catch (OrdemServicoException e) {
+            throw new RuntimeException(e);
+
+        } catch (ObjetoNaoEncontradoException e) {
             throw new RuntimeException(e);
         }
 
@@ -162,10 +190,10 @@ class OrdemServicoListaTest {
     }
     @Test
     void setOrdemFinalizada(){
-        try{
+        try {
             ordem1.finalizar();
         } catch (OrdemServicoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
 
         assertThrows(OrdemServicoException.class, () -> ordem1.setDescricao("teste1"));
@@ -174,10 +202,11 @@ class OrdemServicoListaTest {
 
     @Test
     void setOrdemNaoFinalizada(){
-        try{
+
+        try {
             ordem2.setDescricao("Teste2");
         } catch (OrdemServicoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
 
         assertEquals("Teste2", ordem2.getDescricao());
