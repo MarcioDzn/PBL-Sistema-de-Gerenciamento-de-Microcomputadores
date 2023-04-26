@@ -49,12 +49,15 @@ class MontagemListaTest {
     void testAtualizarExistente() {
         Montagem montagem3 = new Montagem();
         montagem3.setId(0);
-        try{
+
+        try {
             DAO.getMontagem().atualizar(montagem3);
-            assertEquals(montagem3, DAO.getMontagem().buscarPorId(0));
         } catch (ObjetoNaoEncontradoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
+
+        assertEquals(montagem3, DAO.getMontagem().buscarPorId(0));
+
     }
 
     @Test
@@ -67,12 +70,13 @@ class MontagemListaTest {
 
     @Test
     void testRemoverExistente() {
-        try{
+        try {
             DAO.getMontagem().remover(this.montagem2);
-            assertEquals(1, DAO.getMontagem().buscarTodos().size());
         } catch (ObjetoNaoEncontradoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
+
+        assertEquals(1, DAO.getMontagem().buscarTodos().size());
     }
 
     @Test
@@ -86,6 +90,7 @@ class MontagemListaTest {
     void testRemoverEAtualizarQuantidade(){
         Montagem montagem3 = new Montagem();
         montagem3.setId(0);
+
         try{
             DAO.getMontagem().remover(this.montagem1);
         } catch (ObjetoNaoEncontradoException e) {
@@ -118,6 +123,15 @@ class MontagemListaTest {
         lista.add(this.montagem1);
         this.montagem2.setComponente(peca1, 2);
         lista.add(this.montagem2);
+
+        try {
+            DAO.getMontagem().atualizar(this.montagem1);
+            DAO.getMontagem().atualizar(this.montagem2);
+
+        } catch (ObjetoNaoEncontradoException e) {
+            throw new RuntimeException(e);
+        }
+
 
         assertEquals(lista, DAO.getMontagem().buscarPorComponente(0, "Peca"));
     }
