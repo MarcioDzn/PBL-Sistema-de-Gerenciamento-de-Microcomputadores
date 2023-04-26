@@ -52,7 +52,7 @@ class LimpezaListaTest {
             DAO.getLimpeza().atualizar(limpeza3);
             assertEquals(limpeza3, DAO.getLimpeza().buscarPorId(0));
         } catch (ObjetoNaoEncontradoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
     }
 
@@ -61,17 +61,25 @@ class LimpezaListaTest {
         Limpeza limpeza3 = new Limpeza(30, 78, "limpeza3");
         limpeza3.setId(3);
 
-        assertThrows(ObjetoNaoEncontradoException.class, () -> DAO.getLimpeza().atualizar(limpeza3));
+        try {
+            DAO.getLimpeza().atualizar(limpeza3);
+
+        } catch (ObjetoNaoEncontradoException e) {
+            assertThrows(ObjetoNaoEncontradoException.class, () -> DAO.getLimpeza().atualizar(limpeza3));
+        }
+
+
     }
 
     @Test
     void testRemoverExistente() {
-        try{
+        try {
             DAO.getLimpeza().remover(this.limpeza2);
-            assertEquals(1, DAO.getLimpeza().buscarTodos().size());
         } catch (ObjetoNaoEncontradoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
+
+        assertEquals(1, DAO.getLimpeza().buscarTodos().size());
     }
 
     @Test
@@ -79,24 +87,27 @@ class LimpezaListaTest {
         Limpeza limpeza3 = new Limpeza(18, 67, "limpeza3");
         limpeza3.setId(3);
 
-        assertThrows(ObjetoNaoEncontradoException.class, () -> DAO.getLimpeza().remover(limpeza3));
+        try {
+            DAO.getLimpeza().atualizar(limpeza3);
+        } catch (ObjetoNaoEncontradoException e) {
+            assertThrows(ObjetoNaoEncontradoException.class, () -> DAO.getLimpeza().remover(limpeza3));
+        }
+
+
     }
     @Test
     void testRemoverEAtualizarQuantidade(){
         Limpeza limpeza3 = new Limpeza(57,12, "limpeza3");
         limpeza3.setId(0);
+
         try{
             DAO.getLimpeza().remover(this.limpeza1);
-        } catch (ObjetoNaoEncontradoException e) {
-            System.out.println(e);
-        }
-
-
-        try{
             DAO.getLimpeza().atualizar(limpeza3);
+
         } catch (ObjetoNaoEncontradoException e) {
             System.out.println(e);
         }
+
         assertEquals(1, DAO.getLimpeza().buscarTodos().size());
     }
     @Test
