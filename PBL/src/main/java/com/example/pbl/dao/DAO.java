@@ -3,18 +3,25 @@ package com.example.pbl.dao;
 import com.example.pbl.dao.cliente.ClienteArquivo;
 import com.example.pbl.dao.cliente.ClienteDAO;
 import com.example.pbl.dao.cliente.ClienteLista;
+import com.example.pbl.dao.instalacao.InstalacaoArquivo;
 import com.example.pbl.dao.instalacao.InstalacaoDAO;
 import com.example.pbl.dao.instalacao.InstalacaoLista;
+import com.example.pbl.dao.limpeza.LimpezaArquivo;
 import com.example.pbl.dao.limpeza.LimpezaDAO;
 import com.example.pbl.dao.limpeza.LimpezaLista;
+import com.example.pbl.dao.montagem.MontagemArquivo;
 import com.example.pbl.dao.montagem.MontagemDAO;
 import com.example.pbl.dao.montagem.MontagemLista;
+import com.example.pbl.dao.ordemServico.OrdemServicoArquivo;
 import com.example.pbl.dao.ordemServico.OrdemServicoDAO;
 import com.example.pbl.dao.ordemServico.OrdemServicoLista;
+import com.example.pbl.dao.outroComponente.OutroComponenteArquivo;
 import com.example.pbl.dao.outroComponente.OutroComponenteDAO;
 import com.example.pbl.dao.outroComponente.OutroComponenteLista;
+import com.example.pbl.dao.peca.PecaArquivo;
 import com.example.pbl.dao.peca.PecaDAO;
 import com.example.pbl.dao.peca.PecaLista;
+import com.example.pbl.dao.tecnico.TecnicoArquivo;
 import com.example.pbl.dao.tecnico.TecnicoDAO;
 import com.example.pbl.dao.tecnico.TecnicoLista;
 
@@ -56,7 +63,7 @@ public class DAO {
      */
     public static InstalacaoDAO getInstalacao(){
         if (instalacaoDAO == null){
-            instalacaoDAO = new InstalacaoLista();
+            instalacaoDAO = new InstalacaoArquivo();
 
         }
         return instalacaoDAO;
@@ -68,7 +75,7 @@ public class DAO {
      */
     public static LimpezaDAO getLimpeza(){
         if (limpezaDAO == null){
-            limpezaDAO = new LimpezaLista();
+            limpezaDAO = new LimpezaArquivo();
 
         }
         return limpezaDAO;
@@ -80,7 +87,7 @@ public class DAO {
      */
     public static MontagemDAO getMontagem(){
         if (montagemDAO == null){
-            montagemDAO = new MontagemLista();
+            montagemDAO = new MontagemArquivo();
 
         }
         return montagemDAO;
@@ -92,7 +99,7 @@ public class DAO {
      */
     public static TecnicoDAO getTecnico(){
         if (tecnicoDAO == null){
-            tecnicoDAO = new TecnicoLista();
+            tecnicoDAO = new TecnicoArquivo();
         }
         return tecnicoDAO;
     }
@@ -103,7 +110,7 @@ public class DAO {
      */
     public static OrdemServicoDAO getOrdemServico(){
         if (ordemServicoDAO == null){
-            ordemServicoDAO = new OrdemServicoLista();
+            ordemServicoDAO = new OrdemServicoArquivo();
         }
         return ordemServicoDAO;
     }
@@ -114,7 +121,7 @@ public class DAO {
      */
     public static OutroComponenteDAO getOutroComponente(){
         if (outroComponenteDAO == null){
-            outroComponenteDAO = new OutroComponenteLista();
+            outroComponenteDAO = new OutroComponenteArquivo();
         }
         return outroComponenteDAO;
     }
@@ -125,7 +132,7 @@ public class DAO {
      */
     public static PecaDAO getPeca(){
         if (pecaDAO == null){
-            pecaDAO = new PecaLista();
+            pecaDAO = new PecaArquivo();
         }
         return pecaDAO;
     }
