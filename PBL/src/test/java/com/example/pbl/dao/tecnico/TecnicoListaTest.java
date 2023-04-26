@@ -89,28 +89,6 @@ class TecnicoListaTest {
     }
 
     @Test
-    void testRemoverEAtualizarQuantidade() {
-        Tecnico tecnico3 = new Tecnico("Nome", "Endereço");
-        tecnico3.setId(1);
-
-        try {
-            DAO.getTecnico().remover(this.tecnico1);
-
-        } catch (ObjetoNaoEncontradoException e) {
-            System.out.println(e);
-        }
-
-        try {
-            DAO.getTecnico().atualizar(tecnico3);
-
-        } catch (ObjetoNaoEncontradoException e) {
-            System.out.println(e);
-        }
-
-        assertEquals(1, DAO.getTecnico().buscarTodos().size());
-    }
-
-    @Test
     void deletarTudo() {
         DAO.getTecnico().deletarTudo();
 

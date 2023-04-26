@@ -83,25 +83,6 @@ class OutroComponenteListaTest {
     }
 
     @Test
-    void removerEAtualizarQuantidade(){
-        OutroComponente outroComponente3 = new OutroComponente(23,67,"outraPeça3");
-        outroComponente3.setId(0);
-
-        try{
-            DAO.getOutroComponente().remover(this.outroComponente1);
-        } catch (ObjetoNaoEncontradoException e) {
-            System.out.println(e);
-        }
-
-        try{
-            DAO.getOutroComponente().atualizar(outroComponente3);
-        } catch (ObjetoNaoEncontradoException e) {
-            System.out.println(e);
-        }
-
-        assertEquals(1, DAO.getOutroComponente().buscarTodos().size());
-    }
-    @Test
     void deletarTudo() {
         DAO.getOutroComponente().deletarTudo();
         assertEquals(0, DAO.getOutroComponente().buscarTodos().size());

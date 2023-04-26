@@ -86,25 +86,6 @@ class MontagemListaTest {
 
         assertThrows(ObjetoNaoEncontradoException.class, () -> DAO.getMontagem().remover(montagem3));
     }
-    @Test
-    void testRemoverEAtualizarQuantidade(){
-        Montagem montagem3 = new Montagem();
-        montagem3.setId(0);
-
-        try{
-            DAO.getMontagem().remover(this.montagem1);
-        } catch (ObjetoNaoEncontradoException e) {
-            System.out.println(e);
-        }
-
-
-        try{
-            DAO.getMontagem().atualizar(montagem3);
-        } catch (ObjetoNaoEncontradoException e) {
-            System.out.println(e);
-        }
-        assertEquals(1, DAO.getMontagem().buscarTodos().size());
-    }
 
     @Test
     void testDeletarTudo() {

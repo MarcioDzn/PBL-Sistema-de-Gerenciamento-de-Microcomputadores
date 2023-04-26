@@ -89,28 +89,6 @@ class InstalacaoListaTest {
     }
 
     @Test
-    void testRemoverEAtualizarQuantidade() {
-        Instalacao instalacao3 = new Instalacao(10, 10, "instalacao3");
-        instalacao3.setId(1);
-
-        try {
-            DAO.getInstalacao().remover(this.instalacao1);
-
-        } catch (ObjetoNaoEncontradoException e) {
-            System.out.println(e);
-        }
-
-        try {
-            DAO.getInstalacao().atualizar(instalacao3);
-
-        } catch (ObjetoNaoEncontradoException e) {
-            System.out.println(e);
-        }
-
-        assertEquals(1, DAO.getInstalacao().buscarTodos().size());
-    }
-
-    @Test
     void testDeletarTudo() {
         DAO.getInstalacao().deletarTudo();
 

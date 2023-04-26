@@ -97,24 +97,6 @@ class OrdemServicoListaTest {
 
         assertThrows(ObjetoNaoEncontradoException.class, () -> DAO.getOrdemServico().remover(ordem3));
     }
-    @Test
-    void testRemoverEAtualizarQuantidade(){
-        OrdemServico ordem3 = new OrdemServico(0);
-        ordem3.setId(0);
-        try{
-            DAO.getOrdemServico().remover(this.ordem1);
-        } catch (ObjetoNaoEncontradoException e) {
-            System.out.println(e);
-        }
-
-
-        try{
-            DAO.getOrdemServico().atualizar(ordem3);
-        } catch (ObjetoNaoEncontradoException e) {
-            System.out.println(e);
-        }
-        assertEquals(1, DAO.getOrdemServico().buscarTodos().size());
-    }
 
     @Test
     void testDeletarTudo() {

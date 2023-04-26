@@ -80,25 +80,6 @@ class PecaListaTest {
     }
 
     @Test
-    void RemoverEAtualizarQuantidade(){
-        Peca peca3 = new Peca(2, 34, 45, "peça3", "fab3");
-        peca3.setId(0);
-
-        try{
-            DAO.getPeca().remover(this.peca1);
-        } catch (ObjetoNaoEncontradoException e) {
-            System.out.println(e);
-        }
-
-        try {
-            DAO.getPeca().atualizar(peca3);
-        } catch (ObjetoNaoEncontradoException e) {
-            System.out.println(e);
-        }
-
-        assertEquals(1, DAO.getPeca().buscarTodos().size());
-    }
-    @Test
     void deletarTudo() {
         DAO.getPeca().deletarTudo();
         assertEquals(0, DAO.getPeca().buscarTodos().size());

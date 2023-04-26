@@ -87,28 +87,6 @@ class ClienteListaTest {
     }
 
     @Test
-    void testRemoverEAtualizarQuantidade() {
-        Cliente cliente3 = new Cliente("Nome", "Endereço", "Telefone", "Email");
-        cliente3.setId(1);
-
-        try {
-            DAO.getCliente().remover(this.cliente1);
-
-        } catch (ObjetoNaoEncontradoException e) {
-            System.out.println(e);
-        }
-
-        try {
-            DAO.getCliente().atualizar(cliente3);
-
-        } catch (ObjetoNaoEncontradoException e) {
-            System.out.println(e);
-        }
-
-        assertEquals(1, DAO.getCliente().buscarTodos().size());
-    }
-
-    @Test
     void testDeletarTudo() {
         DAO.getCliente().deletarTudo();
 

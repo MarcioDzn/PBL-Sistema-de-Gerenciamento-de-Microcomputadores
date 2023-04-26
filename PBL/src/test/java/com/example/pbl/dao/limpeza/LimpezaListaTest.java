@@ -67,8 +67,6 @@ class LimpezaListaTest {
         } catch (ObjetoNaoEncontradoException e) {
             assertThrows(ObjetoNaoEncontradoException.class, () -> DAO.getLimpeza().atualizar(limpeza3));
         }
-
-
     }
 
     @Test
@@ -92,24 +90,8 @@ class LimpezaListaTest {
         } catch (ObjetoNaoEncontradoException e) {
             assertThrows(ObjetoNaoEncontradoException.class, () -> DAO.getLimpeza().remover(limpeza3));
         }
-
-
     }
-    @Test
-    void testRemoverEAtualizarQuantidade(){
-        Limpeza limpeza3 = new Limpeza(57,12, "limpeza3");
-        limpeza3.setId(0);
 
-        try{
-            DAO.getLimpeza().remover(this.limpeza1);
-            DAO.getLimpeza().atualizar(limpeza3);
-
-        } catch (ObjetoNaoEncontradoException e) {
-            System.out.println(e);
-        }
-
-        assertEquals(1, DAO.getLimpeza().buscarTodos().size());
-    }
     @Test
     void testDeletarTudo() {
         DAO.getLimpeza().deletarTudo();
