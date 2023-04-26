@@ -54,11 +54,11 @@ class InstalacaoListaTest {
 
         try {
             DAO.getInstalacao().atualizar(instalacao3);
-            assertEquals(instalacao3, DAO.getInstalacao().buscarPorId(1));
-
         } catch (ObjetoNaoEncontradoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
+        assertEquals(instalacao3, DAO.getInstalacao().buscarPorId(1));
+
     }
 
     @Test
@@ -73,11 +73,11 @@ class InstalacaoListaTest {
     void testRemoverExistente() {
         try {
             DAO.getInstalacao().remover(this.instalacao1);
-            assertEquals(1, DAO.getInstalacao().buscarTodos().size());
-
         } catch (ObjetoNaoEncontradoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
+        assertEquals(1, DAO.getInstalacao().buscarTodos().size());
+
     }
 
     @Test

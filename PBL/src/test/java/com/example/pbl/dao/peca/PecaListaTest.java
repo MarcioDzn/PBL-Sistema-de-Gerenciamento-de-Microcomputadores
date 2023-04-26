@@ -47,12 +47,12 @@ class PecaListaTest {
         Peca peca3 = new Peca(1, 43, 56, "peça3", "fab3");
         peca3.setId(1);
 
-        try{
+        try {
             DAO.getPeca().atualizar(peca3);
-            assertEquals(peca3, DAO.getPeca().buscarPorId(1));
         } catch (ObjetoNaoEncontradoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
+        assertEquals(peca3, DAO.getPeca().buscarPorId(1));
     }
 
     @Test
@@ -64,10 +64,10 @@ class PecaListaTest {
     }
     @Test
     void removerExistente() {
-        try{
+        try {
             DAO.getPeca().remover(this.peca1);
         } catch (ObjetoNaoEncontradoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
     }
 

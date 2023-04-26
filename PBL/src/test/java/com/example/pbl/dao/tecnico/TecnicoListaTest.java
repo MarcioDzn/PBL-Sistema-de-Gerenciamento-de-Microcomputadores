@@ -54,11 +54,11 @@ class TecnicoListaTest {
 
         try {
             DAO.getTecnico().atualizar(tecnico3);
-            assertEquals(tecnico3, DAO.getTecnico().buscarPorId(1));
-
         } catch (ObjetoNaoEncontradoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
+        assertEquals(tecnico3, DAO.getTecnico().buscarPorId(1));
+
     }
 
     @Test
@@ -73,11 +73,10 @@ class TecnicoListaTest {
     void removerExistente() {
         try {
             DAO.getTecnico().remover(this.tecnico1);
-            assertEquals(1, DAO.getTecnico().buscarTodos().size());
-
         } catch (ObjetoNaoEncontradoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
+        assertEquals(1, DAO.getTecnico().buscarTodos().size());
     }
 
     @Test

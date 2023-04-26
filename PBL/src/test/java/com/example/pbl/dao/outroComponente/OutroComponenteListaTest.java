@@ -48,12 +48,13 @@ class OutroComponenteListaTest {
         OutroComponente outroComponente3 = new OutroComponente(23, 56, "outroPeça3");
         outroComponente3.setId(1);
 
-        try{
+        try {
             DAO.getOutroComponente().atualizar(outroComponente3);
-            assertEquals(outroComponente3, DAO.getOutroComponente().buscarPorId(1));
         } catch (ObjetoNaoEncontradoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
+        assertEquals(outroComponente3, DAO.getOutroComponente().buscarPorId(1));
+
     }
 
     @Test
@@ -66,12 +67,13 @@ class OutroComponenteListaTest {
 
     @Test
     void removerExistente() {
-        try{
+        try {
             DAO.getOutroComponente().remover(this.outroComponente2);
-            assertEquals(1, DAO.getOutroComponente().buscarTodos().size());
         } catch (ObjetoNaoEncontradoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
+        assertEquals(1, DAO.getOutroComponente().buscarTodos().size());
+
     }
 
     @Test

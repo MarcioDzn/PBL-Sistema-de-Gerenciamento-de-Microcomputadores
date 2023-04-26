@@ -50,10 +50,11 @@ class LimpezaListaTest {
         limpeza3.setId(0);
         try{
             DAO.getLimpeza().atualizar(limpeza3);
-            assertEquals(limpeza3, DAO.getLimpeza().buscarPorId(0));
         } catch (ObjetoNaoEncontradoException e) {
             throw new RuntimeException(e);
         }
+
+        assertEquals(limpeza3, DAO.getLimpeza().buscarPorId(0));
     }
 
     @Test

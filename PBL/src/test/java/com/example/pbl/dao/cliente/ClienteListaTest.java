@@ -53,11 +53,11 @@ class ClienteListaTest {
 
         try {
             DAO.getCliente().atualizar(cliente3);
-            assertEquals(cliente3, DAO.getCliente().buscarPorId(1));
-
         } catch (ObjetoNaoEncontradoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
+        assertEquals(cliente3, DAO.getCliente().buscarPorId(1));
+
     }
 
     @Test
@@ -71,11 +71,11 @@ class ClienteListaTest {
     void testRemoverExistente() {
         try {
             DAO.getCliente().remover(this.cliente1);
-            assertEquals(1, DAO.getCliente().buscarTodos().size());
-
         } catch (ObjetoNaoEncontradoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
+        assertEquals(1, DAO.getCliente().buscarTodos().size());
+
     }
 
     @Test
