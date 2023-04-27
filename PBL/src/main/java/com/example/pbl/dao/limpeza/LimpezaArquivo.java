@@ -19,7 +19,7 @@ public class LimpezaArquivo implements LimpezaDAO{
         List<Limpeza> lista = ManipuladorArquivo.recuperarBinario("limpezas.dat");
         // Garante que o proxId não zere sempre que o programa for reiniciado
         // Pega o id do último elemento adicionado na lista
-        this.proxId = lista.size() > 0 ? lista.get(0).getId() : 0;
+        this.proxId = lista.size() > 0 ? lista.get(0).getId() + 1: 0;
     }
 
     @Override
