@@ -47,6 +47,11 @@ class TecnicoTest {
         try {
             this.tecnico.addOrdemServicoAtual(0);
 
+            DAO.getTecnico().atualizar(this.tecnico);
+
+        } catch (ObjetoNaoEncontradoException e) {
+            throw new RuntimeException(e);
+
         } catch (OrdemServicoAtualException e) {
             throw new RuntimeException(e);
         }
@@ -97,6 +102,15 @@ class TecnicoTest {
             throw new RuntimeException(e);
         }
         lista.add(this.os2);
+
+        // Atualizando ordens de serviço no DAO
+        try {
+            DAO.getOrdemServico().atualizar(this.os1);
+            DAO.getOrdemServico().atualizar(this.os2);
+
+        } catch (ObjetoNaoEncontradoException e) {
+            throw new RuntimeException(e);
+        }
 
         assertEquals(lista, this.tecnico.getOrdensServico());
 
