@@ -185,6 +185,18 @@ class OrdemServicoImplTest {
 
         assertEquals(lista, DAO.getOrdemServico().buscarOrdensEmAberto());
     }
+
+    @Test
+    void testBuscarPrimeiraOrdem(){
+        OrdemServico os3 = new OrdemServico(0);
+        DAO.getOrdemServico().criar(os3);
+
+        OrdemServico os4 = new OrdemServico(0);
+        DAO.getOrdemServico().criar(os4);
+
+        assertEquals(os3, DAO.getOrdemServico().buscarPrimeiraOrdem());
+    }
+
     @AfterEach
     void tearDown(){
         DAO.getOrdemServico().deletarTudo();
