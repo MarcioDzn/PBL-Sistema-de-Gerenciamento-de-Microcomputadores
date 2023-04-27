@@ -164,9 +164,13 @@ class MontagemTest {
         List<OrdemServico> osLista = new LinkedList<OrdemServico>();
 
         for (int i = 0; i < 3; i++){
-            osLista.add(new OrdemServico(0));
+            OrdemServico os = new OrdemServico(0);
+
             try {
+                os.colocarEmAndamento();
+                osLista.add(os);
                 osLista.get(i).addServicos(this.montagem, 1);
+
             } catch (OrdemServicoException e) {
                 throw new RuntimeException(e);
             }

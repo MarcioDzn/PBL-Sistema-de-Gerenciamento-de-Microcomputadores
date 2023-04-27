@@ -24,8 +24,11 @@ class LimpezaTest {
         List<OrdemServico> lista = new LinkedList<OrdemServico>();
 
         OrdemServico os1 = new OrdemServico(0);
+
         try {
+            os1.colocarEmAndamento();
             os1.addServicos(this.limpeza, 1);
+
         } catch (OrdemServicoException e) {
             throw new RuntimeException(e);
         }

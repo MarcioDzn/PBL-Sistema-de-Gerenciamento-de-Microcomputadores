@@ -29,9 +29,13 @@ class InstalacaoTest {
         List<OrdemServico> lista = new LinkedList<OrdemServico>();
 
         for (int i = 0; i < 2; i++){
-            lista.add(new OrdemServico(i));
+            OrdemServico os = new OrdemServico(0);
+
             try {
+                os.colocarEmAndamento();
+                lista.add(os);
                 lista.get(i).addServicos(this.instalacao, 1);
+                
             } catch (OrdemServicoException e) {
                 throw new RuntimeException(e);
             }
