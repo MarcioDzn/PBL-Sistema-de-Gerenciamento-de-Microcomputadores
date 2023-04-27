@@ -171,6 +171,20 @@ class OrdemServicoImplTest {
         assertEquals(lista, DAO.getOrdemServico().buscarPorServico(0, "Montagem"));
     }
 
+    @Test
+    void testBuscarOrdensEmAberto(){
+        List<OrdemServico> lista = new LinkedList<OrdemServico>();
+
+        OrdemServico os3 = new OrdemServico(0);
+        DAO.getOrdemServico().criar(os3);
+        lista.add(os3);
+
+        OrdemServico os4 = new OrdemServico(0);
+        DAO.getOrdemServico().criar(os4);
+        lista.add(os4);
+
+        assertEquals(lista, DAO.getOrdemServico().buscarOrdensEmAberto());
+    }
     @AfterEach
     void tearDown(){
         DAO.getOrdemServico().deletarTudo();
