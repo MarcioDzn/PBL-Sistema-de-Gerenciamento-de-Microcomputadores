@@ -19,6 +19,7 @@ class OrdemServicoTest {
     @BeforeEach
     void setUp(){
         this.os1 = new OrdemServico(0);
+
     }
 
     @Test
@@ -35,32 +36,37 @@ class OrdemServicoTest {
         try{
             this.os1.addServicos(montagem, 1);
             double valorPreco = this.os1.getPreco();
+
             assertEquals(45, valorPreco);
         } catch (OrdemServicoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
+
+
     }
 
     @Test
     void testIsFinalizado() {
         try{
             this.os1.finalizar();
-            assertTrue(this.os1.isFinalizado());
+
         } catch (OrdemServicoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
+
+        assertTrue(this.os1.isFinalizado());
     }
 
     @Test
     void testIsCancelado() {
         try{
             this.os1.cancelar();
-            assertTrue(this.os1.isCancelado());
+
         } catch (OrdemServicoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
 
-
+        assertTrue(this.os1.isCancelado());
     }
 
     @Test
@@ -75,8 +81,9 @@ class OrdemServicoTest {
             this.os1.finalizar();
             long tempoTotal = this.os1.getTempoTotal();
             assertTrue(tempoTotal > 800 && tempoTotal < 1000);
+
         } catch (OrdemServicoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
     }
 
@@ -93,10 +100,12 @@ class OrdemServicoTest {
         DAO.getTecnico().criar(tecnico1);
         try{
             this.os1.setTecnicoId(0);
-            assertEquals(tecnico1, this.os1.getTecnico());
+
         } catch (OrdemServicoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
+
+        assertEquals(tecnico1, this.os1.getTecnico());
     }
 
     @Test
@@ -109,10 +118,12 @@ class OrdemServicoTest {
         try{
             this.os1.addServicos(montagem, 3);
             this.os1.addServicos(montagem2, 1);
-            assertEquals(4, this.os1.getMontagens().size());
+
         } catch (OrdemServicoException e) {
-            fail();
+            throw new RuntimeException(e);
         }
+
+        assertEquals(4, this.os1.getMontagens().size());
     }
 
     @Test
@@ -125,11 +136,12 @@ class OrdemServicoTest {
         try {
             this.os1.addServicos(limpeza, 5);
             this.os1.addServicos(limpeza2, 2);
-            assertEquals(7, this.os1.getLimpezas().size());
+
         } catch (OrdemServicoException e){
-            fail();
+            throw new RuntimeException(e);
         }
 
+        assertEquals(7, this.os1.getLimpezas().size());
     }
 
     @Test
@@ -143,11 +155,11 @@ class OrdemServicoTest {
             this.os1.addServicos(instalacao, 2);
             this.os1.addServicos(instalacao2, 2);
 
-            assertEquals(4, this.os1.getInstalacoes().size());
         } catch (OrdemServicoException e){
-            fail();
+            throw new RuntimeException(e);
         }
 
+        assertEquals(4, this.os1.getInstalacoes().size());
     }
 
     @Test
@@ -167,11 +179,11 @@ class OrdemServicoTest {
             lista.add(montagem);
             lista.add(montagem2);
 
-            assertEquals(lista, this.os1.getMontagens());
         } catch (OrdemServicoException e){
-            fail();
+            throw new RuntimeException(e);
         }
 
+        assertEquals(lista, this.os1.getMontagens());
     }
 
     @Test
@@ -191,10 +203,11 @@ class OrdemServicoTest {
             lista.add(limpeza);
             lista.add(limpeza2);
 
-            assertEquals(lista, this.os1.getLimpezas());
         } catch (OrdemServicoException e){
-            fail();
+            throw new RuntimeException(e);
         }
+
+        assertEquals(lista, this.os1.getLimpezas());
 
     }
 
@@ -215,10 +228,11 @@ class OrdemServicoTest {
             lista.add(instalacao);
             lista.add(instalacao2);
 
-            assertEquals(lista, this.os1.getInstalacoes());
         } catch (OrdemServicoException e){
-            fail();
+            throw new RuntimeException(e);
         }
+
+        assertEquals(lista, this.os1.getInstalacoes());
     }
 
     @Test
@@ -239,11 +253,11 @@ class OrdemServicoTest {
                 throw new RuntimeException(e);
             }
 
-            assertEquals(4, this.os1.getMontagens().size());
         } catch (OrdemServicoException e){
-            fail();
+            throw new RuntimeException(e);
         }
 
+        assertEquals(4, this.os1.getMontagens().size());
     }
     @Test
     void removerServicoLimpeza(){
@@ -263,10 +277,11 @@ class OrdemServicoTest {
                 throw new RuntimeException(e);
             }
 
-            assertEquals(1, this.os1.getLimpezas().size());
         } catch (OrdemServicoException e){
-            fail();
+            throw new RuntimeException(e);
         }
+
+        assertEquals(1, this.os1.getLimpezas().size());
 
     }
     @Test
@@ -287,11 +302,11 @@ class OrdemServicoTest {
                 throw new RuntimeException(e);
             }
 
-            assertEquals(2, this.os1.getInstalacoes().size());
         } catch (OrdemServicoException e){
-            fail();
+            throw new RuntimeException(e);
         }
 
+        assertEquals(2, this.os1.getInstalacoes().size());
     }
 
     @Test
@@ -306,12 +321,13 @@ class OrdemServicoTest {
         try{
             this.os1.addServicos(instalacao, 3);
 
-            assertThrows(ObjetoNaoEncontradoException.class, () -> this.os1.removerServico(0, 4, "Instalacao"));
         } catch (OrdemServicoException e){
-            fail();
+            throw new RuntimeException(e);
         }
 
+        assertThrows(ObjetoNaoEncontradoException.class, () -> this.os1.removerServico(0, 4, "Instalacao"));
     }
+
 
     @Test
     void testEquals(){
@@ -324,6 +340,7 @@ class OrdemServicoTest {
 
         assertFalse(this.os1.equals(os2));
     }
+
 
     @AfterEach
     void tearDown(){
