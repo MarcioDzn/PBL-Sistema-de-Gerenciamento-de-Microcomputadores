@@ -41,6 +41,14 @@ class PecaTest {
         montagem1.setComponente(this.peca1, 1);
         montagem2.setComponente(this.peca1, 1);
 
+        try {
+            DAO.getMontagem().atualizar(montagem1);
+            DAO.getMontagem().atualizar(montagem2);
+
+        } catch (ObjetoNaoEncontradoException e) {
+            throw new RuntimeException(e);
+        }
+
         assertEquals(lista, this.peca1.getMontagens());
     }
 

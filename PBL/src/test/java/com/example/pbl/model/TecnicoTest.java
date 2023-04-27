@@ -1,6 +1,7 @@
 package com.example.pbl.model;
 
 import com.example.pbl.dao.DAO;
+import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 import com.example.pbl.exceptions.OrdemServicoAtualException;
 import com.example.pbl.exceptions.OrdemServicoException;
 import org.junit.jupiter.api.AfterEach;
@@ -23,9 +24,19 @@ class TecnicoTest {
         DAO.getTecnico().criar(this.tecnico);
 
         this.os1 = new OrdemServico(0);
+        try {
+            this.os1.colocarEmAndamento();
+        } catch (OrdemServicoException e) {
+            throw new RuntimeException(e);
+        }
         DAO.getOrdemServico().criar(this.os1);
 
         this.os2 = new OrdemServico(0);
+        try {
+            this.os2.colocarEmAndamento();
+        } catch (OrdemServicoException e) {
+            throw new RuntimeException(e);
+        }
         DAO.getOrdemServico().criar(this.os2);
     }
 
@@ -36,8 +47,13 @@ class TecnicoTest {
         try {
             this.tecnico.addOrdemServicoAtual(0);
 
+            DAO.getTecnico().atualizar(this.tecnico);
+
+        } catch (ObjetoNaoEncontradoException e) {
+            throw new RuntimeException(e);
+
         } catch (OrdemServicoAtualException e) {
-            System.out.println(e);
+            throw new RuntimeException(e);
         }
 
         assertEquals(this.os1, this.tecnico.getOrdemServicoAtual());
@@ -73,6 +89,7 @@ class TecnicoTest {
 
         try {
             this.os1.setTecnicoId(0);
+
         } catch (OrdemServicoException e) {
             throw new RuntimeException(e);
         }
@@ -80,19 +97,32 @@ class TecnicoTest {
 
         try {
             this.os2.setTecnicoId(0);
+
         } catch (OrdemServicoException e) {
             throw new RuntimeException(e);
         }
         lista.add(this.os2);
 
+        // Atualizando ordens de serviço no DAO
+        try {
+            DAO.getOrdemServico().atualizar(this.os1);
+            DAO.getOrdemServico().atualizar(this.os2);
+
+        } catch (ObjetoNaoEncontradoException e) {
+            throw new RuntimeException(e);
+        }
+
         assertEquals(lista, this.tecnico.getOrdensServico());
 
         OrdemServico os3 = new OrdemServico(0);
         try {
+            os3.colocarEmAndamento();
             os3.setTecnicoId(1);
+
         } catch (OrdemServicoException e) {
             throw new RuntimeException(e);
         }
+
         lista.add(os3);
 
         assertNotEquals(lista, this.tecnico.getOrdensServico());
