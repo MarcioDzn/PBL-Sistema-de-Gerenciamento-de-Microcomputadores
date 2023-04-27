@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OutroComponenteListaTest {
+class OutroComponenteImplTest {
     private OutroComponente outroComponente1;
     private OutroComponente outroComponente2;
     @BeforeEach

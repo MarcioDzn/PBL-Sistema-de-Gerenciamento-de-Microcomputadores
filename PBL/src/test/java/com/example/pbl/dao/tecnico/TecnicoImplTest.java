@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TecnicoListaTest {
+class TecnicoImplTest {
 
     private Tecnico tecnico1;
     private Tecnico tecnico2;

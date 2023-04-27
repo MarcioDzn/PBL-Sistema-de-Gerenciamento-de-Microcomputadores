@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MontagemListaTest {
+class MontagemImplTest {
 
     private Montagem montagem1;
     private Montagem montagem2;

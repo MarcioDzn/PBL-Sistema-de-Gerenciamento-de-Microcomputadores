@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ClienteListaTest {
+class ClienteImplTest {
     private Cliente cliente1;
     private Cliente cliente2;
     @BeforeEach

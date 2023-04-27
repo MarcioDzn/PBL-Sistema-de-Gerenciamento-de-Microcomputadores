@@ -7,13 +7,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LimpezaListaTest {
+class LimpezaImplTest {
     private Limpeza limpeza1;
     private Limpeza limpeza2;
     @BeforeEach

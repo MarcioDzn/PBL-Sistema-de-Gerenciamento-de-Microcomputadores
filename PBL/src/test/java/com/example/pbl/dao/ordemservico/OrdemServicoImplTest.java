@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OrdemServicoListaTest {
+class OrdemServicoImplTest {
     private OrdemServico ordem1;
     private OrdemServico ordem2;
     @BeforeEach

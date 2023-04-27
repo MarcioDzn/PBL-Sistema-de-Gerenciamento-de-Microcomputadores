@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PecaListaTest {
+class PecaImplTest {
     private Peca peca1;
     private Peca peca2;
 
