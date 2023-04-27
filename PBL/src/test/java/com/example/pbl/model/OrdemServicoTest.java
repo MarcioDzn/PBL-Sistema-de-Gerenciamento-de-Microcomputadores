@@ -19,7 +19,6 @@ class OrdemServicoTest {
     @BeforeEach
     void setUp(){
         this.os1 = new OrdemServico(0);
-
     }
 
     @Test
@@ -36,8 +35,8 @@ class OrdemServicoTest {
         try{
             this.os1.addServicos(montagem, 1);
             double valorPreco = this.os1.getPreco();
-
             assertEquals(45, valorPreco);
+
         } catch (OrdemServicoException e) {
             throw new RuntimeException(e);
         }
@@ -72,6 +71,12 @@ class OrdemServicoTest {
     @Test
     void testIsEmAndamento() {
         assertTrue(this.os1.isEmAndamento());
+    }
+
+    @Test
+    void testIsEmAberto() {
+        OrdemServico os2 = new OrdemServico(0);
+        assertTrue(os2.isEmAberto());
     }
 
     @Test
@@ -328,6 +333,33 @@ class OrdemServicoTest {
         assertThrows(ObjetoNaoEncontradoException.class, () -> this.os1.removerServico(0, 4, "Instalacao"));
     }
 
+    @Test
+    void testOrdemFinalizada(){
+        try {
+            this.os1.finalizar();
+
+        } catch (OrdemServicoException e) {
+            assertThrows(OrdemServicoException.class, () -> this.os1.setDescricao("teste1"));
+        }
+    }
+
+    @Test
+    void testOrdemCancelada(){
+        try {
+            this.os1.cancelar();
+
+        } catch (OrdemServicoException e) {
+            assertThrows(OrdemServicoException.class, () -> this.os1.setDescricao("teste1"));
+        }
+    }
+
+    @Test
+    void testOrdemEmAberto(){
+        OrdemServico os2 = new OrdemServico(0);
+
+        assertThrows(OrdemServicoException.class, () -> os2.setDescricao("teste1"));
+
+    }
 
     @Test
     void testEquals(){
