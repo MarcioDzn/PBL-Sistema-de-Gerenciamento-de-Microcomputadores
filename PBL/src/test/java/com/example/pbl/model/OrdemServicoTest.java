@@ -19,6 +19,13 @@ class OrdemServicoTest {
     @BeforeEach
     void setUp(){
         this.os1 = new OrdemServico(0);
+
+        try {
+            this.os1.colocarEmAndamento();
+
+        } catch (OrdemServicoException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
