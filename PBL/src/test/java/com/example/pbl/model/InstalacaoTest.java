@@ -16,12 +16,12 @@ class InstalacaoTest {
 
     @BeforeEach
     void setUp(){
-        this.instalacao = new Instalacao(20, 40, "Half-Life 2");
+        instalacao = new Instalacao(20, 40, "Half-Life 2");
 
         instalacao.setInstalacao("Steam");
         instalacao.setInstalacao("Adobe");
 
-        DAO.getInstalacao().criar(this.instalacao);
+        DAO.getInstalacao().criar(instalacao);
     }
 
     @Test
@@ -34,7 +34,7 @@ class InstalacaoTest {
             try {
                 os.colocarEmAndamento();
                 lista.add(os);
-                lista.get(i).addServicos(this.instalacao, 1);
+                lista.get(i).addServicos(instalacao, 1);
                 
             } catch (OrdemServicoException e) {
                 throw new RuntimeException(e);
@@ -64,5 +64,6 @@ class InstalacaoTest {
     @AfterEach
     void tearDown(){
         DAO.getInstalacao().deletarTudo();
+        DAO.getOrdemServico().deletarTudo();
     }
 }
