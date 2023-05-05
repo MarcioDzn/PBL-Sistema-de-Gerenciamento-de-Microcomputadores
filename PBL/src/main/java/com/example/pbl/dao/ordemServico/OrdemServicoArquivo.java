@@ -17,7 +17,7 @@ public class OrdemServicoArquivo implements OrdemServicoDAO{
         List<OrdemServico> lista = ManipuladorArquivo.recuperarBinario("ordensServico.dat");
         // Garante que o proxId não zere sempre que o programa for reiniciado
         // Pega o id do último elemento adicionado na lista
-        this.proxId = lista.size() > 0 ? lista.get(0).getId() + 1 : 0;
+        this.proxId = lista.size() > 0 ? lista.get(lista.size()-1).getId() + 1 : 0;
     }
 
     @Override
