@@ -16,11 +16,9 @@ public class ManipuladorArquivo{
             objArquivo.flush();
             objArquivo.close();
 
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-
         } catch (IOException e) {
             throw new RuntimeException(e);
+
         }
     }
 
@@ -37,14 +35,9 @@ public class ManipuladorArquivo{
 
             return (LinkedList<T>) objArquivo.readObject();
 
-        } catch (FileNotFoundException e) {
+        } catch (ClassNotFoundException | IOException e) {
             throw new RuntimeException(e);
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
         }
     }
 }
