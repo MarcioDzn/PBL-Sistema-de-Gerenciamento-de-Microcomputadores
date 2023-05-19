@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../../css/mainWindowStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pbl.controller.MainWindow">
+   <children>
+      <Label prefHeight="309.0" prefWidth="458.0" text="Label">
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" green="0.19607843458652496" blue="0.9411764740943909" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.08389261744966443">
+                     <color>
+                        <Color red="1.0" green="0.19607843458652496" blue="0.9411764740943909" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.37150106400392857">
+                     <color>
+                        <Color red="1.0" blue="0.9254902005195618" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" blue="0.5882353186607361" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
+         <font>
+            <Font name="Arial Bold" size="96.0" />
+         </font>
+      </Label>
+      <VBox prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #060606;">
+         <children>
+            <HBox prefHeight="111.0" prefWidth="1280.0" style="-fx-background-color: #282828;">
+               <VBox.margin>
+                  <Insets bottom="2.0" />
+               </VBox.margin>
+               <children>
+                  <HBox prefHeight="107.0" prefWidth="465.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" />
+                        <HBox prefHeight="100.0" prefWidth="200.0" />
+                     </children></HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="109.0" prefWidth="966.0">
+                     <children>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="67.0" prefWidth="936.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="47.0" prefWidth="162.0" style="-fx-background-radius: 30; -fx-background-color: #7A31E0;">
+                                 <children>
+                                    <Label text="Técnico" textFill="#e1e1e1">
+                                       <font>
+                                          <Font name="Arial Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets right="15.0" />
+                                 </HBox.margin>
+                              </HBox>
+                              <Label text="Usuario" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="47.0" prefWidth="150.0" styleClass="logout">
+                                 <children>
+                                    <Button fx:id="btnSair" mnemonicParsing="false" onAction="#sairAction" prefHeight="43.0" prefWidth="148.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Desconectar" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="70.0" />
+                                 </HBox.margin>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="612.0" prefWidth="1208.0">
+               <children>
+                  <VBox prefHeight="612.0" prefWidth="301.0" style="-fx-background-color: #2C2C2C;" styleClass="sidebar">
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin>
+                     <children>
+                        <VBox prefHeight="590.0" prefWidth="261.0" spacing="20.0">
+                           <children>
+                              <HBox fx:id="btnPageMenu" alignment="CENTER_LEFT" onMouseClicked="#pageMenuAction" prefHeight="52.0" prefWidth="221.0" spacing="15.0" style="-fx-background-radius: 10;" styleClass="menu-btn">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="44.0" prefWidth="34.0" style="-fx-background-color: 2c2c2c; -fx-background-radius: 8;" styleClass="bg-icon">
+                                       <children>
+                                          <ImageView fitHeight="32.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../media/home%20(2).png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                    <Label text="Menu Principal" textFill="#e1e1e1">
+                                       <font>
+                                          <Font name="Arial Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox fx:id="btnPageClientes" alignment="CENTER_LEFT" onMouseClicked="#pageClientesAction" prefHeight="39.0" prefWidth="261.0" spacing="15.0" style="-fx-background-radius: 10;" styleClass="menu-btn">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="44.0" prefWidth="34.0" style="-fx-background-color: 2c2c2c; -fx-background-radius: 8;" styleClass="bg-icon">
+                                       <children>
+                                          <ImageView fitHeight="32.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../media/user-add.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                    <Label text="Cadastrar Clientes" textFill="#e1e1e1">
+                                       <font>
+                                          <Font name="Arial Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox fx:id="btnPageOrdens" alignment="CENTER_LEFT" onMouseClicked="#pageOrdensAction" prefHeight="13.0" prefWidth="261.0" spacing="15.0" style="-fx-background-radius: 10;" styleClass="menu-btn">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="44.0" prefWidth="34.0" style="-fx-background-color: 2c2c2c; -fx-background-radius: 8;" styleClass="bg-icon">
+                                       <children>
+                                          <ImageView fitHeight="32.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../media/edit.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                    <Label text="Gerenciar Ordens" textFill="#e1e1e1">
+                                       <font>
+                                          <Font name="Arial Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox fx:id="btnPageEstoque" alignment="CENTER_LEFT" onMouseClicked="#pageEstoqueAction" prefHeight="37.0" prefWidth="261.0" spacing="15.0" style="-fx-background-radius: 10;" styleClass="menu-btn">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="44.0" prefWidth="34.0" style="-fx-background-color: 2c2c2c; -fx-background-radius: 8;" styleClass="bg-icon">
+                                       <children>
+                                          <ImageView fitHeight="32.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../media/definicoes.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                    <Label text="GerenciarEstoque" textFill="#e1e1e1">
+                                       <font>
+                                          <Font name="Arial Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox fx:id="btnPageTecnicos" alignment="CENTER_LEFT" onMouseClicked="#pageTecnicosAction" prefHeight="19.0" prefWidth="261.0" spacing="15.0" style="-fx-background-radius: 10;" styleClass="menu-btn">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="44.0" prefWidth="34.0" style="-fx-background-color: 2c2c2c; -fx-background-radius: 8;" styleClass="bg-icon">
+                                       <children>
+                                          <ImageView fitHeight="32.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../media/address-book.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                    <Label text="Gerenciar Técnicos" textFill="#e1e1e1">
+                                       <font>
+                                          <Font name="Arial Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox fx:id="btnPageRelatorio" alignment="CENTER_LEFT" onMouseClicked="#pageRelatorioAction" prefHeight="38.0" prefWidth="261.0" spacing="15.0" style="-fx-background-radius: 10;" styleClass="menu-btn">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="44.0" prefWidth="34.0" style="-fx-background-color: 2c2c2c; -fx-background-radius: 8;" styleClass="bg-icon">
+                                       <children>
+                                          <ImageView fitHeight="32.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../media/documento.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                    <Label text="Gerar Relatório" textFill="#e1e1e1">
+                                       <font>
+                                          <Font name="Arial Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                              <Separator prefWidth="200.0" style="-fx-background-color: #5A5858;" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+                  <HBox prefHeight="610.0" prefWidth="977.0" style="-fx-background-color: #282828;">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <children>
+                        <VBox prefHeight="567.0" prefWidth="946.0">
+                           <children>
+                              <Pane fx:id="mainActionPane" prefHeight="574.0" prefWidth="948.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
