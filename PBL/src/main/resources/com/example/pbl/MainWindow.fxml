@@ -7,8 +7,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.LinearGradient?>
@@ -188,7 +188,7 @@
                                           </ImageView>
                                        </children>
                                     </HBox>
-                                    <Label text="GerenciarEstoque" textFill="#e1e1e1">
+                                    <Label text="Gerenciar Estoque" textFill="#e1e1e1">
                                        <font>
                                           <Font name="Arial Bold" size="16.0" />
                                        </font>
@@ -255,7 +255,7 @@
                      <children>
                         <VBox prefHeight="567.0" prefWidth="946.0">
                            <children>
-                              <Pane fx:id="mainActionPane" prefHeight="574.0" prefWidth="948.0" />
+                              <BorderPane fx:id="mainActionPane" prefHeight="550.0" prefWidth="917.0" />
                            </children>
                         </VBox>
                      </children>

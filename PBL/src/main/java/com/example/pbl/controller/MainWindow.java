@@ -1,11 +1,19 @@
 package com.example.pbl.controller;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import com.example.pbl.HelloApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
@@ -34,16 +42,19 @@ public class MainWindow {
 
     @FXML
     private HBox btnPageTecnicos;
-
     @FXML
     private Button btnSair;
 
     @FXML
-    private Pane mainActionPane;
+    private BorderPane mainActionPane;
+
+    private Parent rootCliente;
+    private Parent rootOrdem;
+    private List<HBox> listaBotoes;
 
     @FXML
     void pageClientesAction(MouseEvent event) {
-
+        this.mainActionPane.setCenter(this.rootCliente);
     }
 
     @FXML
@@ -58,7 +69,7 @@ public class MainWindow {
 
     @FXML
     void pageOrdensAction(MouseEvent event) {
-
+        this.mainActionPane.setCenter(this.rootOrdem);
     }
 
     @FXML
@@ -76,6 +87,18 @@ public class MainWindow {
 
     }
 
+    void openPage(String url){
+        Parent root = null;
+
+        try {
+            root = FXMLLoader.load(HelloApplication.class.getResource(url));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        this.mainActionPane.setCenter(root);
+    }
+
     @FXML
     void initialize() {
         assert btnPageClientes != null : "fx:id=\"btnPageClientes\" was not injected: check your FXML file 'mainWindow.fxml'.";
@@ -87,6 +110,14 @@ public class MainWindow {
         assert btnSair != null : "fx:id=\"btnSair\" was not injected: check your FXML file 'mainWindow.fxml'.";
         assert mainActionPane != null : "fx:id=\"mainActionPane\" was not injected: check your FXML file 'mainWindow.fxml'.";
 
+
+        try {
+            this.rootCliente = FXMLLoader.load(HelloApplication.class.getResource("GerenciarClientesWindow.fxml"));
+            this.rootOrdem = FXMLLoader.load(HelloApplication.class.getResource("GerenciarOrdensWindow.fxml"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
+
 
 }
