@@ -50,6 +50,7 @@ public class MainWindow {
 
     private Parent rootCliente;
     private Parent rootOrdem;
+    private Parent rootPecas;
     private List<HBox> listaBotoes;
 
     @FXML
@@ -59,7 +60,7 @@ public class MainWindow {
 
     @FXML
     void pageEstoqueAction(MouseEvent event) {
-
+        this.mainActionPane.setCenter(this.rootPecas);
     }
 
     @FXML
@@ -114,6 +115,7 @@ public class MainWindow {
         try {
             this.rootCliente = FXMLLoader.load(HelloApplication.class.getResource("GerenciarClientesWindow.fxml"));
             this.rootOrdem = FXMLLoader.load(HelloApplication.class.getResource("GerenciarOrdensWindow.fxml"));
+            this.rootPecas = FXMLLoader.load(HelloApplication.class.getResource("GerenciarPecasWindow.fxml"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
