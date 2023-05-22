@@ -117,13 +117,10 @@ public class GerenciarClientesWindow {
 
     @FXML
     void editarAction(ActionEvent event) {
-        int index = this.tblClientes.getSelectionModel().getSelectedIndex();
+        Cliente cliente = this.tblClientes.getSelectionModel().getSelectedItem();
 
-        if (index >= 0){
-            Cliente cliente = this.listaClientes.get(index);
+        if (cliente != null){
             Cliente clienteEditado = this.editarCliente(cliente, this.criarCliente());
-
-            this.listaClientes.set(index, clienteEditado);
 
             try {
                 DAO.getCliente().atualizar(clienteEditado);
@@ -131,7 +128,15 @@ public class GerenciarClientesWindow {
                 throw new RuntimeException(e);
             }
 
+            int index = this.listaClientes.indexOf(cliente);
+            this.listaClientes.set(index, clienteEditado);
+
             this.limparCampos();
+
+            if (this.listaClientes.size() < DAO.getCliente().buscarTodos().size())
+                this.txtBuscarNome.setText(clienteEditado.getNome());
+
+            this.pesquisarCliente();
         }
 
     }
