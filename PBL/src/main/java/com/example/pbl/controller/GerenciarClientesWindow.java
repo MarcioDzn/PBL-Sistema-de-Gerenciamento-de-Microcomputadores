@@ -92,7 +92,7 @@ public class GerenciarClientesWindow {
             // Mostra a tabela toda mesmo se estiver pesquisando algo
             this.listaClientes.clear();
             this.listaClientes.addAll(DAO.getCliente().buscarTodos());
-
+            this.txtBuscarNome.setText("");
             this.limparCampos();
         }
 
@@ -212,7 +212,7 @@ public class GerenciarClientesWindow {
                 listaClientes.addAll(DAO.getCliente().buscarTodos());
             } else{
                 for (Cliente cliente : DAO.getCliente().buscarTodos()){
-                    if (cliente.getNome().toLowerCase().startsWith(txtBuscarNome.getText())){
+                    if (cliente.getNome().toLowerCase().startsWith(txtBuscarNome.getText().toLowerCase())){
                         listaClientes.add(cliente);
                     }
                 }
