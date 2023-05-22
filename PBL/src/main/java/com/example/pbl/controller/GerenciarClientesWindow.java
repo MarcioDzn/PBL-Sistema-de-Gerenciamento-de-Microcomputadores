@@ -73,7 +73,10 @@ public class GerenciarClientesWindow {
 
         this.carregarCSS();
         this.carregarTabela();
-        this.pesquisarCliente();
+
+        this.txtBuscarNome.setOnKeyReleased(keyEvent -> {
+            this.pesquisarCliente();
+        });
 
     }
 
@@ -199,7 +202,6 @@ public class GerenciarClientesWindow {
     }
 
     void pesquisarCliente(){
-        this.txtBuscarNome.setOnKeyReleased(keyEvent -> {
             listaClientes.clear();
             if ("".equals(txtBuscarNome.getText())){
                 listaClientes.addAll(DAO.getCliente().buscarTodos());
@@ -210,7 +212,12 @@ public class GerenciarClientesWindow {
                     }
                 }
             }
-        });
+
+        if (listaClientes.size() == 0){
+            this.txtBuscarNome.setStyle("-fx-text-inner-color: white; -fx-background-color: #282828; -fx-border-color: red; -fx-border-width: 0 0 1.5 0");
+        } else{
+            this.txtBuscarNome.setStyle("-fx-text-inner-color: white; -fx-background-color: #282828; -fx-border-color: white; -fx-border-width: 0 0 1.5 0");
+        }
     }
 
     void limparCampos(){
@@ -231,6 +238,7 @@ public class GerenciarClientesWindow {
         txtEmail.setStyle("-fx-text-inner-color: white; -fx-background-color: #282828; -fx-border-color: white; -fx-border-width: 0 0 1.5 0");
         txtEndereco.setStyle("-fx-text-inner-color: white; -fx-background-color: #282828; -fx-border-color: white; -fx-border-width: 0 0 1.5 0");
         txtTelefone.setStyle("-fx-text-inner-color: white; -fx-background-color: #282828; -fx-border-color: white; -fx-border-width: 0 0 1.5 0");
+        txtBuscarNome.setStyle("-fx-text-inner-color: white; -fx-background-color: #282828; -fx-border-color: white; -fx-border-width: 0 0 1.5 0");
     }
 
     private void carregarTabela(){
