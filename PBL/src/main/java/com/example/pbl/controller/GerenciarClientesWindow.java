@@ -85,7 +85,10 @@ public class GerenciarClientesWindow {
 
         if (clienteValido){
             DAO.getCliente().criar(novoCliente);
-            this.listaClientes.add(novoCliente);
+
+            // Mostra a tabela toda mesmo se estiver pesquisando algo
+            this.listaClientes.clear();
+            this.listaClientes.addAll(DAO.getCliente().buscarTodos());
 
             this.limparCampos();
         }
