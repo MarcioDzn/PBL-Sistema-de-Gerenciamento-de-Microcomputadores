@@ -97,20 +97,19 @@ public class GerenciarClientesWindow {
 
     @FXML
     void deletarAction(ActionEvent event) {
-        int index = this.tblClientes.getSelectionModel().getSelectedIndex();
+        Cliente clienteRemovido = this.tblClientes.getSelectionModel().getSelectedItem();
 
-        if (index >= 0){
-            Cliente clienteRemovido = this.listaClientes.get(index);
-            this.listaClientes.remove(index);
-
-            try {
-                DAO.getCliente().remover(clienteRemovido);
-            } catch (ObjetoNaoEncontradoException e) {
-                throw new RuntimeException(e);
-            }
-
-            this.limparCampos();
+        try {
+            DAO.getCliente().remover(clienteRemovido);
+        } catch (ObjetoNaoEncontradoException e) {
+            throw new RuntimeException(e);
         }
+
+        this.listaClientes.clear();
+        this.listaClientes.addAll(DAO.getCliente().buscarTodos());
+
+        this.limparCampos();
+
     }
 
     @FXML
