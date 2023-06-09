@@ -23,7 +23,7 @@ import java.util.List;
  * @author Márcio Roberto, Amanda Lima Bezerra
  */
 public class Limpeza extends Servico{
-    String limpeza;
+    String descricao;
 
     /**
      * Dados para gerar um objeto limpeza.
@@ -33,7 +33,7 @@ public class Limpeza extends Servico{
      */
     public Limpeza(double preco, double custo, String limpeza) {
         super(preco, custo);
-        this.limpeza = limpeza;
+        this.descricao = limpeza;
     }
 
     /**
@@ -48,16 +48,16 @@ public class Limpeza extends Servico{
      * Método que retorna a descrição deste serviço de limpeza
      * @return Descrição do serviço de limpeza
      */
-    public String getLimpeza() {
-        return limpeza;
+    public String getDescricao() {
+        return descricao;
     }
 
     /**
      * Método que define a descrição deste serviço de limpeza
-     * @param limpeza Nova descrição do serviço de limpeza
+     * @param descricao Nova descrição do serviço de limpeza
      */
-    public void setLimpeza(String limpeza) {
-        this.limpeza = limpeza;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
 

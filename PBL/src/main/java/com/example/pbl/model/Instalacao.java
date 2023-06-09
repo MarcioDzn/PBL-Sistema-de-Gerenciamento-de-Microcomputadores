@@ -2,7 +2,6 @@ package com.example.pbl.model;
 
 import com.example.pbl.dao.DAO;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -24,7 +23,7 @@ import java.util.List;
  * @author Márcio Roberto, Amanda Lima Bezerra
  */
 public class Instalacao extends Servico{
-    private String instalacao; // Instalação de programas ou formatação
+    private String descricao; // Instalação de programas ou formatação
 
     /**
      * Dados para gerar um objeto Instalação.
@@ -34,23 +33,23 @@ public class Instalacao extends Servico{
      */
     public Instalacao(double preco, double custo, String instalacao) {
         super(preco, custo);
-        this.instalacao = instalacao;
+        this.descricao = instalacao;
     }
 
     /**
      * Método que retorna a descrição da instalação
      * @return Descrição da instalação
      */
-    public String getInstalacao() {
-        return instalacao;
+    public String getDescricao() {
+        return descricao;
     }
 
     /**
      * Método que define a descrição da instalação
      * @param tipoInstalacao Nova descrição da instalação
      */
-    public void setInstalacao(String tipoInstalacao) {
-        this.instalacao = tipoInstalacao;
+    public void setDescricao(String tipoInstalacao) {
+        this.descricao = tipoInstalacao;
     }
 
     /**

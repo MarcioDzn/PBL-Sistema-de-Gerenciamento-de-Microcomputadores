@@ -28,6 +28,7 @@ public class Montagem extends Servico{
     private List<Integer> pecas;
     private List<Integer> outrosComponentes;
 
+    private String descricao;
     /**
      * Dados para gerar um objeto montagem.
      */
@@ -128,6 +129,14 @@ public class Montagem extends Servico{
      */
     public List<OrdemServico> getOrdensServico(){
         return DAO.getOrdemServico().buscarPorServico(super.getId(), "Montagem");
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     /**
