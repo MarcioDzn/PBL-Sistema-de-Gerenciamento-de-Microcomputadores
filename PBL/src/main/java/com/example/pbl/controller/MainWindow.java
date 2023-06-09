@@ -51,11 +51,20 @@ public class MainWindow {
     private Parent rootCliente;
     private Parent rootOrdem;
     private Parent rootPecas;
+    private Parent rootMenu;
+    private Parent rootMontagens;
     private List<HBox> listaBotoes;
 
     @FXML
     void pageClientesAction(MouseEvent event) {
+        try {
+            this.rootCliente = FXMLLoader.load(HelloApplication.class.getResource("GerenciarClientesWindow.fxml"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         this.mainActionPane.setCenter(this.rootCliente);
+
+
     }
 
     @FXML
@@ -65,7 +74,12 @@ public class MainWindow {
 
     @FXML
     void pageMenuAction(MouseEvent event) {
-
+        try {
+            this.rootMenu = FXMLLoader.load(HelloApplication.class.getResource("MenuPrincipalWindow.fxml"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        this.mainActionPane.setCenter((this.rootMenu));
     }
 
     @FXML
@@ -78,9 +92,23 @@ public class MainWindow {
 
     }
 
+    // MUDAR DEPOIS PRA A PAGINA CERTA
+    // MUDAR DEPOIS PRA A PAGINA CERTA
+    // MUDAR DEPOIS PRA A PAGINA CERTA
+    // MUDAR DEPOIS PRA A PAGINA CERTA
+    // MUDAR DEPOIS PRA A PAGINA CERTA
+    // MUDAR DEPOIS PRA A PAGINA CERTA
+
+
     @FXML
     void pageTecnicosAction(MouseEvent event) {
+        try {
+            this.rootMontagens = FXMLLoader.load(HelloApplication.class.getResource("GerenciarMontagensWindow.fxml"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
+        this.mainActionPane.setCenter((this.rootMontagens));
     }
 
     @FXML
@@ -116,9 +144,13 @@ public class MainWindow {
             this.rootCliente = FXMLLoader.load(HelloApplication.class.getResource("GerenciarClientesWindow.fxml"));
             this.rootOrdem = FXMLLoader.load(HelloApplication.class.getResource("GerenciarOrdensWindow.fxml"));
             this.rootPecas = FXMLLoader.load(HelloApplication.class.getResource("GerenciarPecasWindow.fxml"));
+            this.rootMenu = FXMLLoader.load(HelloApplication.class.getResource("MenuPrincipalWindow.fxml"));
+            this.rootMontagens = FXMLLoader.load(HelloApplication.class.getResource("GerenciarMontagensWindow.fxml"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        this.mainActionPane.setCenter(this.rootMenu);
     }
 
 
