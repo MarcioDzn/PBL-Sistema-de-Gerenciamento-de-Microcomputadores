@@ -18,8 +18,8 @@ class InstalacaoTest {
     void setUp(){
         instalacao = new Instalacao(20, 40, "Half-Life 2");
 
-        instalacao.setInstalacao("Steam");
-        instalacao.setInstalacao("Adobe");
+        instalacao.setDescricao("Steam");
+        instalacao.setDescricao("Adobe");
 
         DAO.getInstalacao().criar(instalacao);
     }
