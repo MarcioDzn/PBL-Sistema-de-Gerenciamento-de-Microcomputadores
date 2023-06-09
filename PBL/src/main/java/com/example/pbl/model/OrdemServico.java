@@ -207,7 +207,7 @@ public class OrdemServico implements Serializable{
      * @param id Novo id do tecnico
      */
     public void setTecnicoId(Integer id) throws OrdemServicoException {
-        if (this.isFinalizado() || this.isCancelado() || this.isEmAberto())
+        if (this.isFinalizado() || this.isCancelado())
             throw new OrdemServicoException(this.status);
 
         this.tecnicoId = id;
@@ -272,7 +272,7 @@ public class OrdemServico implements Serializable{
      * @param quantidade Quantidade do serviço
      */
     public void addServicos(Servico servico, int quantidade) throws OrdemServicoException {
-        if (this.isFinalizado() || this.isCancelado() || this.isEmAberto())
+        if (this.isFinalizado() || this.isCancelado())
             throw new OrdemServicoException(this.status);
 
         for(int i = 0; i < quantidade; i++) {
@@ -295,7 +295,7 @@ public class OrdemServico implements Serializable{
      * @param tipo Tipo da classe do serviço a ser removido
      */
     public void removerServico(int id, int quantidade, String tipo) throws ObjetoNaoEncontradoException, OrdemServicoException {
-        if (this.isFinalizado() || this.isCancelado() || this.isEmAberto())
+        if (this.isFinalizado() || this.isCancelado())
             throw new OrdemServicoException(this.status);
 
         for (int j = 0; j < quantidade; j++){
@@ -351,7 +351,7 @@ public class OrdemServico implements Serializable{
      * @param metodoPagamento Método de pagamento
      */
     public void setMetodoPagamento(String metodoPagamento) throws OrdemServicoException {
-        if (this.isFinalizado() || this.isCancelado() || this.isEmAberto())
+        if (this.isFinalizado() || this.isCancelado())
             throw new OrdemServicoException(this.status);
 
         this.metodoPagamento = metodoPagamento;
@@ -370,7 +370,7 @@ public class OrdemServico implements Serializable{
      * @param descricao Descrição da ordem de serviço
      */
     public void setDescricao(String descricao) throws OrdemServicoException {
-        if (this.isFinalizado() || this.isCancelado() || this.isEmAberto())
+        if (this.isFinalizado() || this.isCancelado())
             throw new OrdemServicoException(this.status);
 
         this.descricao = descricao;
