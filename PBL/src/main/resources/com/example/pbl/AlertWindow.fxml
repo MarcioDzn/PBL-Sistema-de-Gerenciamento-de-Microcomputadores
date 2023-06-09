@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pbl.controller.AlertWindow">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="150.0" prefWidth="300.0" style="-fx-background-color: white; -fx-border-color: #282828;">
+         <children>
+            <HBox alignment="CENTER" prefHeight="340.0" prefWidth="600.0">
+               <children>
+                  <Label fx:id="txtMensagem" text="Deseja realizar essa ação?" textFill="#282828">
+                     <font>
+                        <Font name="Arial Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="37.0" prefWidth="600.0" spacing="15.0">
+               <children>
+                  <Button fx:id="btnConfirmar" mnemonicParsing="false" onAction="#confirmarAction" prefHeight="43.0" prefWidth="102.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: #282828; -fx-background-color: white; -fx-border-radius: 8;" text="Confirmar" textFill="#282828">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cancelarAction" prefHeight="43.0" prefWidth="102.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: #282828; -fx-background-color: white; -fx-border-radius: 8;" text="Cancelar" textFill="#282828">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+   </padding>
+</AnchorPane>
