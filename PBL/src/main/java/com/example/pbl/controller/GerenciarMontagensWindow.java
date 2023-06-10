@@ -122,6 +122,7 @@ public class GerenciarMontagensWindow {
         this.listaBotoes = new LinkedList<>();
 
         this.carregarScrollPaneServico();
+        this.carregarCSS();
     }
 
     private void carregarScrollPaneServico(){
@@ -245,6 +246,10 @@ public class GerenciarMontagensWindow {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void carregarCSS(){
+        txtDescricao.setStyle("-fx-text-inner-color: white; -fx-background-color: #282828; -fx-border-color: white; -fx-border-width: 0 0 1.5 0");
     }
 
     public void setPecaController(){
