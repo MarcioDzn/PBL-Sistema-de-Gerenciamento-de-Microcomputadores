@@ -11,7 +11,9 @@ import com.example.pbl.HelloApplication;
 import com.example.pbl.dao.DAO;
 import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 import com.example.pbl.exceptions.QuantidadeException;
+import com.example.pbl.model.Componente;
 import com.example.pbl.model.Montagem;
+import com.example.pbl.model.OutroComponente;
 import com.example.pbl.model.Peca;
 import com.example.pbl.utils.componentesJavafx.ServicoCard;
 import javafx.event.ActionEvent;
@@ -42,6 +44,9 @@ public class GerenciarMontagensWindow {
     private Button btnAddPecas;
 
     @FXML
+    private Button btnAddPecaExtra;
+
+    @FXML
     private Button btnCadastrar;
 
     @FXML
@@ -59,16 +64,22 @@ public class GerenciarMontagensWindow {
     private TextField txtDescricao;
 
     private EscolherPecasWindow escolherPecasWindow;
+    private CadastrarPecasExtrasWindow cadastrarPecasExtrasWindow;
     private FlowPane flowPaneMontagens;
-    private     List<Montagem> listaMontagens;
+    private List<Montagem> listaMontagens;
     private List<Button> listaBotoes;
 
-    protected List<Peca> listaPecasSelecionadas;
+    protected List<Componente> listaPecasSelecionadas;
 
     @FXML
     void addPecasAction(ActionEvent event) {
-        this.abrirPagina("EscolherPecasWindow.fxml");
+        this.abrirPagina("EscolherPecasWindow.fxml", "Peca");
 
+    }
+
+    @FXML
+    void addPecasExtraAction(ActionEvent event) {
+        this.abrirPagina("CadastrarPecasExtrasWindow.fxml", "PecaExtra");
     }
 
     @FXML
@@ -76,7 +87,7 @@ public class GerenciarMontagensWindow {
         Montagem montagem = new Montagem();
 
         montagem.setDescricao(this.txtDescricao.getText());
-        for (Peca pecaSelecionada : this.listaPecasSelecionadas)
+        for (Componente pecaSelecionada : this.listaPecasSelecionadas)
             montagem.setComponente(pecaSelecionada, 1);
 
         DAO.getMontagem().criar(montagem);
@@ -190,18 +201,20 @@ public class GerenciarMontagensWindow {
 
     private void atualizarQuantidade(){
             try {
-                for (Peca peca : this.listaPecasSelecionadas) {
-                    Peca pecaAtualizada = DAO.getPeca().buscarPorId(peca.getId());
-                    pecaAtualizada.setQuantidade(pecaAtualizada.getQuantidade() - 1);
+                for (Componente componente : this.listaPecasSelecionadas) {
+                    if (componente instanceof Peca){
+                        Peca pecaAtualizada = DAO.getPeca().buscarPorId(((Peca) componente).getId());
+                        pecaAtualizada.setQuantidade(pecaAtualizada.getQuantidade() - 1);
 
-                    DAO.getPeca().atualizar(pecaAtualizada);
+                        DAO.getPeca().atualizar(pecaAtualizada);
+                    }
                 }
             } catch (QuantidadeException | ObjetoNaoEncontradoException e) {
                 throw new RuntimeException(e);
             }
     }
 
-    private void abrirPagina(String url){
+    private void abrirPagina(String url, String tipo){
         try {
             FXMLLoader loader = new FXMLLoader(); // Carrega o arquivo do scene builder
             URL xmlURL = HelloApplication.class.getResource(url); // Pega o XML e carrega pra ser utilizado
@@ -211,8 +224,14 @@ public class GerenciarMontagensWindow {
             Scene scene = new Scene(parent);
             Stage stage = new Stage();
 
-            this.escolherPecasWindow = loader.getController();
-            this.setPecaController();
+            if (tipo.equals("Peca")){
+                this.escolherPecasWindow = loader.getController();
+                this.setPecaController();
+
+            } else if (tipo.equals("PecaExtra")){
+                this.cadastrarPecasExtrasWindow = loader.getController();
+                this.setPecaExtraController();
+            }
 
             stage.setTitle("Nome do Dialog");
             stage.setScene(scene);
@@ -230,6 +249,9 @@ public class GerenciarMontagensWindow {
 
     public void setPecaController(){
         this.escolherPecasWindow.gerenciarMontagensController = this;
+    }
+    public void setPecaExtraController(){
+        this.cadastrarPecasExtrasWindow.gerenciarMontagensController = this;
     }
 
 }
