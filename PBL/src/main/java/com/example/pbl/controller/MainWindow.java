@@ -48,6 +48,9 @@ public class MainWindow {
     @FXML
     private BorderPane mainActionPane;
 
+    @FXML
+    private HBox btnPageMontagens;
+
     private Parent rootCliente;
     private Parent rootOrdem;
     private Parent rootPecas;
@@ -102,6 +105,11 @@ public class MainWindow {
 
     @FXML
     void pageTecnicosAction(MouseEvent event) {
+
+    }
+
+    @FXML
+    void pageMontagensAction(MouseEvent event) {
         try {
             this.rootMontagens = FXMLLoader.load(HelloApplication.class.getResource("GerenciarMontagensWindow.fxml"));
         } catch (IOException e) {
@@ -130,14 +138,15 @@ public class MainWindow {
 
     @FXML
     void initialize() {
-        assert btnPageClientes != null : "fx:id=\"btnPageClientes\" was not injected: check your FXML file 'mainWindow.fxml'.";
-        assert btnPageEstoque != null : "fx:id=\"btnPageEstoque\" was not injected: check your FXML file 'mainWindow.fxml'.";
-        assert btnPageMenu != null : "fx:id=\"btnPageMenu\" was not injected: check your FXML file 'mainWindow.fxml'.";
-        assert btnPageOrdens != null : "fx:id=\"btnPageOrdens\" was not injected: check your FXML file 'mainWindow.fxml'.";
-        assert btnPageRelatorio != null : "fx:id=\"btnPageRelatorio\" was not injected: check your FXML file 'mainWindow.fxml'.";
-        assert btnPageTecnicos != null : "fx:id=\"btnPageTecnicos\" was not injected: check your FXML file 'mainWindow.fxml'.";
-        assert btnSair != null : "fx:id=\"btnSair\" was not injected: check your FXML file 'mainWindow.fxml'.";
-        assert mainActionPane != null : "fx:id=\"mainActionPane\" was not injected: check your FXML file 'mainWindow.fxml'.";
+        assert btnPageClientes != null : "fx:id=\"btnPageClientes\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert btnPageEstoque != null : "fx:id=\"btnPageEstoque\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert btnPageMenu != null : "fx:id=\"btnPageMenu\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert btnPageMontagens != null : "fx:id=\"btnPageMontagens\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert btnPageOrdens != null : "fx:id=\"btnPageOrdens\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert btnPageRelatorio != null : "fx:id=\"btnPageRelatorio\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert btnPageTecnicos != null : "fx:id=\"btnPageTecnicos\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert btnSair != null : "fx:id=\"btnSair\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert mainActionPane != null : "fx:id=\"mainActionPane\" was not injected: check your FXML file 'MainWindow.fxml'.";
 
 
         try {
