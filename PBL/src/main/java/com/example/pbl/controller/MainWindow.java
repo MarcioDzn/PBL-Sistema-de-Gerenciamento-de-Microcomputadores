@@ -50,12 +50,18 @@ public class MainWindow {
 
     @FXML
     private HBox btnPageMontagens;
+    @FXML
+    private HBox btnPageLimpezas;
+    @FXML
+    private HBox btnPageInstalacoes;
 
     private Parent rootCliente;
     private Parent rootOrdem;
     private Parent rootPecas;
     private Parent rootMenu;
     private Parent rootMontagens;
+    private Parent rootLimpezas;
+    private Parent rootInstalacoes;
     private List<HBox> listaBotoes;
 
     @FXML
@@ -120,6 +126,28 @@ public class MainWindow {
     }
 
     @FXML
+    void pageInstalacoesAction(MouseEvent event) {
+        try {
+            this.rootInstalacoes = FXMLLoader.load(HelloApplication.class.getResource("GerenciarInstalacoesWindow.fxml"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        this.mainActionPane.setCenter((this.rootInstalacoes));
+    }
+
+    @FXML
+    void pageLimpezasAction(MouseEvent event) {
+        try {
+            this.rootLimpezas = FXMLLoader.load(HelloApplication.class.getResource("GerenciarLimpezasWindow.fxml"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        this.mainActionPane.setCenter((this.rootLimpezas));
+    }
+
+    @FXML
     void sairAction(ActionEvent event) {
 
     }
@@ -155,6 +183,8 @@ public class MainWindow {
             this.rootPecas = FXMLLoader.load(HelloApplication.class.getResource("GerenciarPecasWindow.fxml"));
             this.rootMenu = FXMLLoader.load(HelloApplication.class.getResource("MenuPrincipalWindow.fxml"));
             this.rootMontagens = FXMLLoader.load(HelloApplication.class.getResource("GerenciarMontagensWindow.fxml"));
+            this.rootLimpezas = FXMLLoader.load(HelloApplication.class.getResource("GerenciarLimpezasWindow.fxml"));
+            this.rootInstalacoes = FXMLLoader.load(HelloApplication.class.getResource("GerenciarInstalacoesWindow.fxml"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
