@@ -144,8 +144,10 @@ public class GerenciarOrdensWindow {
     @FXML
     void instalacaoAction(ActionEvent event) {
         this.abrirPagina("ServicosInstalacaoWindow.fxml", "Instalacao");
-        this.selecionarBotoesServicos();
-        this.removerServico();
+
+        this.listaServicos.addAll(this.listaInstalacoesSelecionadas);
+        this.carregarScrollPaneServico();
+
 
     }
 
