@@ -36,6 +36,7 @@ public class OrdemServico implements Serializable{
     private List<Integer> limpezas;
     private List<Integer> instalacoes;
     private String descricao;
+    private String avaliacao;
     private long criadoEm;
     private long finalizadoEm;
     private String metodoPagamento;
@@ -47,6 +48,7 @@ public class OrdemServico implements Serializable{
      */
     public OrdemServico(Integer clienteId) {
         this.clienteId = clienteId;
+        this.tecnicoId = -1;
         this.status = "Em aberto";
 
         this.montagens = new LinkedList<Integer>();
@@ -374,6 +376,17 @@ public class OrdemServico implements Serializable{
             throw new OrdemServicoException(this.status);
 
         this.descricao = descricao;
+    }
+
+    public String getAvaliacao() {
+        return avaliacao;
+    }
+
+    public void setAvaliacao(String avaliacao) throws OrdemServicoException {
+        if (this.isFinalizado() || this.isCancelado())
+            throw new OrdemServicoException(this.status);
+
+        this.avaliacao = avaliacao;
     }
     // Fim Getters e Setters
 
