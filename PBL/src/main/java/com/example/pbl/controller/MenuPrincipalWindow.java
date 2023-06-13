@@ -6,8 +6,11 @@ import java.util.*;
 
 import com.example.pbl.dao.DAO;
 import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
+import com.example.pbl.exceptions.OrdemServicoAtualException;
 import com.example.pbl.exceptions.OrdemServicoException;
 import com.example.pbl.model.OrdemServico;
+import com.example.pbl.model.Tecnico;
+import com.example.pbl.utils.LoginAtual;
 import com.example.pbl.utils.componentesJavafx.OrdensCard;
 import com.example.pbl.utils.componentesJavafx.ServicoCard;
 import com.example.pbl.utils.componentesJavafx.VazioCard;
@@ -42,11 +45,11 @@ public class MenuPrincipalWindow {
 
         this.mapBotoes = new HashMap<>();
 
-        this.carregarScrollPaneCliente();
+        this.carregarScrollPaneOrdens();
         this.mudarStatusBotao();
     }
 
-    private void carregarScrollPaneCliente(){
+    private void carregarScrollPaneOrdens(){
         try {
 
             if (this.listaOrdens.size() > 0) {
@@ -65,7 +68,7 @@ public class MenuPrincipalWindow {
 
                 this.carregarBotao();
             } else {
-                this.scOrdens.setContent(VazioCard.mensagemVazio("ordem de serviço em aberto"));
+                this.scOrdens.setContent(VazioCard.mensagemVazio("ordem de serviço em aberto", 900, 310));
             }
 
             this.scOrdens.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -75,10 +78,10 @@ public class MenuPrincipalWindow {
             throw new RuntimeException(e);
         }
 
-        this.selecionarBotoesClientes();
+        this.selecionarBotoesOrdens();
     }
 
-    void selecionarBotoesClientes(){
+    void selecionarBotoesOrdens(){
         Button botao;
         
         if (this.listaOrdens.size() > 0){
@@ -98,7 +101,6 @@ public class MenuPrincipalWindow {
                     }
                 }
             }
-
             this.mudarStatusBotao();
         }
     }
@@ -117,15 +119,23 @@ public class MenuPrincipalWindow {
                 try {
                     OrdemServico ordem = DAO.getOrdemServico().buscarPorId(idDAO);
                     ordem.colocarEmAndamento();
+                    ordem.setTecnicoId(LoginAtual.idLogin);
 
                     DAO.getOrdemServico().atualizar(ordem);
-                } catch (OrdemServicoException | ObjetoNaoEncontradoException ex) {
+
+                    Tecnico tecnicoAtualizado = DAO.getTecnico().buscarPorId(LoginAtual.idLogin);
+                    tecnicoAtualizado.addOrdemServicoAtual(ordem.getId());
+                    DAO.getTecnico().atualizar(tecnicoAtualizado);
+
+                } catch (OrdemServicoException | ObjetoNaoEncontradoException | OrdemServicoAtualException ex) {
                     throw new RuntimeException(ex);
                 }
 
                 this.listaOrdens.clear();
                 this.listaOrdens.addAll(DAO.getOrdemServico().buscarOrdensEmAberto());
-                this.carregarScrollPaneCliente();
+                this.carregarScrollPaneOrdens();
+
+                this.mapBotoes.remove(botao);
             });
         }
 
@@ -134,8 +144,13 @@ public class MenuPrincipalWindow {
 
     void carregarBotao(){
         for (Button botao : this.mapBotoes.keySet()){
-            botao.setStyle("-fx-brackground-color: white");
-            botao.setDisable(false);
+            if (DAO.getTecnico().buscarPorId(LoginAtual.idLogin) != null){
+                System.out.println("a" + DAO.getTecnico().buscarPorId(LoginAtual.idLogin).getOrdemServicoAtual());
+                if (DAO.getTecnico().buscarPorId(LoginAtual.idLogin).getOrdemServicoAtual() == null) {
+                    botao.setStyle("-fx-brackground-color: white");
+                    botao.setDisable(false);
+                }
+            }
         }
     }
 
