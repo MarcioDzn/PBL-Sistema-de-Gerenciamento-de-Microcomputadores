@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="600.0" style="-fx-background-color: #282828;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pbl.controller.AvaliacaoWindow">
+   <children>
+      <VBox prefHeight="550.0" prefWidth="600.0">
+         <children>
+            <VBox prefHeight="142.0" prefWidth="917.0">
+               <children>
+                  <Label text="Avaliação do cliente" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="40.0" prefWidth="532.0" text="Satisfação do cliente com o serviço" textFill="#bfbfbf">
+                     <font>
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                  </Label>
+                  <Separator prefWidth="200.0" />
+               </children>
+            </VBox>
+            <VBox prefHeight="414.0" prefWidth="917.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="550.0" prefWidth="917.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="btnPessimo" mnemonicParsing="false" onAction="#pessimoAction" prefHeight="43.0" prefWidth="171.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Péssimo" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnRuim" mnemonicParsing="false" onAction="#ruimAction" prefHeight="43.0" prefWidth="171.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Ruim" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnMediano" mnemonicParsing="false" onAction="#medianoAction" prefHeight="43.0" prefWidth="171.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Mediano" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnBom" mnemonicParsing="false" onAction="#bomAction" prefHeight="43.0" prefWidth="171.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Bom" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnOtimo" mnemonicParsing="false" onAction="#otimoAction" prefHeight="43.0" prefWidth="171.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Ótimo" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                        <HBox alignment="BOTTOM_CENTER" prefHeight="92.0" prefWidth="570.0" spacing="20.0">
+                           <children>
+                              <Button fx:id="btnFinalizar" mnemonicParsing="false" onAction="#finalizarAction" prefHeight="43.0" prefWidth="148.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Finalizar" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cancelarAction" prefHeight="43.0" prefWidth="148.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Cancelar" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+   </padding>
+</AnchorPane>
