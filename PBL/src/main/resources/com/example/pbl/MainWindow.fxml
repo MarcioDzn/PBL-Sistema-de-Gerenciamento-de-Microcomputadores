@@ -42,7 +42,7 @@
                                     <Insets right="15.0" />
                                  </HBox.margin>
                               </HBox>
-                              <Label text="Usuario" textFill="WHITE">
+                              <Label fx:id="txtNomeUsuario" text="Usuario" textFill="WHITE">
                                  <font>
                                     <Font name="Arial Bold" size="18.0" />
                                  </font>

@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.example.pbl.HelloApplication;
+import com.example.pbl.dao.DAO;
+import com.example.pbl.model.Tecnico;
+import com.example.pbl.utils.LoginAtual;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -29,6 +33,9 @@ public class MainWindow {
 
     @FXML
     private URL location;
+
+    @FXML
+    private Label txtNomeUsuario;
 
     @FXML
     private HBox btnPageClientes;
@@ -225,6 +232,16 @@ public class MainWindow {
         }
 
         this.mainActionPane.setCenter(this.rootMenu);
+        this.carregarNomeUsuario();
+    }
+
+    void carregarNomeUsuario(){
+        Tecnico tecnico = DAO.getTecnico().buscarPorId(LoginAtual.idLogin);
+        if (tecnico != null){
+            this.txtNomeUsuario.setText(tecnico.getNome());
+
+        }
+
     }
 
     void fecharJanela(ActionEvent event){
