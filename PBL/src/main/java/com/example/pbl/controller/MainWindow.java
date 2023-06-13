@@ -10,12 +10,17 @@ import com.example.pbl.HelloApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class MainWindow {
 
@@ -38,6 +43,9 @@ public class MainWindow {
     private HBox btnPageOrdens;
 
     @FXML
+    private HBox btnPageManipularOrdens;
+
+    @FXML
     private HBox btnPageRelatorio;
 
     @FXML
@@ -55,6 +63,8 @@ public class MainWindow {
     @FXML
     private HBox btnPageInstalacoes;
 
+
+
     private Parent rootCliente;
     private Parent rootOrdem;
     private Parent rootPecas;
@@ -62,6 +72,8 @@ public class MainWindow {
     private Parent rootMontagens;
     private Parent rootLimpezas;
     private Parent rootInstalacoes;
+    private Parent rootTecnicos;
+    private Parent rootManipularOrdens;
     private List<HBox> listaBotoes;
 
     @FXML
@@ -97,21 +109,30 @@ public class MainWindow {
     }
 
     @FXML
+    void pageManipularOrdensAction(MouseEvent event) {
+        try {
+            this.rootManipularOrdens = FXMLLoader.load(HelloApplication.class.getResource("ManipularOrdensWindow.fxml"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        this.mainActionPane.setCenter((this.rootManipularOrdens));
+    }
+
+    @FXML
     void pageRelatorioAction(MouseEvent event) {
 
     }
 
-    // MUDAR DEPOIS PRA A PAGINA CERTA
-    // MUDAR DEPOIS PRA A PAGINA CERTA
-    // MUDAR DEPOIS PRA A PAGINA CERTA
-    // MUDAR DEPOIS PRA A PAGINA CERTA
-    // MUDAR DEPOIS PRA A PAGINA CERTA
-    // MUDAR DEPOIS PRA A PAGINA CERTA
-
-
     @FXML
     void pageTecnicosAction(MouseEvent event) {
+        try {
+            this.rootTecnicos = FXMLLoader.load(HelloApplication.class.getResource("GerenciarTecnicosWindow.fxml"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
+        this.mainActionPane.setCenter((this.rootTecnicos));
     }
 
     @FXML
@@ -149,21 +170,33 @@ public class MainWindow {
 
     @FXML
     void sairAction(ActionEvent event) {
-
+        this.abrirPagina("LoginWindow.fxml");
+        this.fecharJanela(event);
     }
 
-    void openPage(String url){
-        Parent root = null;
-
+    private void abrirPagina(String url){
         try {
-            root = FXMLLoader.load(HelloApplication.class.getResource(url));
+            FXMLLoader loader = new FXMLLoader(); // Carrega o arquivo do scene builder
+            URL xmlURL = HelloApplication.class.getResource(url); // Pega o XML e carrega pra ser utilizado
+            loader.setLocation(xmlURL);
+
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+
+            stage.setTitle("Nome do Dialog");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.centerOnScreen();
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.show();
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        this.mainActionPane.setCenter(root);
     }
-
     @FXML
     void initialize() {
         assert btnPageClientes != null : "fx:id=\"btnPageClientes\" was not injected: check your FXML file 'MainWindow.fxml'.";
@@ -185,11 +218,20 @@ public class MainWindow {
             this.rootMontagens = FXMLLoader.load(HelloApplication.class.getResource("GerenciarMontagensWindow.fxml"));
             this.rootLimpezas = FXMLLoader.load(HelloApplication.class.getResource("GerenciarLimpezasWindow.fxml"));
             this.rootInstalacoes = FXMLLoader.load(HelloApplication.class.getResource("GerenciarInstalacoesWindow.fxml"));
+            this.rootTecnicos = FXMLLoader.load(HelloApplication.class.getResource("GerenciarTecnicosWindow.fxml"));
+            this.rootManipularOrdens = FXMLLoader.load(HelloApplication.class.getResource("ManipularOrdensWindow.fxml"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         this.mainActionPane.setCenter(this.rootMenu);
+    }
+
+    void fecharJanela(ActionEvent event){
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+
+        stage.close();
     }
 
 
