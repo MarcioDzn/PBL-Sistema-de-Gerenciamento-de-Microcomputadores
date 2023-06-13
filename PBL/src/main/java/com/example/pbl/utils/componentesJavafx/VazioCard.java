@@ -6,7 +6,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 public class VazioCard {
-    public static HBox mensagemVazio(String tipo){
+    public static HBox mensagemVazio(String tipo, int width, int height){
         Label labelMensagem = new Label("Não há nenhum(a) " + tipo + "!");
 
         labelMensagem.setStyle("-fx-font-weight: bold");
@@ -17,8 +17,8 @@ public class VazioCard {
         hbox.getChildren().add(labelMensagem);
         hbox.setAlignment(Pos.CENTER);
 
-        hbox.setPrefWidth(900);
-        hbox.setPrefHeight(310);
+        hbox.setPrefWidth(width);
+        hbox.setPrefHeight(height);
 
         hbox.setStyle("-fx-background-color: #282828;");
         return hbox;
