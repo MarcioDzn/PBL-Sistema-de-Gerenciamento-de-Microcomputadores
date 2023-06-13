@@ -9,6 +9,8 @@ import com.example.pbl.dao.instalacao.InstalacaoLista;
 import com.example.pbl.dao.limpeza.LimpezaArquivo;
 import com.example.pbl.dao.limpeza.LimpezaDAO;
 import com.example.pbl.dao.limpeza.LimpezaLista;
+import com.example.pbl.dao.login.LoginArquivo;
+import com.example.pbl.dao.login.LoginDAO;
 import com.example.pbl.dao.montagem.MontagemArquivo;
 import com.example.pbl.dao.montagem.MontagemDAO;
 import com.example.pbl.dao.montagem.MontagemLista;
@@ -45,6 +47,7 @@ public class DAO {
     private static OutroComponenteDAO outroComponenteDAO;
 
     private static PecaDAO pecaDAO;
+    private static LoginDAO loginDAO;
 
     /**
      * Retorna uma instância da implementação do DAO de Cliente
@@ -135,6 +138,13 @@ public class DAO {
             pecaDAO = new PecaArquivo();
         }
         return pecaDAO;
+    }
+
+    public static LoginDAO getLogin(){
+        if (loginDAO == null){
+            loginDAO = new LoginArquivo();
+        }
+        return loginDAO;
     }
 
 
