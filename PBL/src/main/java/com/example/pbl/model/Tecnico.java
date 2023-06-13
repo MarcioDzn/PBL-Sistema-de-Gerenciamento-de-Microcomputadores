@@ -107,10 +107,10 @@ public class Tecnico implements Serializable {
      * @throws OrdemServicoAtualException Se ainda houver uma ordem de serviço atual não finalizada associada ao tecnico
      */
     public void addOrdemServicoAtual(Integer novaOrdemServicoAtualId) throws OrdemServicoAtualException {
+
         if (this.ordemServicoAtualId == -1) {
             this.ordemServicoAtualId = novaOrdemServicoAtualId;
-        }
-        else if (novaOrdemServicoAtualId == -1 && this.getOrdemServicoAtual().isFinalizado()) {
+        } else if (novaOrdemServicoAtualId == -1 && (this.getOrdemServicoAtual().isFinalizado() || this.getOrdemServicoAtual().isCancelado())) {
             this.ordemServicoAtualId = -1;
         }
         else{
