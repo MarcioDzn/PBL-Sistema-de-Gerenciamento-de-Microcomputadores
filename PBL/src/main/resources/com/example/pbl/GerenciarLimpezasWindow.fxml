@@ -22,7 +22,7 @@
                         <Font name="System Bold" size="45.0" />
                      </font>
                   </Label>
-                  <Label text="Adicione um novo serviço de limpezas" textFill="#e1e1e1">
+                  <Label text="Adicione um novo serviço de limpeza" textFill="#e1e1e1">
                      <font>
                         <Font name="System Bold" size="23.0" />
                      </font>
@@ -80,7 +80,7 @@
                   <VBox prefHeight="446.0" prefWidth="434.0">
                      <children>
                         <Label text="Pesquisar limpezas:" textFill="WHITE" />
-                        <TextField fx:id="txtBuscarNome" promptText="Insira o nome da montagem">
+                        <TextField fx:id="txtBuscarNome" promptText="Insira o nome da limpeza">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
