@@ -13,7 +13,6 @@ import com.example.pbl.model.OrdemServico;
 import com.example.pbl.model.Servico;
 import com.example.pbl.utils.componentesJavafx.ServicoCard;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -63,6 +62,9 @@ public class GerenciarOrdensWindow {
     @FXML
     private TextField txtDescricao;
 
+    @FXML
+    private TextField txtPagamento;
+
     private FlowPane flowPaneServicos;
     private FlowPane flowPaneClientes;
     private List<Servico> listaServicos;
@@ -78,7 +80,8 @@ public class GerenciarOrdensWindow {
     protected List<Servico> listaInstalacoesSelecionadas;
 
     protected Cliente clienteSelecionado;
-    private List<Button> listaBotoes;
+    private List<Button> listaBotoesServicos;
+    private List<Button> listaBotoesClientes;
 
 
     @FXML
@@ -118,6 +121,7 @@ public class GerenciarOrdensWindow {
                         ordem.addServicos(servicoInstalacao, 1);
 
                     ordem.setDescricao(this.txtDescricao.getText());
+                    ordem.setMetodoPagamento(this.txtPagamento.getText());
 
                     if (!(this.listaMontagensSelecionadas.isEmpty() && this.listaLimpezasSelecionadas.isEmpty() && this.listaInstalacoesSelecionadas.isEmpty())) {
                         DAO.getOrdemServico().criar(ordem);
@@ -251,9 +255,10 @@ public class GerenciarOrdensWindow {
         this.listaInstalacoesSelecionadas = new LinkedList<>();
 
         this.listaServicos = new LinkedList<>();
-        this.listaBotoes = new LinkedList<>();
-        this.carregarScrollPaneServico();
+        this.listaBotoesServicos = new LinkedList<>();
+        this.listaBotoesClientes = new LinkedList<>();
 
+        this.carregarScrollPaneServico();
         this.carregarCSS();
 
     }
@@ -261,7 +266,7 @@ public class GerenciarOrdensWindow {
     void selecionarBotoesServicos(){
         HBox hboxMontagem;
 
-        this.listaBotoes.clear();
+        this.listaBotoesServicos.clear();
 
         for (Node montagem : this.flowPaneServicos.getChildren()){
             Button botao;
@@ -274,7 +279,7 @@ public class GerenciarOrdensWindow {
                             for (Node innerNode: ((VBox) mostInnerNode).getChildren()){
                                 if (innerNode instanceof Button){
                                     botao = (Button) innerNode;
-                                    this.listaBotoes.add(botao);
+                                    this.listaBotoesServicos.add(botao);
                                 }
                             }
                         }
@@ -286,10 +291,10 @@ public class GerenciarOrdensWindow {
     }
 
     void removerServico(){
-        for (Button botao : this.listaBotoes){
+        for (Button botao : this.listaBotoesServicos){
             botao.setOnAction(e -> {
-                int index = this.listaBotoes.indexOf(botao);
-                this.listaBotoes.remove(index);
+                int index = this.listaBotoesServicos.indexOf(botao);
+                this.listaBotoesServicos.remove(index);
                 this.listaServicos.remove(index);
                 this.carregarScrollPaneServico();
                 this.selecionarBotoesServicos();
@@ -322,6 +327,45 @@ public class GerenciarOrdensWindow {
         }
     }
 
+    void selecionarBotaoCliente(){
+        HBox hboxMontagem;
+
+        this.listaBotoesClientes.clear();
+
+        for (Node montagem : this.flowPaneClientes.getChildren()){
+            Button botao;
+            hboxMontagem = (HBox) montagem;
+
+            for (Node node : hboxMontagem.getChildren()){
+                if (node instanceof VBox){
+                    for (Node mostInnerNode : ((VBox) node).getChildren()){
+                        if (mostInnerNode instanceof VBox){
+                            for (Node innerNode: ((VBox) mostInnerNode).getChildren()){
+                                if (innerNode instanceof Button){
+                                    botao = (Button) innerNode;
+                                    this.listaBotoesClientes.add(botao);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        this.removerCliente();
+    }
+
+    void removerCliente(){
+        for (Button botao : this.listaBotoesClientes){
+            botao.setOnAction(e -> {
+                int index = this.listaBotoesClientes.indexOf(botao);
+                this.listaBotoesClientes.remove(index);
+                this.clienteSelecionado = null;
+                this.carregarScrollPaneCliente();
+                this.selecionarBotaoCliente();
+            });
+        }
+    }
+
     private void carregarScrollPaneCliente(){
         if (this.clienteSelecionado != null){
             try {
@@ -333,9 +377,7 @@ public class GerenciarOrdensWindow {
                     listaClientes.add(this.clienteSelecionado);
 
                     this.flowPaneClientes = ServicoCard.criarTabelaMenor(listaClientes, listaNomes, 380, 93);
-                } catch (InvocationTargetException e) {
-                    throw new RuntimeException(e);
-                } catch (IllegalAccessException e) {
+                } catch (InvocationTargetException | IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }
 
@@ -344,6 +386,7 @@ public class GerenciarOrdensWindow {
                 this.scpaneCliente.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
                 this.scpaneCliente.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
+                this.selecionarBotaoCliente();
             } catch (NoSuchMethodException e) {
                 throw new RuntimeException(e);
             }
