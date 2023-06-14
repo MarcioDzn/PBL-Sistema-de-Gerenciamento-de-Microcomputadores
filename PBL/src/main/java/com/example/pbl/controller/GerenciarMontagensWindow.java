@@ -93,8 +93,9 @@ public class GerenciarMontagensWindow {
         DAO.getMontagem().criar(montagem);
 
         this.listaMontagens.add(montagem);
-        this.atualizarQuantidade();
 
+        this.txtDescricao.setText("");
+        this.atualizarQuantidade();
         this.carregarScrollPaneServico();
     }
 
