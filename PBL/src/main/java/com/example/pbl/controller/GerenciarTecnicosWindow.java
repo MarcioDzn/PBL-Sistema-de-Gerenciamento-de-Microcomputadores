@@ -93,7 +93,25 @@ public class GerenciarTecnicosWindow {
 
     @FXML
     void deletarAction(ActionEvent event) {
+        Tecnico tecnicoRemovido = this.tblTecnicos.getSelectionModel().getSelectedItem();
 
+        if (tecnicoRemovido.getOrdensServico().size() == 0) {
+            this.acionarAlert("AlertWindow.fxml", "Remover Tecnico?");
+            if (this.alertWindow.getConfirmacao()) {
+                try {
+                    DAO.getTecnico().remover(tecnicoRemovido);
+                } catch (ObjetoNaoEncontradoException e) {
+                    throw new RuntimeException(e);
+                }
+
+                this.listaTecnicos.clear();
+                this.listaTecnicos.addAll(DAO.getTecnico().buscarTodos());
+
+                this.carregarCSS();
+                this.limparCampos();
+            }
+        } else{
+        }
     }
 
     @FXML
