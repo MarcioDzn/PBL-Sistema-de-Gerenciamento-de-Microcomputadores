@@ -182,20 +182,18 @@ public class GerenciarMontagensWindow {
             botao.setOnAction(e -> {
                 int index = this.listaBotoes.indexOf(botao);
 
-                System.out.println(DAO.getMontagem().buscarTodos().get(0).getId());
-
-                this.listaBotoes.remove(index);
-                this.listaMontagens.remove(index);
 
                 try {
                     DAO.getMontagem().remover(this.listaMontagens.get(index));
+                    this.listaBotoes.remove(index);
+                    this.listaMontagens.remove(index);
+
+                    this.carregarScrollPaneServico();
+                    this.selecionarBotoesServicos();
+
                 } catch (ObjetoNaoEncontradoException ex) {
                     throw new RuntimeException(ex);
                 }
-
-                this.carregarScrollPaneServico();
-                this.selecionarBotoesServicos();
-
             });
         }
     }
