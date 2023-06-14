@@ -81,6 +81,7 @@ public class MainWindow {
     private Parent rootInstalacoes;
     private Parent rootTecnicos;
     private Parent rootManipularOrdens;
+    private Parent rootRelatorio;
     private List<HBox> listaBotoes;
 
     @FXML
@@ -128,7 +129,14 @@ public class MainWindow {
 
     @FXML
     void pageRelatorioAction(MouseEvent event) {
+        try {
+            this.rootRelatorio = FXMLLoader.load(HelloApplication.class.getResource("GerarRelatorioWindow.fxml"));
 
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        this.mainActionPane.setCenter((this.rootRelatorio));
     }
 
     @FXML
@@ -227,6 +235,7 @@ public class MainWindow {
             this.rootInstalacoes = FXMLLoader.load(HelloApplication.class.getResource("GerenciarInstalacoesWindow.fxml"));
             this.rootTecnicos = FXMLLoader.load(HelloApplication.class.getResource("GerenciarTecnicosWindow.fxml"));
             this.rootManipularOrdens = FXMLLoader.load(HelloApplication.class.getResource("ManipularOrdensWindow.fxml"));
+            this.rootRelatorio = FXMLLoader.load(HelloApplication.class.getResource("GerarRelatorioWindow.fxml"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
