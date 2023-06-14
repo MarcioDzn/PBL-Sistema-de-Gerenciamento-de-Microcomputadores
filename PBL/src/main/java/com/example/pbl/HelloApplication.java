@@ -13,7 +13,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        URL xmlURL = getClass().getResource("MainWindow.fxml");
+        URL xmlURL = getClass().getResource("LoginWindow.fxml");
         loader.setLocation(xmlURL);
 
         Parent parent = loader.load();
