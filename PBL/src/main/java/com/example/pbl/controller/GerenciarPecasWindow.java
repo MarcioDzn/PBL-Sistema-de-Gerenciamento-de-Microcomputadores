@@ -7,6 +7,7 @@ import com.example.pbl.dao.DAO;
 import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 import com.example.pbl.exceptions.QuantidadeException;
 import com.example.pbl.model.Cliente;
+import com.example.pbl.model.Montagem;
 import com.example.pbl.model.Peca;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -212,20 +213,31 @@ public class GerenciarPecasWindow {
         }
     }
 
+    boolean podeRemover(Peca peca){
+        for (Montagem montagem : peca.getMontagens()){
+            if (montagem.getOrdensServico().size() > 0)
+                return false;
+        }
+
+        return true;
+    }
+
     @FXML
     void deletarAction(ActionEvent event) {
         Peca pecaRemovida = this.tblPecas.getSelectionModel().getSelectedItem();
 
-        try {
-            DAO.getPeca().remover(pecaRemovida);
-        } catch (ObjetoNaoEncontradoException e) {
-            throw new RuntimeException(e);
+        if (podeRemover(pecaRemovida)) {
+            try {
+                DAO.getPeca().remover(pecaRemovida);
+            } catch (ObjetoNaoEncontradoException e) {
+                throw new RuntimeException(e);
+            }
+
+            this.listaPecas.clear();
+            this.listaPecas.addAll(DAO.getPeca().buscarTodos());
+
+            this.limparCampos();
         }
-
-        this.listaPecas.clear();
-        this.listaPecas.addAll(DAO.getPeca().buscarTodos());
-
-        this.limparCampos();
     }
 
     @FXML

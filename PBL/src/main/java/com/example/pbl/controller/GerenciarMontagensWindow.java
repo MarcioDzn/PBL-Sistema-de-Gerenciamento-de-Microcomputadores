@@ -11,10 +11,7 @@ import com.example.pbl.HelloApplication;
 import com.example.pbl.dao.DAO;
 import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 import com.example.pbl.exceptions.QuantidadeException;
-import com.example.pbl.model.Componente;
-import com.example.pbl.model.Montagem;
-import com.example.pbl.model.OutroComponente;
-import com.example.pbl.model.Peca;
+import com.example.pbl.model.*;
 import com.example.pbl.utils.componentesJavafx.ServicoCard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -184,13 +181,17 @@ public class GerenciarMontagensWindow {
             botao.setOnAction(e -> {
                 int index = this.listaBotoes.indexOf(botao);
 
-
                 try {
-                    DAO.getMontagem().remover(this.listaMontagens.get(index));
-                    this.listaBotoes.remove(index);
-                    this.listaMontagens.remove(index);
+                    Montagem montagem = DAO.getMontagem().buscarPorId(index);
 
-                    this.carregarScrollPaneServico();
+                    if (montagem.getOrdensServico().size() == 0) {
+                        DAO.getMontagem().remover(this.listaMontagens.get(index));
+                        this.listaBotoes.remove(index);
+                        this.listaMontagens.remove(index);
+
+                        this.carregarScrollPaneServico();
+                    }
+
 
                 } catch (ObjetoNaoEncontradoException ex) {
                     throw new RuntimeException(ex);

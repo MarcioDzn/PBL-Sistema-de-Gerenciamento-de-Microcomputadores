@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import com.example.pbl.dao.DAO;
 import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
+import com.example.pbl.model.Instalacao;
 import com.example.pbl.model.Limpeza;
 import com.example.pbl.model.Montagem;
 import com.example.pbl.model.OutroComponente;
@@ -159,14 +160,16 @@ public class GerenciarLimpezasWindow {
             botao.setOnAction(e -> {
                 int index = this.listaBotoes.indexOf(botao);
 
-
                 try {
-                    DAO.getLimpeza().remover(this.listaLimpezas.get(index));
-                    this.listaBotoes.remove(index);
-                    this.listaLimpezas.remove(index);
+                    Limpeza limpeza = DAO.getLimpeza().buscarPorId(index);
 
-                    this.carregarScrollPaneServico();
+                    if (limpeza.getOrdensServico().size() == 0) {
+                        DAO.getLimpeza().remover(this.listaLimpezas.get(index));
+                        this.listaBotoes.remove(index);
+                        this.listaLimpezas.remove(index);
 
+                        this.carregarScrollPaneServico();
+                    }
                 } catch (ObjetoNaoEncontradoException ex) {
                     throw new RuntimeException(ex);
                 }

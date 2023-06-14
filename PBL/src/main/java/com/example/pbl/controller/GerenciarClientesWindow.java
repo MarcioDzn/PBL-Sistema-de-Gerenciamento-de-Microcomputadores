@@ -102,16 +102,19 @@ public class GerenciarClientesWindow {
     void deletarAction(ActionEvent event) {
         Cliente clienteRemovido = this.tblClientes.getSelectionModel().getSelectedItem();
 
-        try {
-            DAO.getCliente().remover(clienteRemovido);
-        } catch (ObjetoNaoEncontradoException e) {
-            throw new RuntimeException(e);
+        if (clienteRemovido.getOrdensServico().size() == 0) {
+            try {
+                DAO.getCliente().remover(clienteRemovido);
+            } catch (ObjetoNaoEncontradoException e) {
+                throw new RuntimeException(e);
+            }
+
+            this.listaClientes.clear();
+            this.listaClientes.addAll(DAO.getCliente().buscarTodos());
+
+            this.limparCampos();
+
         }
-
-        this.listaClientes.clear();
-        this.listaClientes.addAll(DAO.getCliente().buscarTodos());
-
-        this.limparCampos();
 
     }
 

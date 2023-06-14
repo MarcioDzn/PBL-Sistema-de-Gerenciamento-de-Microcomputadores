@@ -158,14 +158,16 @@ public class GerenciarInstalacoesWindow {
             botao.setOnAction(e -> {
                 int index = this.listaBotoes.indexOf(botao);
 
-
                 try {
-                    DAO.getInstalacao().remover(this.listaInstalacoes.get(index));
-                    this.listaBotoes.remove(index);
-                    this.listaInstalacoes.remove(index);
+                    Instalacao instalacao = DAO.getInstalacao().buscarPorId(index);
 
-                    this.carregarScrollPaneServico();
+                    if (instalacao.getOrdensServico().size() == 0) {
+                        DAO.getInstalacao().remover(this.listaInstalacoes.get(index));
+                        this.listaBotoes.remove(index);
+                        this.listaInstalacoes.remove(index);
 
+                        this.carregarScrollPaneServico();
+                    }
                 } catch (ObjetoNaoEncontradoException ex) {
                     throw new RuntimeException(ex);
                 }
