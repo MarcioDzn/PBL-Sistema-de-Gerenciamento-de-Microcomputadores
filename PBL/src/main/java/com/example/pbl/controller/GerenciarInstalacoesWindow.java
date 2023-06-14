@@ -1,11 +1,13 @@
 package com.example.pbl.controller;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.example.pbl.HelloApplication;
 import com.example.pbl.dao.DAO;
 import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 import com.example.pbl.model.Instalacao;
@@ -13,13 +15,19 @@ import com.example.pbl.model.Limpeza;
 import com.example.pbl.utils.componentesJavafx.ServicoCard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class GerenciarInstalacoesWindow {
 
@@ -56,6 +64,7 @@ public class GerenciarInstalacoesWindow {
     private FlowPane flowPaneInstalacoes;
     private List<Instalacao> listaInstalacoes;
     private List<Button> listaBotoes;
+    private AlertWindow alertWindow;
 
     @FXML
     void cadastrarAction(ActionEvent event) {
@@ -63,12 +72,15 @@ public class GerenciarInstalacoesWindow {
         boolean instalacaoValida = this.validarFormulario(novaInstalacao);
 
         if (instalacaoValida){
-            DAO.getInstalacao().criar(novaInstalacao);
-            this.listaInstalacoes.add(novaInstalacao);
+            this.acionarAlert("AlertWindow.fxml", "Cadastrar Instalação?");
+            if (this.alertWindow.getConfirmacao()) {
+                DAO.getInstalacao().criar(novaInstalacao);
+                this.listaInstalacoes.add(novaInstalacao);
 
-            this.carregarScrollPaneServico();
-            this.limparCampos();
-            this.carregarCSS();
+                this.carregarScrollPaneServico();
+                this.limparCampos();
+                this.carregarCSS();
+            }
         }
     }
 
@@ -99,6 +111,35 @@ public class GerenciarInstalacoesWindow {
 
         this.carregarScrollPaneServico();
         this.carregarCSS();
+    }
+
+    private void acionarAlert(String url, String texto){
+        try {
+            FXMLLoader loader = new FXMLLoader(); // Carrega o arquivo do scene builder
+            URL xmlURL = HelloApplication.class.getResource(url); // Pega o XML e carrega pra ser utilizado
+            loader.setLocation(xmlURL);
+
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+
+            this.alertWindow = loader.getController();
+
+            stage.setTitle("Nome do Dialog");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.centerOnScreen();
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+
+            this.alertWindow.setTexto(texto);
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void carregarScrollPaneServico(){

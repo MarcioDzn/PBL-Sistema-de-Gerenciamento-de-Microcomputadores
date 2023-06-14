@@ -1,8 +1,10 @@
 package com.example.pbl.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.example.pbl.HelloApplication;
 import com.example.pbl.dao.DAO;
 import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 import com.example.pbl.exceptions.QuantidadeException;
@@ -13,11 +15,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class GerenciarPecasWindow {
 
@@ -58,6 +66,7 @@ public class GerenciarPecasWindow {
 
     @FXML
     private TextField txtBuscarNome;
+    private AlertWindow alertWindow;
 
     private Peca criarPeca(){
         String nome = this.txtNome.getText();
@@ -160,20 +169,6 @@ public class GerenciarPecasWindow {
         this.txtCusto.setPromptText("");
     }
     private Peca editarPeca(Peca pecaAntiga, Peca pecaNova){
-        // VERIFICAR PRA QUANDO INSERIR UM VALOR INVALIDO EM QUANTIDADE PRECO E CUSTO
-        // VERIFICAR PRA QUANDO INSERIR UM VALOR INVALIDO EM QUANTIDADE PRECO E CUSTO
-        // VERIFICAR PRA QUANDO INSERIR UM VALOR INVALIDO EM QUANTIDADE PRECO E CUSTO
-        // VERIFICAR PRA QUANDO INSERIR UM VALOR INVALIDO EM QUANTIDADE PRECO E CUSTO
-        // VERIFICAR PRA QUANDO INSERIR UM VALOR INVALIDO EM QUANTIDADE PRECO E CUSTO
-        // VERIFICAR PRA QUANDO INSERIR UM VALOR INVALIDO EM QUANTIDADE PRECO E CUSTO
-        // VERIFICAR PRA QUANDO INSERIR UM VALOR INVALIDO EM QUANTIDADE PRECO E CUSTO
-        // VERIFICAR PRA QUANDO INSERIR UM VALOR INVALIDO EM QUANTIDADE PRECO E CUSTO
-        // VERIFICAR PRA QUANDO INSERIR UM VALOR INVALIDO EM QUANTIDADE PRECO E CUSTO
-        // VERIFICAR PRA QUANDO INSERIR UM VALOR INVALIDO EM QUANTIDADE PRECO E CUSTO
-        // VERIFICAR PRA QUANDO INSERIR UM VALOR INVALIDO EM QUANTIDADE PRECO E CUSTO
-        // VERIFICAR PRA QUANDO INSERIR UM VALOR INVALIDO EM QUANTIDADE PRECO E CUSTO
-        // VERIFICAR PRA QUANDO INSERIR UM VALOR INVALIDO EM QUANTIDADE PRECO E CUSTO
-
         if (!pecaNova.getNome().equals("")){
             pecaAntiga.setNome(pecaNova.getNome());
         }
@@ -198,18 +193,50 @@ public class GerenciarPecasWindow {
         return pecaAntiga;
     }
 
+    private void acionarAlert(String url, String texto){
+        try {
+            FXMLLoader loader = new FXMLLoader(); // Carrega o arquivo do scene builder
+            URL xmlURL = HelloApplication.class.getResource(url); // Pega o XML e carrega pra ser utilizado
+            loader.setLocation(xmlURL);
+
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+
+            this.alertWindow = loader.getController();
+
+            stage.setTitle("Nome do Dialog");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.centerOnScreen();
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+
+            this.alertWindow.setTexto(texto);
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @FXML
     void cadastrarAction(ActionEvent event) {
         Peca novaPeca = this.criarPeca();
         boolean pecaValida = this.validarFormulario(novaPeca);
 
         if (pecaValida){
-            DAO.getPeca().criar(novaPeca);
+            this.acionarAlert("AlertWindow.fxml", "Era essa peça que você queria?");
+            if (this.alertWindow.getConfirmacao()) {
+                DAO.getPeca().criar(novaPeca);
 
-            this.listaPecas.clear();
-            this.listaPecas.addAll(DAO.getPeca().buscarTodos());
-            this.txtBuscarNome.setText("");
-            this.limparCampos();
+                this.listaPecas.clear();
+                this.listaPecas.addAll(DAO.getPeca().buscarTodos());
+                this.txtBuscarNome.setText("");
+                this.limparCampos();
+            }
         }
     }
 
@@ -227,16 +254,19 @@ public class GerenciarPecasWindow {
         Peca pecaRemovida = this.tblPecas.getSelectionModel().getSelectedItem();
 
         if (podeRemover(pecaRemovida)) {
-            try {
-                DAO.getPeca().remover(pecaRemovida);
-            } catch (ObjetoNaoEncontradoException e) {
-                throw new RuntimeException(e);
+            this.acionarAlert("AlertWindow.fxml", "Cadastrar Peça?");
+            if (this.alertWindow.getConfirmacao()) {
+                try {
+                    DAO.getPeca().remover(pecaRemovida);
+                } catch (ObjetoNaoEncontradoException e) {
+                    throw new RuntimeException(e);
+                }
+
+                this.listaPecas.clear();
+                this.listaPecas.addAll(DAO.getPeca().buscarTodos());
+
+                this.limparCampos();
             }
-
-            this.listaPecas.clear();
-            this.listaPecas.addAll(DAO.getPeca().buscarTodos());
-
-            this.limparCampos();
         }
     }
 
@@ -249,23 +279,26 @@ public class GerenciarPecasWindow {
         Peca peca = this.tblPecas.getSelectionModel().getSelectedItem();
 
         if (peca != null) {
-            Peca pecaEditada = this.editarPeca(peca, this.criarPeca());
+            this.acionarAlert("AlertWindow.fxml", "Editar Peça?");
+            if (this.alertWindow.getConfirmacao()) {
+                Peca pecaEditada = this.editarPeca(peca, this.criarPeca());
 
-            try {
-                DAO.getPeca().atualizar(pecaEditada);
-            } catch (ObjetoNaoEncontradoException e) {
-                throw new RuntimeException(e);
+                try {
+                    DAO.getPeca().atualizar(pecaEditada);
+                } catch (ObjetoNaoEncontradoException e) {
+                    throw new RuntimeException(e);
+                }
+
+                int index = this.listaPecas.indexOf(peca);
+                this.listaPecas.set(index, pecaEditada);
+
+                this.limparCampos();
+
+                if (this.listaPecas.size() < DAO.getPeca().buscarTodos().size())
+                    this.txtBuscarNome.setText(pecaEditada.getNome());
+
+                this.pesquisarPeca();
             }
-
-            int index = this.listaPecas.indexOf(peca);
-            this.listaPecas.set(index, pecaEditada);
-
-            this.limparCampos();
-
-            if (this.listaPecas.size() < DAO.getPeca().buscarTodos().size())
-                this.txtBuscarNome.setText(pecaEditada.getNome());
-
-            this.pesquisarPeca();
         }
 //        int index = this.tblPecas.getSelectionModel().getSelectedIndex();
 //

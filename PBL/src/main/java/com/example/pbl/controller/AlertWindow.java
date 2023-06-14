@@ -58,4 +58,7 @@ public class AlertWindow {
         return this.confirmacao;
     }
 
+    protected void setTexto(String texto){
+        this.txtMensagem.setText(texto);
+    }
 }

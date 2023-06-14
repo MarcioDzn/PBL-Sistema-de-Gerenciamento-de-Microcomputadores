@@ -106,7 +106,7 @@ public class GerenciarOrdensWindow {
     @FXML
     void criarOrdemAction(ActionEvent event) {
         try {
-            this.acionarAlert("AlertWindow.fxml");
+            this.acionarAlert("AlertWindow.fxml", "Cadastrar Ordem de Serviço?");
             if (this.alertWindow.getConfirmacao()) {
                 if (this.clienteSelecionado != null) {
                     OrdemServico ordem = new OrdemServico(this.clienteSelecionado.getId());
@@ -213,7 +213,7 @@ public class GerenciarOrdensWindow {
         }
     }
 
-    private void acionarAlert(String url){
+    private void acionarAlert(String url, String texto){
         try {
             FXMLLoader loader = new FXMLLoader(); // Carrega o arquivo do scene builder
             URL xmlURL = HelloApplication.class.getResource(url); // Pega o XML e carrega pra ser utilizado
@@ -233,8 +233,9 @@ public class GerenciarOrdensWindow {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initStyle(StageStyle.UNDECORATED);
 
-
+            this.alertWindow.setTexto(texto);
             stage.showAndWait();
+
 
         } catch (IOException e) {
             throw new RuntimeException(e);

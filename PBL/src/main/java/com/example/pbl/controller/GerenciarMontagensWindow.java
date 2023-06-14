@@ -67,6 +67,7 @@ public class GerenciarMontagensWindow {
     private List<Button> listaBotoes;
 
     protected List<Componente> listaPecasSelecionadas;
+    private AlertWindow alertWindow;
 
     @FXML
     void addPecasAction(ActionEvent event) {
@@ -83,17 +84,21 @@ public class GerenciarMontagensWindow {
     void cadastrarAction(ActionEvent event) {
         Montagem montagem = new Montagem();
 
-        montagem.setDescricao(this.txtDescricao.getText());
-        for (Componente pecaSelecionada : this.listaPecasSelecionadas)
-            montagem.setComponente(pecaSelecionada, 1);
+        this.acionarAlert("AlertWindow.fxml", "Cadastrar Montagem?");
+        if (this.alertWindow.getConfirmacao()) {
 
-        DAO.getMontagem().criar(montagem);
+            montagem.setDescricao(this.txtDescricao.getText());
+            for (Componente pecaSelecionada : this.listaPecasSelecionadas)
+                montagem.setComponente(pecaSelecionada, 1);
 
-        this.listaMontagens.add(montagem);
+            DAO.getMontagem().criar(montagem);
 
-        this.txtDescricao.setText("");
-        this.atualizarQuantidade();
-        this.carregarScrollPaneServico();
+            this.listaMontagens.add(montagem);
+
+            this.txtDescricao.setText("");
+            this.atualizarQuantidade();
+            this.carregarScrollPaneServico();
+        }
     }
 
     @FXML
@@ -122,6 +127,35 @@ public class GerenciarMontagensWindow {
 
         this.carregarScrollPaneServico();
         this.carregarCSS();
+    }
+
+    private void acionarAlert(String url, String texto){
+        try {
+            FXMLLoader loader = new FXMLLoader(); // Carrega o arquivo do scene builder
+            URL xmlURL = HelloApplication.class.getResource(url); // Pega o XML e carrega pra ser utilizado
+            loader.setLocation(xmlURL);
+
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+
+            this.alertWindow = loader.getController();
+
+            stage.setTitle("Nome do Dialog");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.centerOnScreen();
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+
+            this.alertWindow.setTexto(texto);
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void carregarScrollPaneServico(){

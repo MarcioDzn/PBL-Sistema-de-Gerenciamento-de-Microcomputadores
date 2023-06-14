@@ -1,8 +1,10 @@
 package com.example.pbl.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.example.pbl.HelloApplication;
 import com.example.pbl.dao.DAO;
 import com.example.pbl.model.Cliente;
 import com.example.pbl.model.LoginInfo;
@@ -11,11 +13,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class GerenciarTecnicosWindow {
 
@@ -53,6 +61,7 @@ public class GerenciarTecnicosWindow {
     private TextField txtUsuario;
 
     private ObservableList<Tecnico> listaTecnicos;
+    private AlertWindow alertWindow;
 
     @FXML
     void cadastrarAction(ActionEvent event) {
@@ -63,18 +72,21 @@ public class GerenciarTecnicosWindow {
         boolean loginValido = this.validarLogin(novoLogin);
 
         if (tecnicoValido && loginValido){
-            DAO.getTecnico().criar(novoTecnico);
 
-            novoLogin.setIdUsuario(novoTecnico.getId());
-            DAO.getLogin().criar(novoLogin);
+            this.acionarAlert("AlertWindow.fxml", "Cadastrar Tecnico?");
+            if (this.alertWindow.getConfirmacao()) {
+                DAO.getTecnico().criar(novoTecnico);
+
+                novoLogin.setIdUsuario(novoTecnico.getId());
+                DAO.getLogin().criar(novoLogin);
 
 
-
-            // Mostra a tabela toda mesmo se estiver pesquisando algo
-            this.listaTecnicos.clear();
-            this.listaTecnicos.addAll(DAO.getTecnico().buscarTodos());
-            this.txtBuscarNome.setText("");
-            this.limparCampos();
+                // Mostra a tabela toda mesmo se estiver pesquisando algo
+                this.listaTecnicos.clear();
+                this.listaTecnicos.addAll(DAO.getTecnico().buscarTodos());
+                this.txtBuscarNome.setText("");
+                this.limparCampos();
+            }
         }
     }
 
@@ -106,6 +118,35 @@ public class GerenciarTecnicosWindow {
         this.carregarCSS();
         this.carregarTabela();
 //        this.criarTecnico()
+    }
+
+    private void acionarAlert(String url, String texto){
+        try {
+            FXMLLoader loader = new FXMLLoader(); // Carrega o arquivo do scene builder
+            URL xmlURL = HelloApplication.class.getResource(url); // Pega o XML e carrega pra ser utilizado
+            loader.setLocation(xmlURL);
+
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+
+            this.alertWindow = loader.getController();
+
+            stage.setTitle("Nome do Dialog");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.centerOnScreen();
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+
+            this.alertWindow.setTexto(texto);
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // Cria o cliente

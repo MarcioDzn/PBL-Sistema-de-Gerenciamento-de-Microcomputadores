@@ -1,9 +1,11 @@
 package com.example.pbl.controller;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.*;
 
+import com.example.pbl.HelloApplication;
 import com.example.pbl.dao.DAO;
 import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 import com.example.pbl.exceptions.OrdemServicoAtualException;
@@ -15,13 +17,19 @@ import com.example.pbl.utils.componentesJavafx.OrdensCard;
 import com.example.pbl.utils.componentesJavafx.ServicoCard;
 import com.example.pbl.utils.componentesJavafx.VazioCard;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class MenuPrincipalWindow {
 
@@ -36,6 +44,7 @@ public class MenuPrincipalWindow {
     private FlowPane flowPaneOrdens;
     private List<OrdemServico> listaOrdens;
     private Map<Button, String> mapBotoes;
+    private AlertWindow alertWindow;
     @FXML
     void initialize() {
         assert scOrdens != null : "fx:id=\"scOrdens\" was not injected: check your FXML file 'MenuPrincipalWindow.fxml'.";
@@ -108,38 +117,70 @@ public class MenuPrincipalWindow {
     void mudarStatusBotao(){
         for (Button botao : this.mapBotoes.keySet()){
             botao.setOnAction(e -> {
-                botao.setText("Selecionado");
-                botao.setStyle("-fx-background-color: #bfbfbf;");
+                this.acionarAlert("AlertWindow.fxml", "Pegar ordem de serviço?");
+                if (this.alertWindow.getConfirmacao()) {
+                    botao.setText("Selecionado");
+                    botao.setStyle("-fx-background-color: #bfbfbf;");
 
-                String idBotao = this.mapBotoes.get(botao);
-                int indexHifen = idBotao.indexOf("-");
+                    String idBotao = this.mapBotoes.get(botao);
+                    int indexHifen = idBotao.indexOf("-");
 
-                int idDAO = Integer.parseInt(idBotao.substring(indexHifen+1));
+                    int idDAO = Integer.parseInt(idBotao.substring(indexHifen + 1));
 
-                try {
-                    OrdemServico ordem = DAO.getOrdemServico().buscarPorId(idDAO);
-                    ordem.colocarEmAndamento();
-                    ordem.setTecnicoId(LoginAtual.idLogin);
+                    try {
+                        OrdemServico ordem = DAO.getOrdemServico().buscarPorId(idDAO);
+                        ordem.colocarEmAndamento();
+                        ordem.setTecnicoId(LoginAtual.idLogin);
 
-                    DAO.getOrdemServico().atualizar(ordem);
+                        DAO.getOrdemServico().atualizar(ordem);
 
-                    Tecnico tecnicoAtualizado = DAO.getTecnico().buscarPorId(LoginAtual.idLogin);
-                    tecnicoAtualizado.addOrdemServicoAtual(ordem.getId());
-                    DAO.getTecnico().atualizar(tecnicoAtualizado);
+                        Tecnico tecnicoAtualizado = DAO.getTecnico().buscarPorId(LoginAtual.idLogin);
+                        tecnicoAtualizado.addOrdemServicoAtual(ordem.getId());
+                        DAO.getTecnico().atualizar(tecnicoAtualizado);
 
-                } catch (OrdemServicoException | ObjetoNaoEncontradoException | OrdemServicoAtualException ex) {
-                    throw new RuntimeException(ex);
+                    } catch (OrdemServicoException | ObjetoNaoEncontradoException | OrdemServicoAtualException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
+                    this.listaOrdens.clear();
+                    this.listaOrdens.addAll(DAO.getOrdemServico().buscarOrdensEmAberto());
+                    this.carregarScrollPaneOrdens();
+
+                    this.mapBotoes.remove(botao);
                 }
-
-                this.listaOrdens.clear();
-                this.listaOrdens.addAll(DAO.getOrdemServico().buscarOrdensEmAberto());
-                this.carregarScrollPaneOrdens();
-
-                this.mapBotoes.remove(botao);
             });
         }
 
         this.carregarBotao();
+    }
+
+    private void acionarAlert(String url, String texto){
+        try {
+            FXMLLoader loader = new FXMLLoader(); // Carrega o arquivo do scene builder
+            URL xmlURL = HelloApplication.class.getResource(url); // Pega o XML e carrega pra ser utilizado
+            loader.setLocation(xmlURL);
+
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+
+            this.alertWindow = loader.getController();
+
+            stage.setTitle("Nome do Dialog");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.centerOnScreen();
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+
+            this.alertWindow.setTexto(texto);
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     void carregarBotao(){

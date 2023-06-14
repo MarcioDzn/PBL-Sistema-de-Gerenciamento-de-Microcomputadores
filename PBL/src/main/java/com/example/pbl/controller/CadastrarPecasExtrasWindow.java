@@ -1,17 +1,24 @@
 package com.example.pbl.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.example.pbl.HelloApplication;
 import com.example.pbl.dao.DAO;
 import com.example.pbl.model.OutroComponente;
 import com.example.pbl.model.Peca;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class CadastrarPecasExtrasWindow {
 
@@ -37,22 +44,29 @@ public class CadastrarPecasExtrasWindow {
     private TextField txtPreco;
 
     protected GerenciarMontagensWindow gerenciarMontagensController;
+    private AlertWindow alertWindow;
 
     @FXML
     void cadastrarAction(ActionEvent event) {
-        OutroComponente novaPecaExtra = this.criarPecaExtra();
-        boolean pecaExtraValida = this.validarFormulario(novaPecaExtra);
+        this.acionarAlert("AlertWindow.fxml", "Finalizar?");
+        if (this.alertWindow.getConfirmacao()) {
+            OutroComponente novaPecaExtra = this.criarPecaExtra();
+            boolean pecaExtraValida = this.validarFormulario(novaPecaExtra);
 
-        if (pecaExtraValida){
-            DAO.getOutroComponente().criar(novaPecaExtra);
-            this.gerenciarMontagensController.listaPecasSelecionadas.add(novaPecaExtra);
-            this.fecharJanela(event);
+            if (pecaExtraValida) {
+                DAO.getOutroComponente().criar(novaPecaExtra);
+                this.gerenciarMontagensController.listaPecasSelecionadas.add(novaPecaExtra);
+                this.fecharJanela(event);
+            }
         }
     }
 
     @FXML
     void cancelarAction(ActionEvent event) {
-        this.fecharJanela(event);
+        this.acionarAlert("AlertWindow.fxml", "Cancelar?");
+        if (this.alertWindow.getConfirmacao()) {
+            this.fecharJanela(event);
+        }
     }
 
     @FXML
@@ -64,6 +78,35 @@ public class CadastrarPecasExtrasWindow {
         assert txtPreco != null : "fx:id=\"txtPreco\" was not injected: check your FXML file 'CadastrarPecasExtrasWindow.fxml'.";
 
         this.carregarCSS();
+    }
+
+    private void acionarAlert(String url, String texto){
+        try {
+            FXMLLoader loader = new FXMLLoader(); // Carrega o arquivo do scene builder
+            URL xmlURL = HelloApplication.class.getResource(url); // Pega o XML e carrega pra ser utilizado
+            loader.setLocation(xmlURL);
+
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+
+            this.alertWindow = loader.getController();
+
+            stage.setTitle("Nome do Dialog");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.centerOnScreen();
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+
+            this.alertWindow.setTexto(texto);
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private boolean validarFormulario(OutroComponente novaPecaExtra){

@@ -1,22 +1,29 @@
 package com.example.pbl.controller;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.*;
 
+import com.example.pbl.HelloApplication;
 import com.example.pbl.dao.DAO;
 import com.example.pbl.model.Cliente;
 import com.example.pbl.utils.componentesJavafx.ClienteCard;
 import com.example.pbl.utils.componentesJavafx.ServicoCard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class EscolherClienteWindow {
 
@@ -45,27 +52,35 @@ public class EscolherClienteWindow {
     private Cliente clienteSelecionado;
 
     GerenciarOrdensWindow gerenciarOrdensController;
+    private AlertWindow alertWindow;
 
     @FXML
     void cancelarAction(ActionEvent event) {
-        this.fecharJanela(event);
+
+        this.acionarAlert("AlertWindow.fxml", "Cancelar?");
+        if (this.alertWindow.getConfirmacao()) {
+            this.fecharJanela(event);
+        }
     }
 
     @FXML
     void finalizarAction(ActionEvent event) {
-        for (Button botao : this.mapBotoes.keySet()) {
-            if (botao.getText().equals("Selecionado")) {
-                String idBotao = this.mapBotoes.get(botao);
-                int indexHifen = idBotao.indexOf("-");
-                int idDAO = Integer.parseInt(idBotao.substring(indexHifen + 1));
+        this.acionarAlert("AlertWindow.fxml", "Finalizar?");
+        if (this.alertWindow.getConfirmacao()) {
+            for (Button botao : this.mapBotoes.keySet()) {
+                if (botao.getText().equals("Selecionado")) {
+                    String idBotao = this.mapBotoes.get(botao);
+                    int indexHifen = idBotao.indexOf("-");
+                    int idDAO = Integer.parseInt(idBotao.substring(indexHifen + 1));
 
-                this.clienteSelecionado = DAO.getCliente().buscarPorId(idDAO);
+                    this.clienteSelecionado = DAO.getCliente().buscarPorId(idDAO);
+                }
             }
+
+            this.gerenciarOrdensController.clienteSelecionado = this.clienteSelecionado;
+
+            this.fecharJanela(event);
         }
-
-        this.gerenciarOrdensController.clienteSelecionado = this.clienteSelecionado;
-
-        this.fecharJanela(event);
     }
 
     @FXML
@@ -88,6 +103,35 @@ public class EscolherClienteWindow {
         this.carregarScrollPaneCliente();
         this.selecionarBotoesClientes();
         this.mudarStatusBotao();
+    }
+
+    private void acionarAlert(String url, String texto){
+        try {
+            FXMLLoader loader = new FXMLLoader(); // Carrega o arquivo do scene builder
+            URL xmlURL = HelloApplication.class.getResource(url); // Pega o XML e carrega pra ser utilizado
+            loader.setLocation(xmlURL);
+
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+
+            this.alertWindow = loader.getController();
+
+            stage.setTitle("Nome do Dialog");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.centerOnScreen();
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+
+            this.alertWindow.setTexto(texto);
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     void fecharJanela(ActionEvent event){

@@ -44,6 +44,7 @@ public class ManipularOrdensWindow {
     private List<Button> listaBotoesFinalizar;
     private List<Button> listaBotoesCancelar;
     private List<Button> listaBotoesEditar;
+    private AlertWindow alertWindow;
 
 
     @FXML
@@ -139,30 +140,30 @@ public class ManipularOrdensWindow {
         for (Button botao : this.listaBotoesFinalizar){
             botao.setOnAction(e -> {
                 try {
-                    Tecnico tecnicoAtualizado = DAO.getTecnico().buscarPorId(LoginAtual.idLogin);
+                    this.acionarAlert("AlertWindow.fxml", "Finalizar ordem de serviço?");
+                    if (this.alertWindow.getConfirmacao()) {
+                        Tecnico tecnicoAtualizado = DAO.getTecnico().buscarPorId(LoginAtual.idLogin);
 
+                        this.abrirPagina("AvaliacaoWindow.fxml");
+                        OrdemServico ordem = tecnicoAtualizado.getOrdemServicoAtual();
 
-                    this.abrirPagina("AvaliacaoWindow.fxml");
-                    OrdemServico ordem = tecnicoAtualizado.getOrdemServicoAtual();
+                        if (ordem.getAvaliacao() != null) {
+                            ordem.finalizar();
+                            DAO.getOrdemServico().atualizar(ordem);
+                            tecnicoAtualizado.addOrdemServicoAtual(-1);
 
-                    if (ordem.getAvaliacao() != null){
-                        ordem.finalizar();
-                        DAO.getOrdemServico().atualizar(ordem);
-                        tecnicoAtualizado.addOrdemServicoAtual(-1);
+                            DAO.getTecnico().atualizar(tecnicoAtualizado);
 
-                        DAO.getTecnico().atualizar(tecnicoAtualizado);
+                            System.out.println(DAO.getTecnico().buscarPorId(LoginAtual.idLogin).getOrdensServico());
 
-                        System.out.println(DAO.getTecnico().buscarPorId(LoginAtual.idLogin).getOrdensServico());
-
-                        this.listaOrdens.clear();
-                        this.carregarScrollPaneOrdem();
+                            this.listaOrdens.clear();
+                            this.carregarScrollPaneOrdem();
+                        }
                     }
                 } catch (OrdemServicoException | ObjetoNaoEncontradoException | OrdemServicoAtualException ex) {
                     throw new RuntimeException(ex);
                 }
 
-
-//                this.listaOrdens.addAll(DAO.getOrdemServico().buscarOrdensEmAberto());
             });
         }
     }
@@ -171,24 +172,56 @@ public class ManipularOrdensWindow {
         for (Button botao : this.listaBotoesCancelar){
             botao.setOnAction(e -> {
                 try {
-                    Tecnico tecnicoAtualizado = DAO.getTecnico().buscarPorId(LoginAtual.idLogin);
+                    this.acionarAlert("AlertWindow.fxml", "Cancelar ordem de serviço?");
+                    if (this.alertWindow.getConfirmacao()) {
+                        Tecnico tecnicoAtualizado = DAO.getTecnico().buscarPorId(LoginAtual.idLogin);
 
-                    OrdemServico ordem = tecnicoAtualizado.getOrdemServicoAtual();
-                    ordem.cancelar();
-                    DAO.getOrdemServico().atualizar(ordem);
+                        OrdemServico ordem = tecnicoAtualizado.getOrdemServicoAtual();
+                        ordem.cancelar();
+                        DAO.getOrdemServico().atualizar(ordem);
 
-                    tecnicoAtualizado.addOrdemServicoAtual(-1);
-                    DAO.getTecnico().atualizar(tecnicoAtualizado);
+                        tecnicoAtualizado.addOrdemServicoAtual(-1);
+                        DAO.getTecnico().atualizar(tecnicoAtualizado);
 
+                        this.listaOrdens.clear();
+
+                        this.carregarScrollPaneOrdem();
+                    }
                 } catch (OrdemServicoException | ObjetoNaoEncontradoException | OrdemServicoAtualException ex) {
                     throw new RuntimeException(ex);
                 }
 
-                this.listaOrdens.clear();
-//                this.listaOrdens.addAll(DAO.getOrdemServico().buscarOrdensEmAberto());
 
-                this.carregarScrollPaneOrdem();
             });
+        }
+    }
+
+    private void acionarAlert(String url, String texto){
+        try {
+            FXMLLoader loader = new FXMLLoader(); // Carrega o arquivo do scene builder
+            URL xmlURL = HelloApplication.class.getResource(url); // Pega o XML e carrega pra ser utilizado
+            loader.setLocation(xmlURL);
+
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+
+            this.alertWindow = loader.getController();
+
+            stage.setTitle("Nome do Dialog");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.centerOnScreen();
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+
+            this.alertWindow.setTexto(texto);
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

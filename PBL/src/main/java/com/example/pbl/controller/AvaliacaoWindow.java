@@ -1,8 +1,10 @@
 package com.example.pbl.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.example.pbl.HelloApplication;
 import com.example.pbl.dao.DAO;
 import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 import com.example.pbl.exceptions.OrdemServicoException;
@@ -11,9 +13,14 @@ import com.example.pbl.model.Tecnico;
 import com.example.pbl.utils.LoginAtual;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class AvaliacaoWindow {
 
@@ -45,6 +52,7 @@ public class AvaliacaoWindow {
     private Button btnRuim;
 
     private String avaliacao;
+    private AlertWindow alertWindow;
 
     @FXML
     void bomAction(ActionEvent event) {
@@ -54,25 +62,31 @@ public class AvaliacaoWindow {
 
     @FXML
     void cancelarAction(ActionEvent event) {
-        this.fecharJanela(event);
+        this.acionarAlert("AlertWindow.fxml", "Finalizar?");
+        if (this.alertWindow.getConfirmacao()) {
+            this.fecharJanela(event);
+        }
     }
 
     @FXML
     void finalizarAction(ActionEvent event) {
         try {
-            if (this.avaliacao == null)
-                this.avaliacao = "Indisponível";
+            this.acionarAlert("AlertWindow.fxml", "Finalizar?");
+            if (this.alertWindow.getConfirmacao()) {
+                if (this.avaliacao == null)
+                    this.avaliacao = "Indisponível";
 
-            Tecnico tecnicoAtualizado = DAO.getTecnico().buscarPorId(LoginAtual.idLogin);
+                Tecnico tecnicoAtualizado = DAO.getTecnico().buscarPorId(LoginAtual.idLogin);
 
-            OrdemServico ordem = tecnicoAtualizado.getOrdemServicoAtual();
+                OrdemServico ordem = tecnicoAtualizado.getOrdemServicoAtual();
 
-            ordem.setAvaliacao(this.avaliacao);
+                ordem.setAvaliacao(this.avaliacao);
 
-            DAO.getOrdemServico().atualizar(ordem);
+                DAO.getOrdemServico().atualizar(ordem);
 
 
-            this.fecharJanela(event);
+                this.fecharJanela(event);
+            }
         } catch (OrdemServicoException | ObjetoNaoEncontradoException e) {
             throw new RuntimeException(e);
         }
@@ -112,6 +126,35 @@ public class AvaliacaoWindow {
         assert btnPessimo != null : "fx:id=\"btnPessimo\" was not injected: check your FXML file 'AvaliacaoWindow.fxml'.";
         assert btnRuim != null : "fx:id=\"btnRuim\" was not injected: check your FXML file 'AvaliacaoWindow.fxml'.";
 
+    }
+
+    private void acionarAlert(String url, String texto){
+        try {
+            FXMLLoader loader = new FXMLLoader(); // Carrega o arquivo do scene builder
+            URL xmlURL = HelloApplication.class.getResource(url); // Pega o XML e carrega pra ser utilizado
+            loader.setLocation(xmlURL);
+
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+
+            this.alertWindow = loader.getController();
+
+            stage.setTitle("Nome do Dialog");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.centerOnScreen();
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+
+            this.alertWindow.setTexto(texto);
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
     
     private void colorirBotoes(Button botao){

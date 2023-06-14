@@ -1,23 +1,30 @@
 package com.example.pbl.controller;
 
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.*;
 
+import com.example.pbl.HelloApplication;
 import com.example.pbl.dao.DAO;
 import com.example.pbl.model.Limpeza;
 import com.example.pbl.model.Servico;
 import com.example.pbl.utils.componentesJavafx.ServicoCard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class ServicosLimpezaWindow {
 
@@ -45,35 +52,42 @@ public class ServicosLimpezaWindow {
     private Map<Button, String> mapBotoes;
 
     GerenciarOrdensWindow gerenciarOrdensController;
+    private AlertWindow alertWindow;
 
     @FXML
     void cancelarAction(ActionEvent event) {
-        this.fecharJanela(event);
+        this.acionarAlert("AlertWindow.fxml", "Cancelar?");
+        if (this.alertWindow.getConfirmacao()) {
+            this.fecharJanela(event);
+        }
     }
 
     @FXML
     void finalizarAction(ActionEvent event) {
-        this.listaServicosSelecionados.clear();
+        this.acionarAlert("AlertWindow.fxml", "Finalizar?");
+        if (this.alertWindow.getConfirmacao()) {
+            this.listaServicosSelecionados.clear();
 
-        for (Button botao : this.mapBotoes.keySet()){
-            if (botao.getText().equals("Selecionado")){
-                String idBotao = this.mapBotoes.get(botao);
-                int indexHifen = idBotao.indexOf("-");
+            for (Button botao : this.mapBotoes.keySet()) {
+                if (botao.getText().equals("Selecionado")) {
+                    String idBotao = this.mapBotoes.get(botao);
+                    int indexHifen = idBotao.indexOf("-");
 
-                String tipoItem = idBotao.substring(0, indexHifen);
-                int idDAO = Integer.parseInt(idBotao.substring(indexHifen+1));
+                    String tipoItem = idBotao.substring(0, indexHifen);
+                    int idDAO = Integer.parseInt(idBotao.substring(indexHifen + 1));
 
-                switch (tipoItem) {
-                    case "Limpeza" -> this.listaServicosSelecionados.add(DAO.getLimpeza().buscarPorId(idDAO));
-                    case "Montagem" -> this.listaServicosSelecionados.add(DAO.getMontagem().buscarPorId(idDAO));
-                    case "Instalacao" -> this.listaServicosSelecionados.add(DAO.getInstalacao().buscarPorId(idDAO));
+                    switch (tipoItem) {
+                        case "Limpeza" -> this.listaServicosSelecionados.add(DAO.getLimpeza().buscarPorId(idDAO));
+                        case "Montagem" -> this.listaServicosSelecionados.add(DAO.getMontagem().buscarPorId(idDAO));
+                        case "Instalacao" -> this.listaServicosSelecionados.add(DAO.getInstalacao().buscarPorId(idDAO));
+                    }
+
                 }
-
             }
-        }
 
-        this.gerenciarOrdensController.listaLimpezasSelecionadas = this.listaServicosSelecionados;
-        this.fecharJanela(event);
+            this.gerenciarOrdensController.listaLimpezasSelecionadas = this.listaServicosSelecionados;
+            this.fecharJanela(event);
+        }
     }
 
     @FXML
@@ -166,6 +180,35 @@ public class ServicosLimpezaWindow {
                     botao.setStyle("-fx-background-color: white;");
                 }
             });
+        }
+    }
+
+    private void acionarAlert(String url, String texto){
+        try {
+            FXMLLoader loader = new FXMLLoader(); // Carrega o arquivo do scene builder
+            URL xmlURL = HelloApplication.class.getResource(url); // Pega o XML e carrega pra ser utilizado
+            loader.setLocation(xmlURL);
+
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+
+            this.alertWindow = loader.getController();
+
+            stage.setTitle("Nome do Dialog");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.centerOnScreen();
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+
+            this.alertWindow.setTexto(texto);
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
