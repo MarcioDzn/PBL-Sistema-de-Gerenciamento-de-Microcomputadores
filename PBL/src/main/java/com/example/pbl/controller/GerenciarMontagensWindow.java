@@ -93,8 +93,9 @@ public class GerenciarMontagensWindow {
         DAO.getMontagem().criar(montagem);
 
         this.listaMontagens.add(montagem);
-        System.out.println(montagem.getId());
         this.atualizarQuantidade();
+
+        this.carregarScrollPaneServico();
     }
 
     @FXML
@@ -189,7 +190,6 @@ public class GerenciarMontagensWindow {
                     this.listaMontagens.remove(index);
 
                     this.carregarScrollPaneServico();
-                    this.selecionarBotoesServicos();
 
                 } catch (ObjetoNaoEncontradoException ex) {
                     throw new RuntimeException(ex);
