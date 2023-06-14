@@ -132,7 +132,6 @@ public class ManipularOrdensWindow {
             }
             this.mudarStatusBotaoFinalizar();
             this.mudarStatusBotaoCancelar();
-            this.mudarStatusBotaoEditar();
         }
     }
 
@@ -182,30 +181,6 @@ public class ManipularOrdensWindow {
                     DAO.getTecnico().atualizar(tecnicoAtualizado);
 
                 } catch (OrdemServicoException | ObjetoNaoEncontradoException | OrdemServicoAtualException ex) {
-                    throw new RuntimeException(ex);
-                }
-
-                this.listaOrdens.clear();
-//                this.listaOrdens.addAll(DAO.getOrdemServico().buscarOrdensEmAberto());
-
-                this.carregarScrollPaneOrdem();
-            });
-        }
-    }
-
-    void mudarStatusBotaoEditar(){
-        for (Button botao : this.listaBotoesEditar){
-            botao.setOnAction(e -> {
-                botao.setText("Selecionado");
-
-                try {
-                    Tecnico tecnicoAtualizado = DAO.getTecnico().buscarPorId(LoginAtual.idLogin);
-
-                    OrdemServico ordem = tecnicoAtualizado.getOrdemServicoAtual();
-                    ordem.finalizar();
-                    DAO.getOrdemServico().atualizar(ordem);
-
-                } catch (OrdemServicoException | ObjetoNaoEncontradoException ex) {
                     throw new RuntimeException(ex);
                 }
 

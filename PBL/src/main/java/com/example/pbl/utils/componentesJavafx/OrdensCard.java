@@ -109,11 +109,6 @@ public class OrdensCard extends ComponenteJavaFx {
         buttonCancelar.setId(dados.get("Nome") + "-" + dados.get("Id"));
         vbox.getChildren().add(buttonCancelar);
 
-        Button buttonEditar = new Button("Editar");
-        buttonEditar.setMinWidth(width);
-        buttonEditar.setId(dados.get("Nome") + "-" + dados.get("Id"));
-        vbox.getChildren().add(buttonEditar);
-
         vbox.setSpacing(10);
 
         vboxGeral.getChildren().add(vbox);
