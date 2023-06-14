@@ -68,6 +68,7 @@ public class GerenciarMontagensWindow {
 
     protected List<Componente> listaPecasSelecionadas;
     private AlertWindow alertWindow;
+    private AvisoWindow avisoWindow;
 
     @FXML
     void addPecasAction(ActionEvent event) {
@@ -210,6 +211,36 @@ public class GerenciarMontagensWindow {
         this.removerServico();
     }
 
+    private void acionarAviso(String url, String texto){
+        try {
+            FXMLLoader loader = new FXMLLoader(); // Carrega o arquivo do scene builder
+            URL xmlURL = HelloApplication.class.getResource(url); // Pega o XML e carrega pra ser utilizado
+            loader.setLocation(xmlURL);
+
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+
+            this.avisoWindow = loader.getController();
+
+            stage.setTitle("Nome do Dialog");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.centerOnScreen();
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+
+            this.avisoWindow.setTexto(texto);
+
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     void removerServico(){
         for (Button botao : this.listaBotoes){
             botao.setOnAction(e -> {
@@ -224,6 +255,8 @@ public class GerenciarMontagensWindow {
                         this.listaMontagens.remove(index);
 
                         this.carregarScrollPaneServico();
+                    } else{
+                        this.acionarAviso("AvisoWindow.fxml", "O serviço está associado a uma\nOrdem de Serviço.\nNão é possível removê-lo!");
                     }
 
 

@@ -74,6 +74,7 @@ public class GerenciarOrdensWindow {
     private ServicosInstalacaoWindow servicosInstalacaoWindow;
     private EscolherClienteWindow clienteWindow;
     private AlertWindow alertWindow;
+    private AvisoWindow avisoWindow;
 
     protected List<Servico> listaMontagensSelecionadas;
     protected List<Servico> listaLimpezasSelecionadas;
@@ -106,24 +107,24 @@ public class GerenciarOrdensWindow {
     @FXML
     void criarOrdemAction(ActionEvent event) {
         try {
-            this.acionarAlert("AlertWindow.fxml", "Cadastrar Ordem de Serviço?");
-            if (this.alertWindow.getConfirmacao()) {
-                if (this.clienteSelecionado != null) {
-                    OrdemServico ordem = new OrdemServico(this.clienteSelecionado.getId());
+            if (this.clienteSelecionado != null) {
+                OrdemServico ordem = new OrdemServico(this.clienteSelecionado.getId());
 
-                    for (Servico servicoMontagem : listaMontagensSelecionadas)
-                        ordem.addServicos(servicoMontagem, 1);
+                for (Servico servicoMontagem : listaMontagensSelecionadas)
+                    ordem.addServicos(servicoMontagem, 1);
 
-                    for (Servico servicoLimpeza : listaLimpezasSelecionadas)
-                        ordem.addServicos(servicoLimpeza, 1);
+                for (Servico servicoLimpeza : listaLimpezasSelecionadas)
+                    ordem.addServicos(servicoLimpeza, 1);
 
-                    for (Servico servicoInstalacao : listaInstalacoesSelecionadas)
-                        ordem.addServicos(servicoInstalacao, 1);
+                for (Servico servicoInstalacao : listaInstalacoesSelecionadas)
+                    ordem.addServicos(servicoInstalacao, 1);
 
-                    ordem.setDescricao(this.txtDescricao.getText());
-                    ordem.setMetodoPagamento(this.txtPagamento.getText());
+                ordem.setDescricao(this.txtDescricao.getText());
+                ordem.setMetodoPagamento(this.txtPagamento.getText());
 
-                    if (!(this.listaMontagensSelecionadas.isEmpty() && this.listaLimpezasSelecionadas.isEmpty() && this.listaInstalacoesSelecionadas.isEmpty())) {
+                if (!(this.listaMontagensSelecionadas.isEmpty() && this.listaLimpezasSelecionadas.isEmpty() && this.listaInstalacoesSelecionadas.isEmpty())) {
+                    this.acionarAlert("AlertWindow.fxml", "Cadastrar Ordem de Serviço?");
+                    if (this.alertWindow.getConfirmacao()) {
                         DAO.getOrdemServico().criar(ordem);
 
                         this.clienteSelecionado = null;
@@ -136,9 +137,13 @@ public class GerenciarOrdensWindow {
                         this.carregarScrollPaneCliente();
                         this.carregarScrollPaneServico();
                     }
+                }else {
+                    this.acionarAviso("AvisoWindow.fxml", "Adicione pelo menos um serviço!");
                 }
-            }
 
+            } else{
+                this.acionarAviso("AvisoWindow.fxml", "Adicione um cliente!");
+            }
         } catch (OrdemServicoException e){
                 throw new RuntimeException(e);
         }
@@ -234,6 +239,36 @@ public class GerenciarOrdensWindow {
             stage.initStyle(StageStyle.UNDECORATED);
 
             this.alertWindow.setTexto(texto);
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void acionarAviso(String url, String texto){
+        try {
+            FXMLLoader loader = new FXMLLoader(); // Carrega o arquivo do scene builder
+            URL xmlURL = HelloApplication.class.getResource(url); // Pega o XML e carrega pra ser utilizado
+            loader.setLocation(xmlURL);
+
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+
+            this.avisoWindow = loader.getController();
+
+            stage.setTitle("Nome do Dialog");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.centerOnScreen();
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+
+            this.avisoWindow.setTexto(texto);
+
             stage.showAndWait();
 
 
