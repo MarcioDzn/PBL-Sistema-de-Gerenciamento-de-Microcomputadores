@@ -6,9 +6,11 @@ import java.util.ResourceBundle;
 
 import com.example.pbl.HelloApplication;
 import com.example.pbl.dao.DAO;
+import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 import com.example.pbl.model.Cliente;
 import com.example.pbl.model.LoginInfo;
 import com.example.pbl.model.Tecnico;
+import com.example.pbl.utils.LoginAtual;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -80,11 +82,10 @@ public class GerenciarTecnicosWindow {
                 novoLogin.setIdUsuario(novoTecnico.getId());
                 DAO.getLogin().criar(novoLogin);
 
-
-                // Mostra a tabela toda mesmo se estiver pesquisando algo
                 this.listaTecnicos.clear();
                 this.listaTecnicos.addAll(DAO.getTecnico().buscarTodos());
                 this.txtBuscarNome.setText("");
+
                 this.limparCampos();
             }
         }
@@ -97,7 +98,28 @@ public class GerenciarTecnicosWindow {
 
     @FXML
     void editarAction(ActionEvent event) {
+        Tecnico tecnico = this.tblTecnicos.getSelectionModel().getSelectedItem();
 
+        if (tecnico != null){
+            Tecnico tecnicoEditado = this.editarTecnico(tecnico, this.criarTecnico());
+            LoginInfo loginEditado = this.editarLogin();
+
+            this.acionarAlert("AlertWindow.fxml", "Editar Tecnico?");
+            if (this.alertWindow.getConfirmacao()) {
+                try {
+                    DAO.getTecnico().atualizar(tecnicoEditado);
+                    DAO.getLogin().atualizar(loginEditado);
+                } catch (ObjetoNaoEncontradoException e) {
+                    throw new RuntimeException(e);
+                }
+
+                int index = this.listaTecnicos.indexOf(tecnico);
+                this.listaTecnicos.set(index, tecnicoEditado);
+
+                this.carregarCSS();
+                this.limparCampos();
+            }
+        }
     }
 
     @FXML
@@ -117,7 +139,34 @@ public class GerenciarTecnicosWindow {
 
         this.carregarCSS();
         this.carregarTabela();
-//        this.criarTecnico()
+    }
+
+    private Tecnico editarTecnico(Tecnico tecnicoAntigo, Tecnico tecnicoNovo){
+        LoginInfo login = DAO.getLogin().buscarPorId(LoginAtual.idLogin);
+
+        if (!tecnicoNovo.getNome().equals("")){
+            tecnicoAntigo.setNome(tecnicoNovo.getNome());
+        }
+
+        if (!tecnicoNovo.getEmail().equals("")){
+            tecnicoAntigo.setEmail(tecnicoNovo.getEmail());
+        }
+
+        return tecnicoAntigo;
+    }
+
+    private LoginInfo editarLogin(){
+        LoginInfo login = DAO.getLogin().buscarPorId(LoginAtual.idLogin);
+
+        if (!this.txtUsuario.getText().equals("")){
+            login.setUsuario(this.txtUsuario.getText());
+        }
+
+        if (!this.txtSenha.getText().equals("")){
+            login.setSenha(this.txtSenha.getText());
+        }
+
+        return login;
     }
 
     private void acionarAlert(String url, String texto){
@@ -149,7 +198,7 @@ public class GerenciarTecnicosWindow {
         }
     }
 
-    // Cria o cliente
+    // Cria o tecnico
     private Tecnico criarTecnico(){
         String nome = this.txtNome.getText();
         String email = this.txtEmail.getText();
@@ -228,16 +277,13 @@ public class GerenciarTecnicosWindow {
 
     private void carregarTabela(){
         TableColumn nomeCol = new TableColumn("Nome");
-        TableColumn usuarioCol = new TableColumn("Endereço");
-        TableColumn senhaCol = new TableColumn("Telefone");
         TableColumn emailCol = new TableColumn("Email");
 
         nomeCol.setCellValueFactory(new PropertyValueFactory<Tecnico, String>("nome"));
         emailCol.setCellValueFactory(new PropertyValueFactory<Tecnico, String>("email"));
-        usuarioCol.setCellValueFactory(new PropertyValueFactory<LoginInfo, String>("usuario"));
-        senhaCol.setCellValueFactory(new PropertyValueFactory<LoginInfo, String>("senha"));
 
-        this.tblTecnicos.getColumns().addAll(nomeCol,usuarioCol, senhaCol, emailCol);
+
+        this.tblTecnicos.getColumns().addAll(nomeCol, emailCol);
         this.tblTecnicos.setItems(this.listaTecnicos);
     }
 
