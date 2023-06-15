@@ -3,6 +3,7 @@ package com.example.pbl.utils.componentesJavafx;
 import com.example.pbl.dao.DAO;
 import com.example.pbl.model.OrdemServico;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -12,9 +13,7 @@ import javafx.scene.paint.Color;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class OrdensCard extends ComponenteJavaFx {
     private static HBox criarComponenteNovo(Map<String, String> dados, int width, int height){
@@ -28,7 +27,9 @@ public class OrdensCard extends ComponenteJavaFx {
 
         Label objLabel;
         Label objLabelInfo;
-        for (String nome : dados.keySet()){
+
+        List<String> listaNomes = new ArrayList<>(Arrays.asList("Cliente", "Servicos", "Status", "Descrição", "Tecnico", "Metodo de Pagamento"));
+        for (String nome : listaNomes){
             if (!nome.equals("Id")) {
                 objLabel = new Label(nome);
                 objLabelInfo = new Label(dados.get(nome));
@@ -76,7 +77,9 @@ public class OrdensCard extends ComponenteJavaFx {
 
         Label objLabel;
         Label objLabelInfo;
-        for (String nome : dados.keySet()){
+
+        List<String> listaNomes = new ArrayList<>(Arrays.asList("Cliente", "Servicos", "Status", "Descrição", "Tecnico", "Metodo de Pagamento"));
+        for (String nome : listaNomes){
             if (!nome.equals("Id")) {
                 objLabel = new Label(nome);
                 objLabelInfo = new Label(dados.get(nome));
@@ -154,14 +157,14 @@ public class OrdensCard extends ComponenteJavaFx {
             hbox = criarComponenteNovoOrdemAtual(dados, width, height);
 
             flowPane.getChildren().add(hbox);
-        }
 
+        }
+        flowPane.setAlignment(Pos.CENTER);
         // Configurando o flowPane
         flowPane.setHgap(30);
         flowPane.setVgap(30);
 
-        flowPane.setMinWidth(1280);
-//        flowPane.setMinWidth(width * listaItens.size() + listaItens.size()*49.8);
+        flowPane.setMinWidth(875);
 
         flowPane.setStyle("-fx-background-color: #282828;");
 
@@ -203,6 +206,25 @@ public class OrdensCard extends ComponenteJavaFx {
 
         else if (item.isEmAndamento())
             dados.put("Status", "Em Andamento");
+
+        dados.put("Servicos", pegarServicos(item));
+
         return dados;
+    }
+
+    private static String pegarServicos(OrdemServico item){
+        StringBuilder builder = new StringBuilder();
+
+        if (item.getInstalacoes().size() > 0)
+            builder.append("Instalação\n");
+
+        if (item.getLimpezas().size() > 0)
+            builder.append("Limpeza\n");
+
+        if (item.getMontagens().size() > 0)
+            builder.append("Montagem\n");
+
+
+        return builder.toString();
     }
 }
