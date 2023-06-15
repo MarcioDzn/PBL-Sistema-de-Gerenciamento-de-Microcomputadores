@@ -14,7 +14,6 @@ import com.example.pbl.model.OrdemServico;
 import com.example.pbl.model.Tecnico;
 import com.example.pbl.utils.LoginAtual;
 import com.example.pbl.utils.componentesJavafx.OrdensCard;
-import com.example.pbl.utils.componentesJavafx.ServicoCard;
 import com.example.pbl.utils.componentesJavafx.VazioCard;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +21,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -43,7 +41,8 @@ public class MenuPrincipalWindow {
     private ScrollPane scOrdens;
     private FlowPane flowPaneOrdens;
     private List<OrdemServico> listaOrdens;
-    private Map<Button, String> mapBotoes;
+    private List<Button> listaBotoesSelecionar;
+    private List<Button> listaBotoesRemover;
     private AlertWindow alertWindow;
     @FXML
     void initialize() {
@@ -52,10 +51,11 @@ public class MenuPrincipalWindow {
         this.listaOrdens = new LinkedList<>();
         this.listaOrdens.addAll(DAO.getOrdemServico().buscarOrdensEmAberto()); // Resolver pra ele só pegar as ordens em andamento
 
-        this.mapBotoes = new HashMap<>();
+        this.listaBotoesSelecionar = new LinkedList<>();
+        this.listaBotoesRemover = new LinkedList<>();
 
         this.carregarScrollPaneOrdens();
-        this.mudarStatusBotao();
+        this.mudarStatusBotaoSelecionar();
     }
 
     private void carregarScrollPaneOrdens(){
@@ -77,7 +77,7 @@ public class MenuPrincipalWindow {
 
                 this.carregarBotao();
             } else {
-                this.scOrdens.setContent(VazioCard.mensagemVazio("ordem de serviço em aberto", 900, 310));
+                this.scOrdens.setContent(VazioCard.mensagemVazio("ordem de serviço em aberto", 900, 450));
             }
 
             this.scOrdens.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -103,26 +103,34 @@ public class MenuPrincipalWindow {
                             for (Node innerNode: ((VBox) mostInnerNode).getChildren()){
                                 if (innerNode instanceof Button){
                                     botao = (Button) innerNode;
-                                    this.mapBotoes.put(botao, botao.getId());
+
+                                    if (botao.getText().equals("Selecionar")){
+                                        this.listaBotoesSelecionar.add(botao);
+
+                                    } else if (botao.getText().equals("Remover")) {
+                                        this.listaBotoesRemover.add(botao);
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
-            this.mudarStatusBotao();
+
+            this.mudarStatusBotaoSelecionar();
+            this.mudarStatusBotarRemover();
         }
     }
 
-    void mudarStatusBotao(){
-        for (Button botao : this.mapBotoes.keySet()){
+    void mudarStatusBotaoSelecionar(){
+        for (Button botao : this.listaBotoesSelecionar){
             botao.setOnAction(e -> {
                 this.acionarAlert("AlertWindow.fxml", "Pegar ordem de serviço?");
                 if (this.alertWindow.getConfirmacao()) {
                     botao.setText("Selecionado");
                     botao.setStyle("-fx-background-color: #bfbfbf;");
 
-                    String idBotao = this.mapBotoes.get(botao);
+                    String idBotao = botao.getId();
                     int indexHifen = idBotao.indexOf("-");
 
                     int idDAO = Integer.parseInt(idBotao.substring(indexHifen + 1));
@@ -138,15 +146,46 @@ public class MenuPrincipalWindow {
                         tecnicoAtualizado.addOrdemServicoAtual(ordem.getId());
                         DAO.getTecnico().atualizar(tecnicoAtualizado);
 
+                        this.listaOrdens.clear();
+                        this.listaOrdens.addAll(DAO.getOrdemServico().buscarOrdensEmAberto());
+                        this.carregarScrollPaneOrdens();
+
+                        this.listaBotoesSelecionar.remove(botao);
+
                     } catch (OrdemServicoException | ObjetoNaoEncontradoException | OrdemServicoAtualException ex) {
                         throw new RuntimeException(ex);
                     }
+                }
+            });
+        }
 
-                    this.listaOrdens.clear();
-                    this.listaOrdens.addAll(DAO.getOrdemServico().buscarOrdensEmAberto());
-                    this.carregarScrollPaneOrdens();
+        this.carregarBotao();
+    }
 
-                    this.mapBotoes.remove(botao);
+    void mudarStatusBotarRemover(){
+        for (Button botao : this.listaBotoesRemover){
+            botao.setOnAction(e -> {
+                try {
+                    String idBotao = botao.getId();
+                    int indexHifen = idBotao.indexOf("-");
+
+                    int idDAO = Integer.parseInt(idBotao.substring(indexHifen + 1));
+
+                    this.acionarAlert("AlertWindow.fxml", "Remover ordem de serviço?");
+                    if (this.alertWindow.getConfirmacao()) {
+                        OrdemServico ordem = DAO.getOrdemServico().buscarPorId(idDAO);
+                        DAO.getOrdemServico().remover(ordem);
+
+                        this.listaOrdens.clear();
+                        this.listaOrdens.addAll(DAO.getOrdemServico().buscarOrdensEmAberto());
+                        this.carregarScrollPaneOrdens();
+
+                        this.listaBotoesRemover.remove(botao);
+                    }
+
+
+                } catch (ObjetoNaoEncontradoException ex) {
+                    throw new RuntimeException(ex);
                 }
             });
         }
@@ -184,7 +223,7 @@ public class MenuPrincipalWindow {
     }
 
     void carregarBotao(){
-        for (Button botao : this.mapBotoes.keySet()){
+        for (Button botao : this.listaBotoesSelecionar){
             if (DAO.getTecnico().buscarPorId(LoginAtual.idLogin) != null){
                 System.out.println("a" + DAO.getTecnico().buscarPorId(LoginAtual.idLogin).getOrdemServicoAtual());
                 if (DAO.getTecnico().buscarPorId(LoginAtual.idLogin).getOrdemServicoAtual() == null) {

@@ -51,13 +51,20 @@ public class OrdensCard extends ComponenteJavaFx {
         }
 
 
-        Button button = new Button("Selecionar");
-        button.setMinWidth(width);
-        button.setId(dados.get("Nome") + "-" + dados.get("Id"));
-        button.setStyle("-fx-background-color: #bfbfbf;");
-        button.setDisable(true);
+        Button buttonSelecionar = new Button("Selecionar");
+        buttonSelecionar.setMinWidth(width);
+        buttonSelecionar.setId(dados.get("Nome") + "-" + dados.get("Id"));
+        buttonSelecionar.setStyle("-fx-background-color: #bfbfbf;");
+        buttonSelecionar.setDisable(true);
+        vbox.getChildren().add(buttonSelecionar);
 
-        vbox.getChildren().add(button);
+        Button buttonRemover = new Button("Remover");
+        buttonRemover.setMinWidth(width);
+        buttonRemover.setId(dados.get("Nome") + "-" + dados.get("Id"));
+        vbox.getChildren().add(buttonRemover);
+
+        vbox.setSpacing(10);
+
         vboxGeral.getChildren().add(vbox);
 
         hbox.getChildren().add(vboxGeral);
@@ -139,7 +146,7 @@ public class OrdensCard extends ComponenteJavaFx {
         flowPane.setHgap(30);
         flowPane.setVgap(30);
 
-        flowPane.setMinWidth(1280);
+        flowPane.setMinWidth(875);
 
         flowPane.setStyle("-fx-background-color: #282828;");
 
@@ -180,7 +187,7 @@ public class OrdensCard extends ComponenteJavaFx {
 
         dados.put("Id", String.valueOf(item.getId()));
 
-        if (item.getDescricao() != null)
+        if (!item.getDescricao().equals(""))
             dados.put("Descrição", item.getDescricao());
         else
             dados.put("Descrição", "Indefinido");
@@ -190,7 +197,7 @@ public class OrdensCard extends ComponenteJavaFx {
         else
             dados.put("Tecnico", "Indefinido");
 
-        if (item.getMetodoPagamento() != null)
+        if (!item.getMetodoPagamento().equals(""))
             dados.put("Metodo de Pagamento", item.getMetodoPagamento());
         else
             dados.put("Metodo de Pagamento", "Indefinido");
