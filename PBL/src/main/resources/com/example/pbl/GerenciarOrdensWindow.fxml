@@ -29,18 +29,6 @@
                         <Insets left="40.0" right="40.0" />
                      </padding>
                   </VBox>
-                  <VBox prefHeight="53.0" prefWidth="462.0">
-                     <children>
-                        <Label text="Descrição" textFill="WHITE" />
-                        <TextField fx:id="txtDescricao" style="-fx-background-color: #282828; -fx-border-color: white; -fx-border-width: 0 0 1.5 0; -fx-text-inner-color: white;" />
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="53.0" prefWidth="462.0">
-                     <children>
-                        <Label text="Método de pagamento" textFill="WHITE" />
-                        <TextField fx:id="txtPagamento" style="-fx-background-color: #282828; -fx-border-color: white; -fx-border-width: 0 0 1.5 0; -fx-text-inner-color: white;" />
-                     </children>
-                  </VBox>
                   <Button fx:id="btnMontagem" mnemonicParsing="false" onAction="#montagemAction" prefHeight="43.0" prefWidth="298.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Adicionar serviço de montagem" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
@@ -56,6 +44,18 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
+                  <VBox prefHeight="53.0" prefWidth="462.0">
+                     <children>
+                        <Label text="Descrição" textFill="WHITE" />
+                        <TextField fx:id="txtDescricao" style="-fx-background-color: #282828; -fx-border-color: white; -fx-border-width: 0 0 1.5 0; -fx-text-inner-color: white;" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="53.0" prefWidth="462.0">
+                     <children>
+                        <Label text="Método de pagamento" textFill="WHITE" />
+                        <TextField fx:id="txtPagamento" style="-fx-background-color: #282828; -fx-border-color: white; -fx-border-width: 0 0 1.5 0; -fx-text-inner-color: white;" />
+                     </children>
+                  </VBox>
                   <HBox alignment="BOTTOM_CENTER" prefHeight="90.0" prefWidth="462.0" spacing="20.0">
                      <children>
                         <Button fx:id="btnCriarOrdem" mnemonicParsing="false" onAction="#criarOrdemAction" prefHeight="43.0" prefWidth="148.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Criar" textFill="WHITE">
