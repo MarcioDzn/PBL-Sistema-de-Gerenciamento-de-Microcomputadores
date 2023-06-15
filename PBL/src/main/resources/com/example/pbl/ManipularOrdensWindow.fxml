@@ -17,12 +17,12 @@
                <children>
                   <VBox prefHeight="132.0" prefWidth="1284.0">
                      <children>
-                        <Label text="Manipular ordens de serviço" textFill="WHITE">
+                        <Label text="Manipular ordem de serviço" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="40.0" />
                            </font>
                         </Label>
-                        <Label prefHeight="40.0" prefWidth="532.0" text="Ordens de serviço " textFill="#bfbfbf">
+                        <Label prefHeight="40.0" prefWidth="532.0" text="Ordem de serviço em andamento" textFill="#bfbfbf">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>

@@ -225,7 +225,6 @@ public class MenuPrincipalWindow {
     void carregarBotao(){
         for (Button botao : this.listaBotoesSelecionar){
             if (DAO.getTecnico().buscarPorId(LoginAtual.idLogin) != null){
-                System.out.println("a" + DAO.getTecnico().buscarPorId(LoginAtual.idLogin).getOrdemServicoAtual());
                 if (DAO.getTecnico().buscarPorId(LoginAtual.idLogin).getOrdemServicoAtual() == null) {
                     botao.setStyle("-fx-brackground-color: white");
                     botao.setDisable(false);
