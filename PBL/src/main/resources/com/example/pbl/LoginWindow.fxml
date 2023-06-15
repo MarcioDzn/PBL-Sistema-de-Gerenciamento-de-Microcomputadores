@@ -6,17 +6,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pbl.controller.LoginWindow">
    <children>
-      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="15.0">
+      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="15.0" style="-fx-background-color: #282828; -fx-border-color: white;">
          <children>
+            <VBox alignment="CENTER" prefHeight="60.0" prefWidth="600.0">
+               <children>
+                  <Label text="Usuario padrão:" textFill="WHITE" />
+                  <Label text="Usuário: admin" textFill="WHITE" />
+                  <Label text="Senha: admin" textFill="WHITE" />
+               </children>
+            </VBox>
             <VBox alignment="CENTER" fillWidth="false" prefHeight="27.0" prefWidth="600.0">
                <children>
                   <VBox prefHeight="42.0" prefWidth="145.0">
                      <children>
-                        <Label text="Usuário" />
-                        <TextField fx:id="txtUsuario" prefHeight="25.0" prefWidth="109.0" />
+                        <Label text="Usuário" textFill="WHITE" />
+                        <TextField fx:id="txtUsuario" prefHeight="25.0" prefWidth="109.0" style="-fx-background-color: #282828; -fx-border-color: white; -fx-border-width: 0 0 1.5 0; -fx-text-inner-color: white;" />
                      </children>
                   </VBox>
                </children>
@@ -25,15 +31,15 @@
                <children>
                   <VBox prefHeight="50.0" prefWidth="144.0">
                      <children>
-                        <Label text="Senha" />
-                        <TextField fx:id="txtSenha" />
+                        <Label text="Senha" textFill="WHITE" />
+                        <TextField fx:id="txtSenha" style="-fx-border-width: 0 0 1.5 0; -fx-border-color: white; -fx-background-color: #282828; -fx-text-inner-color: white;" />
                      </children>
                   </VBox>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="2.0" prefWidth="600.0">
+            <VBox alignment="CENTER" prefHeight="36.0" prefWidth="600.0">
                <children>
-                  <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#loginAction" text="Login" />
+                  <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#loginAction" prefHeight="59.0" prefWidth="83.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" text="Login" textFill="WHITE" />
                </children>
             </VBox>
          </children>
