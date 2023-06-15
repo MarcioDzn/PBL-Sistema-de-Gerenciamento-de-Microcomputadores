@@ -83,6 +83,8 @@ public class MainWindow {
     private Parent rootManipularOrdens;
     private Parent rootRelatorio;
     private List<HBox> listaBotoes;
+    @FXML
+    private Label txtTag;
 
     @FXML
     void pageClientesAction(MouseEvent event) {
@@ -249,6 +251,9 @@ public class MainWindow {
         if (tecnico != null){
             this.txtNomeUsuario.setText(tecnico.getNome());
 
+        } else{
+            this.txtNomeUsuario.setText("Admin");
+            this.txtTag.setText("Administrador");
         }
 
     }

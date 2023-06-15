@@ -32,7 +32,7 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="47.0" prefWidth="162.0" style="-fx-background-radius: 30; -fx-background-color: #7A31E0;">
                                  <children>
-                                    <Label text="Técnico" textFill="#e1e1e1">
+                                    <Label fx:id="txtTag" text="Técnico" textFill="#e1e1e1">
                                        <font>
                                           <Font name="Arial Bold" size="16.0" />
                                        </font>
