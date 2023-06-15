@@ -32,7 +32,7 @@
                   </VBox>
                </children>
             </HBox>
-            <VBox prefHeight="304.0" prefWidth="877.0">
+            <VBox prefHeight="379.0" prefWidth="877.0">
                <children>
                   <HBox prefHeight="539.0" prefWidth="877.0">
                      <children>
