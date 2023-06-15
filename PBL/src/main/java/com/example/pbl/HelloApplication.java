@@ -1,5 +1,8 @@
 package com.example.pbl;
 
+import com.example.pbl.dao.DAO;
+import com.example.pbl.model.LoginInfo;
+import com.example.pbl.utils.LoginAtual;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,6 +25,15 @@ public class HelloApplication extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
+
+
+        if (DAO.getLogin().buscarPorLogin("admin", "admin") == null){
+            LoginInfo login = new LoginInfo("admin", "admin", "admin");
+            login.setIdUsuario(-1);
+
+            DAO.getLogin().criar(login);
+        }
+
     }
 
     public static void main(String[] args) {
