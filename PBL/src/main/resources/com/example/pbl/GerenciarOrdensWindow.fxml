@@ -4,85 +4,105 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="917.0" style="-fx-background-color: #282828;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pbl.controller.GerenciarOrdensWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="917.0" style="-fx-background-color: #282828;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pbl.controller.GerenciarOrdensWindow">
    <children>
-      <HBox prefHeight="550.0" prefWidth="917.0" spacing="20.0">
+      <VBox prefHeight="651.0" prefWidth="917.0" spacing="15.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="394.0" prefWidth="462.0" spacing="14.0">
+            <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="0.0" spacing="15.0">
-                     <children>
-                        <Button fx:id="btnCliente" mnemonicParsing="false" onAction="#clienteAction" prefHeight="43.0" prefWidth="298.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Adicionar cliente" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Button>
-                        <ScrollPane fx:id="scpaneCliente" prefHeight="96.0" prefWidth="382.0" style="-fx-background-color: #282828;" />
-                     </children>
-                     <padding>
-                        <Insets left="40.0" right="40.0" />
-                     </padding>
-                  </VBox>
-                  <Button fx:id="btnMontagem" mnemonicParsing="false" onAction="#montagemAction" prefHeight="43.0" prefWidth="298.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Adicionar serviço de montagem" textFill="WHITE">
+                  <Label text="Cadastro de tecnicos" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" size="45.0" />
                      </font>
-                  </Button>
-                  <Button fx:id="btnLimpeza" mnemonicParsing="false" onAction="#limpezaAction" prefHeight="43.0" prefWidth="296.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Adicionar serviço de limpeza" textFill="WHITE">
+                  </Label>
+                  <Label text="Adicione um novo tecnico no banco de dados" textFill="#e1e1e1">
                      <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" size="23.0" />
                      </font>
-                  </Button>
-                  <Button fx:id="btnInstalacao" mnemonicParsing="false" onAction="#instalacaoAction" prefHeight="43.0" prefWidth="297.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Adicionar serviço de instalação" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Button>
-                  <VBox prefHeight="53.0" prefWidth="462.0">
-                     <children>
-                        <Label text="Descrição" textFill="WHITE" />
-                        <TextField fx:id="txtDescricao" style="-fx-background-color: #282828; -fx-border-color: white; -fx-border-width: 0 0 1.5 0; -fx-text-inner-color: white;" />
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="53.0" prefWidth="462.0">
-                     <children>
-                        <Label text="Método de pagamento" textFill="WHITE" />
-                        <TextField fx:id="txtPagamento" style="-fx-background-color: #282828; -fx-border-color: white; -fx-border-width: 0 0 1.5 0; -fx-text-inner-color: white;" />
-                     </children>
-                  </VBox>
-                  <HBox alignment="BOTTOM_CENTER" prefHeight="90.0" prefWidth="462.0" spacing="20.0">
-                     <children>
-                        <Button fx:id="btnCriarOrdem" mnemonicParsing="false" onAction="#criarOrdemAction" prefHeight="43.0" prefWidth="148.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Criar" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cancelarAction" prefHeight="43.0" prefWidth="148.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Cancelar" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </HBox>
+                  </Label>
+                  <Separator prefWidth="200.0" />
                </children>
             </VBox>
-            <VBox prefHeight="550.0" prefWidth="436.0" spacing="10.0">
+            <HBox prefHeight="550.0" prefWidth="917.0" spacing="20.0">
                <children>
-                  <Label text="Serviços" textFill="WHITE" />
-                  <ScrollPane fx:id="scpaneOrdens" prefHeight="550.0" prefWidth="252.0">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-                    </content>
-                  </ScrollPane>
+                  <VBox alignment="CENTER" prefHeight="394.0" prefWidth="462.0" spacing="14.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="0.0" spacing="15.0">
+                           <children>
+                              <Button fx:id="btnCliente" mnemonicParsing="false" onAction="#clienteAction" prefHeight="43.0" prefWidth="298.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Adicionar cliente" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Button>
+                              <ScrollPane fx:id="scpaneCliente" prefHeight="96.0" prefWidth="382.0" style="-fx-background-color: #282828;" />
+                           </children>
+                           <padding>
+                              <Insets left="40.0" right="40.0" />
+                           </padding>
+                        </VBox>
+                        <Button fx:id="btnMontagem" mnemonicParsing="false" onAction="#montagemAction" prefHeight="43.0" prefWidth="298.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Adicionar serviço de montagem" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnLimpeza" mnemonicParsing="false" onAction="#limpezaAction" prefHeight="43.0" prefWidth="296.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Adicionar serviço de limpeza" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnInstalacao" mnemonicParsing="false" onAction="#instalacaoAction" prefHeight="43.0" prefWidth="297.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Adicionar serviço de instalação" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                        <VBox prefHeight="53.0" prefWidth="462.0">
+                           <children>
+                              <Label text="Descrição" textFill="WHITE" />
+                              <TextField fx:id="txtDescricao" style="-fx-background-color: #282828; -fx-border-color: white; -fx-border-width: 0 0 1.5 0; -fx-text-inner-color: white;" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="53.0" prefWidth="462.0">
+                           <children>
+                              <Label text="Método de pagamento" textFill="WHITE" />
+                              <TextField fx:id="txtPagamento" style="-fx-background-color: #282828; -fx-border-color: white; -fx-border-width: 0 0 1.5 0; -fx-text-inner-color: white;" />
+                           </children>
+                        </VBox>
+                        <HBox alignment="BOTTOM_CENTER" prefHeight="90.0" prefWidth="462.0" spacing="20.0">
+                           <children>
+                              <Button fx:id="btnCriarOrdem" mnemonicParsing="false" onAction="#criarOrdemAction" prefHeight="43.0" prefWidth="148.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Criar" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cancelarAction" prefHeight="43.0" prefWidth="148.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Cancelar" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="550.0" prefWidth="436.0" spacing="10.0">
+                     <children>
+                        <Label text="Serviços" textFill="WHITE" />
+                        <ScrollPane fx:id="scpaneOrdens" prefHeight="550.0" prefWidth="252.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                          </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
+            </HBox>
          </children>
-      </HBox>
+      </VBox>
    </children>
 </AnchorPane>
