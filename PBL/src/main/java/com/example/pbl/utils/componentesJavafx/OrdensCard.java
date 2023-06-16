@@ -73,6 +73,48 @@ public class OrdensCard extends ComponenteJavaFx {
         return hbox;
     }
 
+    private static HBox criarComponenteNovoSemBotao(Map<String, String> dados, int width, int height){
+        int FONT_SIZE = 15;
+
+        VBox vbox = new VBox();
+        vbox.setPadding(new Insets(5, 5, 5, 5));
+
+        VBox vboxGeral = new VBox();
+        HBox hbox = criarComponente(width, height);
+
+        Label objLabel;
+        Label objLabelInfo;
+
+        List<String> listaNomes = new ArrayList<>(Arrays.asList("Cliente", "Servicos", "Status", "Descrição", "Tecnico", "Metodo de Pagamento"));
+        for (String nome : listaNomes){
+            if (!nome.equals("Id")) {
+                objLabel = new Label(nome);
+                objLabelInfo = new Label(dados.get(nome));
+
+                objLabel.setFont(new javafx.scene.text.Font("Arial", FONT_SIZE * 1.25));
+                objLabel.setTextFill(Color.WHITE);
+
+                objLabelInfo.setFont(new javafx.scene.text.Font("Arial", FONT_SIZE));
+                objLabelInfo.setTextFill(Color.WHITE);
+
+                vbox.getChildren().add(objLabel);
+                vbox.getChildren().add(objLabelInfo);
+
+                vboxGeral.getChildren().add(vbox);
+
+                vbox = new VBox();
+                vbox.setPadding(new Insets(5, 5, 5, 5));
+            }
+        }
+
+        vboxGeral.getChildren().add(vbox);
+
+        hbox.getChildren().add(vboxGeral);
+        hbox.setId(String.valueOf(dados.get("Id")));
+
+        return hbox;
+    }
+
     private static HBox criarComponenteNovoOrdemAtual(Map<String, String> dados, int width, int height){
         int FONT_SIZE = 15;
 
@@ -129,7 +171,7 @@ public class OrdensCard extends ComponenteJavaFx {
         return hbox;
     }
 
-    public static FlowPane criarTabela(List<OrdemServico> listaItens, int width, int height) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public static FlowPane criarTabela(List<OrdemServico> listaItens, int width, int height, boolean temBotao) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Map<String, String> dados;
         FlowPane flowPane = new FlowPane();
 
@@ -137,7 +179,10 @@ public class OrdensCard extends ComponenteJavaFx {
         for (OrdemServico item : listaItens){
             dados = getDados(item);
 
-            hbox = criarComponenteNovo(dados, width, height);
+            if (temBotao)
+                hbox = criarComponenteNovo(dados, width, height);
+            else
+                hbox = criarComponenteNovoSemBotao(dados, width, height);
 
             flowPane.getChildren().add(hbox);
         }
@@ -146,7 +191,11 @@ public class OrdensCard extends ComponenteJavaFx {
         flowPane.setHgap(30);
         flowPane.setVgap(30);
 
-        flowPane.setMinWidth(875);
+        if (temBotao || listaItens.size() < 3) {
+            flowPane.setMinWidth(875);
+        }else{
+            flowPane.setMinWidth(listaItens.size() * 265);
+        }
 
         flowPane.setStyle("-fx-background-color: #282828;");
 
