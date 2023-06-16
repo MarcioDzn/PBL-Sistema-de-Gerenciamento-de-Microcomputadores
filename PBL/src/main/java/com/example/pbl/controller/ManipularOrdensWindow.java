@@ -113,15 +113,12 @@ public class ManipularOrdensWindow {
                                     botao = (Button) innerNode;
 
                                     if (botao.getText().equals("Finalizar")){
-                                        System.out.println("a");
                                         this.listaBotoesFinalizar.add(botao);
 
                                     } else if (botao.getText().equals("Cancelar")){
-                                        System.out.println("b");
                                         this.listaBotoesCancelar.add(botao);
 
                                     } else if (botao.getText().equals("Editar")){
-                                        System.out.println("c");
                                         this.listaBotoesEditar.add(botao);
                                     }
 

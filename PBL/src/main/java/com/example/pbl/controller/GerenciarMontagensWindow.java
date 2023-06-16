@@ -64,7 +64,7 @@ public class GerenciarMontagensWindow {
     private CadastrarPecasExtrasWindow cadastrarPecasExtrasWindow;
     private FlowPane flowPaneMontagens;
     private List<Montagem> listaMontagens;
-    private List<Button> listaBotoes;
+    private List<Button> listaBotoesRemover;
 
     protected List<Componente> listaPecasSelecionadas;
     private AlertWindow alertWindow;
@@ -124,7 +124,7 @@ public class GerenciarMontagensWindow {
         this.listaMontagens = new LinkedList<>();
         this.listaMontagens.addAll(DAO.getMontagem().buscarTodos());
 
-        this.listaBotoes = new LinkedList<>();
+        this.listaBotoesRemover = new LinkedList<>();
 
         this.carregarScrollPaneServico();
         this.carregarCSS();
@@ -187,7 +187,7 @@ public class GerenciarMontagensWindow {
     void selecionarBotoesServicos(){
         HBox hboxMontagem;
 
-        this.listaBotoes.clear();
+        this.listaBotoesRemover.clear();
 
         for (Node montagem : this.flowPaneMontagens.getChildren()){
             Button botao;
@@ -200,7 +200,7 @@ public class GerenciarMontagensWindow {
                             for (Node innerNode: ((VBox) mostInnerNode).getChildren()){
                                 if (innerNode instanceof Button){
                                     botao = (Button) innerNode;
-                                    this.listaBotoes.add(botao);
+                                    this.listaBotoesRemover.add(botao);
                                 }
                             }
                         }
@@ -242,16 +242,16 @@ public class GerenciarMontagensWindow {
     }
 
     void removerServico(){
-        for (Button botao : this.listaBotoes){
+        for (Button botao : this.listaBotoesRemover){
             botao.setOnAction(e -> {
-                int index = this.listaBotoes.indexOf(botao);
+                int index = this.listaBotoesRemover.indexOf(botao);
 
                 try {
                     Montagem montagem = DAO.getMontagem().buscarPorId(index);
 
                     if (montagem.getOrdensServico().size() == 0) {
                         DAO.getMontagem().remover(this.listaMontagens.get(index));
-                        this.listaBotoes.remove(index);
+                        this.listaBotoesRemover.remove(index);
                         this.listaMontagens.remove(index);
 
                         this.carregarScrollPaneServico();
