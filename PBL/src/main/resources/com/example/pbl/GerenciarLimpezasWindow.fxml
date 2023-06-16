@@ -63,12 +63,7 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#editarAction" prefHeight="43.0" prefWidth="148.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Editar" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="btnDeletar" mnemonicParsing="false" onAction="#deletarAction" prefHeight="43.0" prefWidth="148.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Cancelar" textFill="WHITE">
+                              <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cancelarAction" prefHeight="43.0" prefWidth="148.0" style="-fx-border-style: solid; -fx-border-width: 1.5; -fx-border-color: white; -fx-background-color: #282828; -fx-border-radius: 8;" styleClass="logout-btn" text="Cancelar" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>

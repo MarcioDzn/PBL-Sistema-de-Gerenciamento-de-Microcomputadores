@@ -42,11 +42,7 @@ public class GerenciarInstalacoesWindow {
     private Button btnCadastrar;
 
     @FXML
-    private Button btnDeletar;
-
-    @FXML
-    private Button btnEditar;
-
+    private Button btnCancelar;
     @FXML
     private ScrollPane scInstalacoes;
 
@@ -87,20 +83,15 @@ public class GerenciarInstalacoesWindow {
     }
 
     @FXML
-    void deletarAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void editarAction(ActionEvent event) {
-
+    void cancelarAction(ActionEvent event) {
+        this.limparCampos();
+        this.carregarCSS();
     }
 
     @FXML
     void initialize() {
         assert btnCadastrar != null : "fx:id=\"btnCadastrar\" was not injected: check your FXML file 'GerenciarInstalacoesWindow.fxml'.";
-        assert btnDeletar != null : "fx:id=\"btnDeletar\" was not injected: check your FXML file 'GerenciarInstalacoesWindow.fxml'.";
-        assert btnEditar != null : "fx:id=\"btnEditar\" was not injected: check your FXML file 'GerenciarInstalacoesWindow.fxml'.";
+        assert btnCancelar != null : "fx:id=\"btnCancelar\" was not injected: check your FXML file 'GerenciarInstalacoesWindow.fxml'.";
         assert scInstalacoes != null : "fx:id=\"scInstalacoes\" was not injected: check your FXML file 'GerenciarInstalacoesWindow.fxml'.";
         assert txtBuscarNome != null : "fx:id=\"txtBuscarNome\" was not injected: check your FXML file 'GerenciarInstalacoesWindow.fxml'.";
         assert txtCusto != null : "fx:id=\"txtCusto\" was not injected: check your FXML file 'GerenciarInstalacoesWindow.fxml'.";

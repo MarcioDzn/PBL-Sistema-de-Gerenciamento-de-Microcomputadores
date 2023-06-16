@@ -45,12 +45,8 @@ public class GerenciarMontagensWindow {
 
     @FXML
     private Button btnCadastrar;
-
     @FXML
-    private Button btnDeletar;
-
-    @FXML
-    private Button btnEditar;
+    private Button btnCancelar;
 
     @FXML
     private TextField txtBuscarNome;
@@ -76,6 +72,13 @@ public class GerenciarMontagensWindow {
 
     }
 
+
+    @FXML
+    void cancelarAction(ActionEvent event) {
+        this.limparCampos();
+        this.carregarCSS();
+    }
+
     @FXML
     void addPecasExtraAction(ActionEvent event) {
         this.abrirPagina("CadastrarPecasExtrasWindow.fxml", "PecaExtra");
@@ -85,29 +88,24 @@ public class GerenciarMontagensWindow {
     void cadastrarAction(ActionEvent event) {
         Montagem montagem = new Montagem();
 
-        this.acionarAlert("AlertWindow.fxml", "Cadastrar Montagem?");
-        if (this.alertWindow.getConfirmacao()) {
+        if (this.listaPecasSelecionadas.size() > 0) {
+            this.acionarAlert("AlertWindow.fxml", "Cadastrar Montagem?");
+            if (this.alertWindow.getConfirmacao()) {
+                montagem.setDescricao(this.txtDescricao.getText());
+                for (Componente pecaSelecionada : this.listaPecasSelecionadas)
+                    montagem.setComponente(pecaSelecionada, 1);
 
-            montagem.setDescricao(this.txtDescricao.getText());
-            for (Componente pecaSelecionada : this.listaPecasSelecionadas)
-                montagem.setComponente(pecaSelecionada, 1);
+                DAO.getMontagem().criar(montagem);
 
-            DAO.getMontagem().criar(montagem);
+                this.listaMontagens.add(montagem);
 
-            this.listaMontagens.add(montagem);
-
-            this.txtDescricao.setText("");
-            this.atualizarQuantidade();
-            this.carregarScrollPaneServico();
+                this.txtDescricao.setText("");
+                this.atualizarQuantidade();
+                this.carregarScrollPaneServico();
+            }
+        } else{
+            this.acionarAviso("AvisoWindow.fxml", "Selecione pelo menos \num componente!");
         }
-    }
-
-    @FXML
-    void deletarAction(ActionEvent event) {
-    }
-
-    @FXML
-    void editarAction(ActionEvent event) {
 
     }
 
@@ -115,8 +113,7 @@ public class GerenciarMontagensWindow {
     void initialize() {
         assert btnAddPecas != null : "fx:id=\"btnAddPecas\" was not injected: check your FXML file 'GerenciarMontagensWindow.fxml'.";
         assert btnCadastrar != null : "fx:id=\"btnCadastrar\" was not injected: check your FXML file 'GerenciarMontagensWindow.fxml'.";
-        assert btnDeletar != null : "fx:id=\"btnDeletar\" was not injected: check your FXML file 'GerenciarMontagensWindow.fxml'.";
-        assert btnEditar != null : "fx:id=\"btnEditar\" was not injected: check your FXML file 'GerenciarMontagensWindow.fxml'.";
+        assert btnCancelar != null : "fx:id=\"btnCancelar\" was not injected: check your FXML file 'GerenciarMontagensWindow.fxml'.";
         assert txtBuscarNome != null : "fx:id=\"txtBuscarNome\" was not injected: check your FXML file 'GerenciarMontagensWindow.fxml'.";
         assert txtDescricao != null : "fx:id=\"txtDescricao\" was not injected: check your FXML file 'GerenciarMontagensWindow.fxml'.";
 
@@ -128,6 +125,13 @@ public class GerenciarMontagensWindow {
 
         this.carregarScrollPaneServico();
         this.carregarCSS();
+    }
+
+    void limparCampos(){
+        this.txtDescricao.clear();
+        this.txtDescricao.setPromptText("");
+
+        this.listaPecasSelecionadas.clear();
     }
 
     private void acionarAlert(String url, String texto){

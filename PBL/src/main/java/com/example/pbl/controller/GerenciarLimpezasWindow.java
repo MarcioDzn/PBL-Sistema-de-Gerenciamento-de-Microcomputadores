@@ -43,10 +43,7 @@ public class GerenciarLimpezasWindow {
     private Button btnCadastrar;
 
     @FXML
-    private Button btnDeletar;
-
-    @FXML
-    private Button btnEditar;
+    private Button btnCancelar;
 
     @FXML
     private ScrollPane scLimpezas;
@@ -87,21 +84,15 @@ public class GerenciarLimpezasWindow {
     }
 
     @FXML
-    void deletarAction(ActionEvent event) {
+    void cancelarAction(ActionEvent event) {
         this.limparCampos();
         this.carregarCSS();
     }
 
     @FXML
-    void editarAction(ActionEvent event) {
-
-    }
-
-    @FXML
     void initialize() {
         assert btnCadastrar != null : "fx:id=\"btnCadastrar\" was not injected: check your FXML file 'GerenciarLimpezasWindow.fxml'.";
-        assert btnDeletar != null : "fx:id=\"btnDeletar\" was not injected: check your FXML file 'GerenciarLimpezasWindow.fxml'.";
-        assert btnEditar != null : "fx:id=\"btnEditar\" was not injected: check your FXML file 'GerenciarLimpezasWindow.fxml'.";
+        assert btnCancelar != null : "fx:id=\"btnCancelar\" was not injected: check your FXML file 'GerenciarLimpezasWindow.fxml'.";
         assert scLimpezas != null : "fx:id=\"scLimpezas\" was not injected: check your FXML file 'GerenciarLimpezasWindow.fxml'.";
         assert txtBuscarNome != null : "fx:id=\"txtBuscarNome\" was not injected: check your FXML file 'GerenciarLimpezasWindow.fxml'.";
         assert txtCusto != null : "fx:id=\"txtCusto\" was not injected: check your FXML file 'GerenciarLimpezasWindow.fxml'.";
