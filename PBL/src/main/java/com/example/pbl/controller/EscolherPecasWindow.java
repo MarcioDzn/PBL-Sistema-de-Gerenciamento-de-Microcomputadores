@@ -61,6 +61,7 @@ public class EscolherPecasWindow {
 
     protected GerenciarMontagensWindow gerenciarMontagensController;
     private AlertWindow alertWindow;
+    private AvisoWindow avisoWindow;
 
     @FXML
     void cancelarAction(ActionEvent event) {
@@ -82,7 +83,7 @@ public class EscolherPecasWindow {
                 this.fecharJanela(event);
             }
         } else{
-            System.out.println("Tem parada errada aí mermão");
+            this.acionarAviso("AvisoWindow.fxml", "Campos inválidos!");
         }
 
     }
@@ -113,6 +114,37 @@ public class EscolherPecasWindow {
         this.mudarStatusBotao();
         this.validarTxtField();
     }
+
+    private void acionarAviso(String url, String texto){
+        try {
+            FXMLLoader loader = new FXMLLoader(); // Carrega o arquivo do scene builder
+            URL xmlURL = HelloApplication.class.getResource(url); // Pega o XML e carrega pra ser utilizado
+            loader.setLocation(xmlURL);
+
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+
+            this.avisoWindow = loader.getController();
+
+            stage.setTitle("Nome do Dialog");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.centerOnScreen();
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+
+            this.avisoWindow.setTexto(texto);
+
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     private void acionarAlert(String url, String texto){
         try {
