@@ -96,23 +96,27 @@ public class GerenciarTecnicosWindow {
     void deletarAction(ActionEvent event) {
         Tecnico tecnicoRemovido = this.tblTecnicos.getSelectionModel().getSelectedItem();
 
-        if (tecnicoRemovido.getOrdensServico().size() == 0) {
-            this.acionarAlert("AlertWindow.fxml", "Remover Tecnico?");
-            if (this.alertWindow.getConfirmacao()) {
-                try {
-                    DAO.getTecnico().remover(tecnicoRemovido);
-                } catch (ObjetoNaoEncontradoException e) {
-                    throw new RuntimeException(e);
+        if (tecnicoRemovido != null) {
+            if (tecnicoRemovido.getOrdensServico().size() == 0) {
+                this.acionarAlert("AlertWindow.fxml", "Remover Tecnico?");
+                if (this.alertWindow.getConfirmacao()) {
+                    try {
+                        DAO.getTecnico().remover(tecnicoRemovido);
+                    } catch (ObjetoNaoEncontradoException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    this.listaTecnicos.clear();
+                    this.listaTecnicos.addAll(DAO.getTecnico().buscarTodos());
+
+                    this.carregarCSS();
+                    this.limparCampos();
                 }
-
-                this.listaTecnicos.clear();
-                this.listaTecnicos.addAll(DAO.getTecnico().buscarTodos());
-
-                this.carregarCSS();
-                this.limparCampos();
+            } else {
+                this.acionarAviso("AvisoWindow.fxml", "O técnico está associado a uma\nordem de serviço.\nNão é possível removê-lo!");
             }
         } else{
-            this.acionarAviso("AvisoWindow.fxml", "O técnico está associado a uma\nordem de serviço.\nNão é possível removê-lo!");
+            this.acionarAviso("AvisoWindow.fxml", "Selecione um técnico!");
         }
     }
 
@@ -139,6 +143,8 @@ public class GerenciarTecnicosWindow {
                 this.carregarCSS();
                 this.limparCampos();
             }
+        } else{
+            this.acionarAviso("AvisoWindow.fxml", "Selecione um cliente!");
         }
     }
 

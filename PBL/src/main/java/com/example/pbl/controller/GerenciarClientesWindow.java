@@ -114,22 +114,26 @@ public class GerenciarClientesWindow {
     void deletarAction(ActionEvent event) {
         Cliente clienteRemovido = this.tblClientes.getSelectionModel().getSelectedItem();
 
-        if (clienteRemovido.getOrdensServico().size() == 0) {
-            this.acionarAlert("AlertWindow.fxml", "Remover Cliente?");
-            if (this.alertWindow.getConfirmacao()) {
-                try {
-                    DAO.getCliente().remover(clienteRemovido);
-                } catch (ObjetoNaoEncontradoException e) {
-                    throw new RuntimeException(e);
+        if (clienteRemovido != null) {
+            if (clienteRemovido.getOrdensServico().size() == 0) {
+                this.acionarAlert("AlertWindow.fxml", "Remover Cliente?");
+                if (this.alertWindow.getConfirmacao()) {
+                    try {
+                        DAO.getCliente().remover(clienteRemovido);
+                    } catch (ObjetoNaoEncontradoException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    this.listaClientes.clear();
+                    this.listaClientes.addAll(DAO.getCliente().buscarTodos());
+
+                    this.limparCampos();
                 }
-
-                this.listaClientes.clear();
-                this.listaClientes.addAll(DAO.getCliente().buscarTodos());
-
-                this.limparCampos();
+            } else {
+                this.acionarAviso("AvisoWindow.fxml", "O cliente está associado a uma\nordem de serviço.\nNão é possível removê-lo!");
             }
         } else{
-            this.acionarAviso("AvisoWindow.fxml", "O cliente está associado a uma\nordem de serviço.\nNão é possível removê-lo!");
+            this.acionarAviso("AvisoWindow.fxml", "Selecione um cliente!");
         }
     }
 
@@ -159,6 +163,8 @@ public class GerenciarClientesWindow {
 
                 this.pesquisarCliente();
             }
+        } else{
+            this.acionarAviso("AvisoWindow.fxml", "Selecione um cliente!");
         }
 
     }

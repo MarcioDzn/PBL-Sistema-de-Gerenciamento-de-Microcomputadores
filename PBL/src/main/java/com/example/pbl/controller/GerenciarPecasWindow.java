@@ -67,6 +67,7 @@ public class GerenciarPecasWindow {
     @FXML
     private TextField txtBuscarNome;
     private AlertWindow alertWindow;
+    private AvisoWindow avisoWindow;
 
     private Peca criarPeca(){
         String nome = this.txtNome.getText();
@@ -222,6 +223,36 @@ public class GerenciarPecasWindow {
         }
     }
 
+    private void acionarAviso(String url, String texto){
+        try {
+            FXMLLoader loader = new FXMLLoader(); // Carrega o arquivo do scene builder
+            URL xmlURL = HelloApplication.class.getResource(url); // Pega o XML e carrega pra ser utilizado
+            loader.setLocation(xmlURL);
+
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+
+            this.avisoWindow = loader.getController();
+
+            stage.setTitle("Nome do Dialog");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.centerOnScreen();
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+
+            this.avisoWindow.setTexto(texto);
+
+            stage.showAndWait();
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @FXML
     void cadastrarAction(ActionEvent event) {
         Peca novaPeca = this.criarPeca();
@@ -253,20 +284,24 @@ public class GerenciarPecasWindow {
     void deletarAction(ActionEvent event) {
         Peca pecaRemovida = this.tblPecas.getSelectionModel().getSelectedItem();
 
-        if (podeRemover(pecaRemovida)) {
-            this.acionarAlert("AlertWindow.fxml", "Cadastrar Peça?");
-            if (this.alertWindow.getConfirmacao()) {
-                try {
-                    DAO.getPeca().remover(pecaRemovida);
-                } catch (ObjetoNaoEncontradoException e) {
-                    throw new RuntimeException(e);
+        if (pecaRemovida != null) {
+            if (podeRemover(pecaRemovida)) {
+                this.acionarAlert("AlertWindow.fxml", "Cadastrar Peça?");
+                if (this.alertWindow.getConfirmacao()) {
+                    try {
+                        DAO.getPeca().remover(pecaRemovida);
+                    } catch (ObjetoNaoEncontradoException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    this.listaPecas.clear();
+                    this.listaPecas.addAll(DAO.getPeca().buscarTodos());
+
+                    this.limparCampos();
                 }
-
-                this.listaPecas.clear();
-                this.listaPecas.addAll(DAO.getPeca().buscarTodos());
-
-                this.limparCampos();
             }
+        } else{
+            this.acionarAviso("AvisoWindow.fxml", "Selecione uma peça!");
         }
     }
 
@@ -299,6 +334,8 @@ public class GerenciarPecasWindow {
 
                 this.pesquisarPeca();
             }
+        } else{
+            this.acionarAviso("AvisoWindow.fxml", "Selecione uma peça!");
         }
     }
 
