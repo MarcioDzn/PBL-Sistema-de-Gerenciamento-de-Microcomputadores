@@ -62,6 +62,10 @@ public class MainWindow {
     private Button btnSair;
 
     @FXML
+    private Button btnPerfil;
+
+
+    @FXML
     private BorderPane mainActionPane;
 
     @FXML
@@ -217,6 +221,11 @@ public class MainWindow {
         this.fecharJanela(event);
     }
 
+    @FXML
+    void perfilAction(ActionEvent event) {
+        this.abrirPagina("PerfilWindow.fxml");
+    }
+
     private void abrirPagina(String url){
         try {
             FXMLLoader loader = new FXMLLoader(); // Carrega o arquivo do scene builder
@@ -233,7 +242,6 @@ public class MainWindow {
             stage.centerOnScreen();
 
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
 
         } catch (IOException e) {
