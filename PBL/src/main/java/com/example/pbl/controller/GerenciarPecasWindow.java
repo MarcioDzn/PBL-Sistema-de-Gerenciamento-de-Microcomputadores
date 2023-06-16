@@ -300,22 +300,6 @@ public class GerenciarPecasWindow {
                 this.pesquisarPeca();
             }
         }
-//        int index = this.tblPecas.getSelectionModel().getSelectedIndex();
-//
-//        if (index >= 0){
-//            Peca peca = this.listaPecas.get(index);
-//            Peca pecaEditada = this.editarPeca(peca, this.criarPeca());
-//
-//            this.listaPecas.set(index, pecaEditada);
-//
-//            try {
-//                DAO.getPeca().atualizar(pecaEditada);
-//            } catch (ObjetoNaoEncontradoException e) {
-//                throw new RuntimeException(e);
-//            }
-//
-//            this.limparCampos();
-//        }
     }
 
     @FXML

@@ -82,8 +82,6 @@ public class ManipularOrdensWindow {
                 this.scOrdens.setPannable(true);
                 this.scOrdens.setFitToHeight(true);
 
-
-                // this.carregarBotao();
             } else {
                 this.scOrdens.setContent(VazioCard.mensagemVazio("ordem de serviço em andamento", 900, 400));
             }
