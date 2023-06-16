@@ -39,9 +39,6 @@ public class ServicosInstalacaoWindow {
     private Button btnFinalizar;
 
     @FXML
-    private Button btnNovoServico;
-
-    @FXML
     private ScrollPane scServicos;
 
     private FlowPane flowPaneServicos;
@@ -88,15 +85,9 @@ public class ServicosInstalacaoWindow {
     }
 
     @FXML
-    void novoServicoAction(ActionEvent event) {
-
-    }
-
-    @FXML
     void initialize() {
         assert btnCancelar != null : "fx:id=\"btnCancelar\" was not injected: check your FXML file 'ServicosWindow.fxml'.";
         assert btnFinalizar != null : "fx:id=\"btnFinalizar\" was not injected: check your FXML file 'ServicosWindow.fxml'.";
-        assert btnNovoServico != null : "fx:id=\"btnNovoServico\" was not injected: check your FXML file 'ServicosWindow.fxml'.";
         assert scServicos != null : "fx:id=\"scServicos\" was not injected: check your FXML file 'ServicosWindow.fxml'.";
 
         this.listaServicosSelecionados = new LinkedList<>();
