@@ -49,8 +49,6 @@ public class GerarRelatorioWindow {
         // Convertendo para horas
         this.tempoMedioHoras = formato.format(tempoTotalDouble/3600000);
 
-        System.out.println(tempoMedioHoras);
-
         return this.tempoMedioHoras;
     }
 
@@ -112,9 +110,6 @@ public class GerarRelatorioWindow {
         return String.valueOf(pagamentoTotal - custoTotal);
     }
 
-    //public String satisfacao(){
-        //
-    //}
 
     @FXML
     void initialize() {
