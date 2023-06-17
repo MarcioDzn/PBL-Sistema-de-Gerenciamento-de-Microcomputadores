@@ -43,9 +43,6 @@ public class EscolherPecasWindow {
     private Button btnFinalizar;
 
     @FXML
-    private Button btnNovaPeca;
-
-    @FXML
     private ScrollPane scPecas;
 
     private FlowPane flowPanePecas;
@@ -89,16 +86,9 @@ public class EscolherPecasWindow {
     }
 
     @FXML
-    void novaPecaAction(ActionEvent event) {
-
-    }
-
-
-    @FXML
     void initialize() {
         assert btnCancelar != null : "fx:id=\"btnCancelar\" was not injected: check your FXML file 'EscolherPecasWindow.fxml'.";
         assert btnFinalizar != null : "fx:id=\"btnFinalizar\" was not injected: check your FXML file 'EscolherPecasWindow.fxml'.";
-        assert btnNovaPeca != null : "fx:id=\"btnNovaPeca\" was not injected: check your FXML file 'EscolherPecasWindow.fxml'.";
         assert scPecas != null : "fx:id=\"scPecas\" was not injected: check your FXML file 'EscolherPecasWindow.fxml'.";
 
         this.listaPecasSelecionadas = new LinkedList<>();
