@@ -40,9 +40,6 @@ public class EscolherClienteWindow {
     private Button btnFinalizar;
 
     @FXML
-    private Button btnNovoCliente;
-
-    @FXML
     private ScrollPane scClientes;
 
     private FlowPane flowPaneClientes;
@@ -84,15 +81,9 @@ public class EscolherClienteWindow {
     }
 
     @FXML
-    void novoClienteAction(ActionEvent event) {
-
-    }
-
-    @FXML
     void initialize() {
         assert btnCancelar != null : "fx:id=\"btnCancelar\" was not injected: check your FXML file 'EscolherClienteWindow.fxml'.";
         assert btnFinalizar != null : "fx:id=\"btnFinalizar\" was not injected: check your FXML file 'EscolherClienteWindow.fxml'.";
-        assert btnNovoCliente != null : "fx:id=\"btnNovoCliente\" was not injected: check your FXML file 'EscolherClienteWindow.fxml'.";
         assert scClientes != null : "fx:id=\"scClientes\" was not injected: check your FXML file 'EscolherClienteWindow.fxml'.";
 
         this.listaClientes = new LinkedList<>();
