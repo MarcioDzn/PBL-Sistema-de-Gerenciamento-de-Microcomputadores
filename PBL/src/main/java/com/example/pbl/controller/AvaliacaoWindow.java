@@ -51,12 +51,12 @@ public class AvaliacaoWindow {
     @FXML
     private Button btnRuim;
 
-    private String avaliacao;
+    private int avaliacao;
     private AlertWindow alertWindow;
 
     @FXML
     void bomAction(ActionEvent event) {
-        this.avaliacao = "Bom";
+        this.avaliacao = 4;
         this.colorirBotoes(this.btnBom);
     }
 
@@ -73,8 +73,8 @@ public class AvaliacaoWindow {
         try {
             this.acionarAlert("AlertWindow.fxml", "Finalizar?");
             if (this.alertWindow.getConfirmacao()) {
-                if (this.avaliacao == null)
-                    this.avaliacao = "Indisponível";
+                if (this.avaliacao == 0)
+                    this.avaliacao = 0;
 
                 Tecnico tecnicoAtualizado = DAO.getTecnico().buscarPorId(LoginAtual.idLogin);
 
@@ -94,25 +94,25 @@ public class AvaliacaoWindow {
 
     @FXML
     void medianoAction(ActionEvent event) {
-        this.avaliacao = "Mediano";
+        this.avaliacao = 3;
         this.colorirBotoes(this.btnMediano);
     }
 
     @FXML
     void otimoAction(ActionEvent event) {
-        this.avaliacao = "Otimo";
+        this.avaliacao = 5;
         this.colorirBotoes(this.btnOtimo);
     }
 
     @FXML
     void pessimoAction(ActionEvent event) {
-        this.avaliacao = "Pessimo";
+        this.avaliacao = 1;
         this.colorirBotoes(this.btnPessimo);
     }
 
     @FXML
     void ruimAction(ActionEvent event) {
-        this.avaliacao = "Ruim";
+        this.avaliacao = 2;
         this.colorirBotoes(this.btnRuim);
     }
 
