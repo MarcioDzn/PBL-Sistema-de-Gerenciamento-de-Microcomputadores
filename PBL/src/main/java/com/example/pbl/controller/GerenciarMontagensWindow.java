@@ -100,7 +100,6 @@ public class GerenciarMontagensWindow {
                 this.listaMontagens.add(montagem);
 
                 this.txtDescricao.setText("");
-                this.atualizarQuantidade();
                 this.carregarScrollPaneServico();
             }
         } else{
@@ -270,22 +269,6 @@ public class GerenciarMontagensWindow {
             });
         }
     }
-
-    private void atualizarQuantidade(){
-            try {
-                for (Componente componente : this.listaPecasSelecionadas) {
-                    if (componente instanceof Peca){
-                        Peca pecaAtualizada = DAO.getPeca().buscarPorId(((Peca) componente).getId());
-                        pecaAtualizada.setQuantidade(pecaAtualizada.getQuantidade() - 1);
-
-                        DAO.getPeca().atualizar(pecaAtualizada);
-                    }
-                }
-            } catch (QuantidadeException | ObjetoNaoEncontradoException e) {
-                throw new RuntimeException(e);
-            }
-    }
-
     private void abrirPagina(String url, String tipo){
         try {
             FXMLLoader loader = new FXMLLoader(); // Carrega o arquivo do scene builder
