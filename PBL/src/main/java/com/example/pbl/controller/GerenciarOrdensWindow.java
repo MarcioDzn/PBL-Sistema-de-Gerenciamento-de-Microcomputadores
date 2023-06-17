@@ -7,10 +7,10 @@ import java.util.*;
 
 import com.example.pbl.HelloApplication;
 import com.example.pbl.dao.DAO;
+import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
 import com.example.pbl.exceptions.OrdemServicoException;
-import com.example.pbl.model.Cliente;
-import com.example.pbl.model.OrdemServico;
-import com.example.pbl.model.Servico;
+import com.example.pbl.exceptions.QuantidadeException;
+import com.example.pbl.model.*;
 import com.example.pbl.utils.componentesJavafx.ServicoCard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -125,6 +125,7 @@ public class GerenciarOrdensWindow {
                 if (!(this.listaMontagensSelecionadas.isEmpty() && this.listaLimpezasSelecionadas.isEmpty() && this.listaInstalacoesSelecionadas.isEmpty())) {
                     this.acionarAlert("AlertWindow.fxml", "Cadastrar Ordem de Serviço?");
                     if (this.alertWindow.getConfirmacao()) {
+                        this.removerPecas();
                         DAO.getOrdemServico().criar(ordem);
 
                         this.clienteSelecionado = null;
@@ -297,6 +298,23 @@ public class GerenciarOrdensWindow {
         this.carregarScrollPaneServico();
         this.carregarCSS();
 
+    }
+
+    private void removerPecas(){
+        try {
+            for (Servico servico : this.listaMontagensSelecionadas) {
+                Montagem montagem = (Montagem) servico;
+
+                for (Peca peca : montagem.getPecas()) {
+                    peca.setQuantidade(peca.getQuantidade() - Collections.frequency(montagem.getPecas(), peca));
+                    DAO.getPeca().atualizar(peca);
+                }
+
+                DAO.getMontagem().atualizar(montagem);
+            }
+        } catch (QuantidadeException | ObjetoNaoEncontradoException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     void selecionarBotoesServicos(){
