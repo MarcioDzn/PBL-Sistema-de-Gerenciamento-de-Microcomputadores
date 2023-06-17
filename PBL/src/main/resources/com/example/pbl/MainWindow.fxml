@@ -224,7 +224,7 @@
                                                    <children>
                                                       <ImageView fitHeight="32.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@../../../media/documento.png" />
+                                                            <Image url="@../../../media/carrinho-de-compras.png" />
                                                          </image>
                                                       </ImageView>
                                                    </children>
@@ -245,7 +245,7 @@
                                                    <children>
                                                       <ImageView fitHeight="32.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@../../../media/documento.png" />
+                                                            <Image url="@../../../media/carrinho-de-compras.png" />
                                                          </image>
                                                       </ImageView>
                                                    </children>
@@ -266,7 +266,7 @@
                                                    <children>
                                                       <ImageView fitHeight="32.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@../../../media/documento.png" />
+                                                            <Image url="@../../../media/carrinho-de-compras.png" />
                                                          </image>
                                                       </ImageView>
                                                    </children>
