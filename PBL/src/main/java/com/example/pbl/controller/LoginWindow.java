@@ -52,7 +52,7 @@ public class LoginWindow {
             this.abrirPagina("MainWindow.fxml");
 
         } else{
-            System.out.println("Login errado");
+
         }
     }
 

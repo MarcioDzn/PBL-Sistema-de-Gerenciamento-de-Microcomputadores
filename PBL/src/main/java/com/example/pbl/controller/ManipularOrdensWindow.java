@@ -149,8 +149,6 @@ public class ManipularOrdensWindow {
 
                             DAO.getTecnico().atualizar(tecnicoAtualizado);
 
-                            System.out.println(DAO.getTecnico().buscarPorId(LoginAtual.idLogin).getOrdensServico());
-
                             this.listaOrdens.clear();
                             this.carregarScrollPaneOrdem();
                         }
