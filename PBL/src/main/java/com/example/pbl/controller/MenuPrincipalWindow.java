@@ -63,7 +63,7 @@ public class MenuPrincipalWindow {
 
             if (this.listaOrdens.size() > 0) {
                 try {
-                    this.flowPaneOrdens = OrdensCard.criarTabela(this.listaOrdens, 196, 250, true);
+                    this.flowPaneOrdens = OrdensCard.criarTabela(this.listaOrdens, 220, 250, true);
                 } catch (InvocationTargetException | IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }
