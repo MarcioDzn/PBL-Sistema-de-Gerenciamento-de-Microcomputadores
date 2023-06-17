@@ -69,15 +69,21 @@ public class OrdemServico implements Serializable{
         double precoTotal = 0;
 
         for (Integer id : this.montagens){
-            precoTotal += DAO.getMontagem().buscarPorId(id).getPreco();
+            if(DAO.getMontagem().buscarPorId(id) != null) {
+                precoTotal += DAO.getMontagem().buscarPorId(id).getPreco();
+            }
         }
 
         for (Integer id : this.limpezas){
-            precoTotal += DAO.getLimpeza().buscarPorId(id).getPreco();
+            if(DAO.getLimpeza().buscarPorId(id) != null) {
+                precoTotal += DAO.getLimpeza().buscarPorId(id).getPreco();
+            }
         }
 
         for (Integer id : this.instalacoes){
-            precoTotal += DAO.getInstalacao().buscarPorId(id).getPreco();
+            if(DAO.getInstalacao().buscarPorId(id) != null) {
+                precoTotal += DAO.getInstalacao().buscarPorId(id).getPreco();
+            }
         }
 
         return precoTotal;
