@@ -83,7 +83,7 @@ public class ManipularOrdensWindow {
                 this.scOrdens.setFitToHeight(true);
 
             } else {
-                this.scOrdens.setContent(VazioCard.mensagemVazio("ordem de serviço em andamento", 900, 400));
+                this.scOrdens.setContent(VazioCard.mensagemVazio("ordem de serviço em andamento", 900, 440));
             }
 
             this.scOrdens.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);

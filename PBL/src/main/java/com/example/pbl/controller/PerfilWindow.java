@@ -64,7 +64,7 @@ public class PerfilWindow {
             this.nomeUsuario.setText(DAO.getTecnico().buscarPorId(LoginAtual.idLogin).getNome());
             this.tipoCargo.setText("Técnico");
         } else{
-            this.scOrdens.setContent(VazioCard.mensagemVazio("ordem de serviço", 770, 322));
+            this.scOrdens.setContent(VazioCard.mensagemVazio("ordem de serviço", 770, 370));
             this.scOrdens.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
             this.scOrdens.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
