@@ -109,7 +109,33 @@ public class GerarRelatorioWindow {
 
         return String.valueOf(pagamentoTotal - custoTotal);
     }
+    
+    public String satisfacao(){
+        List<OrdemServico> listaOrdens = DAO.getOrdemServico().buscarTodos();
+        int avaliacaoTotal = 0;
+        int quantOrdens = 0;
 
+        for(OrdemServico ordemServico: listaOrdens){
+            if(ordemServico.isFinalizado()){
+                avaliacaoTotal+= ordemServico.getAvaliacao();
+                quantOrdens += 1;
+            }
+        }
+
+        if(avaliacaoTotal/quantOrdens == 5){
+            return "Ótimo";
+        } else if (avaliacaoTotal/quantOrdens == 4){
+            return "Bom";
+        } else if(avaliacaoTotal/quantOrdens == 3){
+            return "Mediano";
+        } else if(avaliacaoTotal/quantOrdens == 2){
+            return "Ruim";
+        } else if(avaliacaoTotal/quantOrdens == 1){
+            return "Péssimo";
+        } else{
+            return "Indeterminado";
+        }
+    }
 
     @FXML
     void initialize() {
@@ -121,7 +147,7 @@ public class GerarRelatorioWindow {
         this.idTempo.setText(calculoTempoMedio()+" Horas");
         this.idCustos.setText(custosPecas()+" Reais");
         this.idFaturamento.setText(faturamento()+" Reais");
-        //this.idSatisfacao.setText();
+        this.idSatisfacao.setText(satisfacao());
 
     }
 
