@@ -28,7 +28,7 @@ public class OrdensCard extends ComponenteJavaFx {
         Label objLabel;
         Label objLabelInfo;
 
-        List<String> listaNomes = new ArrayList<>(Arrays.asList("Cliente", "Servicos", "Status", "Descrição", "Tecnico", "Metodo de Pagamento"));
+        List<String> listaNomes = new ArrayList<>(Arrays.asList("Cliente", "Servicos", "Preço", "Status", "Descrição", "Tecnico", "Metodo de Pagamento"));
         for (String nome : listaNomes){
             if (!nome.equals("Id")) {
                 objLabel = new Label(nome);
@@ -85,7 +85,7 @@ public class OrdensCard extends ComponenteJavaFx {
         Label objLabel;
         Label objLabelInfo;
 
-        List<String> listaNomes = new ArrayList<>(Arrays.asList("Cliente", "Servicos", "Status", "Descrição", "Tecnico", "Metodo de Pagamento"));
+        List<String> listaNomes = new ArrayList<>(Arrays.asList("Cliente", "Servicos", "Preço", "Status", "Descrição", "Tecnico", "Metodo de Pagamento"));
         for (String nome : listaNomes){
             if (!nome.equals("Id")) {
                 objLabel = new Label(nome);
@@ -127,7 +127,7 @@ public class OrdensCard extends ComponenteJavaFx {
         Label objLabel;
         Label objLabelInfo;
 
-        List<String> listaNomes = new ArrayList<>(Arrays.asList("Cliente", "Servicos", "Status", "Descrição", "Tecnico", "Metodo de Pagamento"));
+        List<String> listaNomes = new ArrayList<>(Arrays.asList("Cliente", "Servicos", "Preço", "Status", "Descrição", "Tecnico", "Metodo de Pagamento"));
         for (String nome : listaNomes){
             if (!nome.equals("Id")) {
                 objLabel = new Label(nome);
@@ -194,7 +194,7 @@ public class OrdensCard extends ComponenteJavaFx {
         if (temBotao || listaItens.size() < 3) {
             flowPane.setMinWidth(875);
         }else{
-            flowPane.setMinWidth(listaItens.size() * 265);
+            flowPane.setMinWidth(listaItens.size() * 267);
         }
 
         flowPane.setStyle("-fx-background-color: #282828;");
@@ -264,6 +264,7 @@ public class OrdensCard extends ComponenteJavaFx {
             dados.put("Status", "Em Andamento");
 
         dados.put("Servicos", pegarServicos(item));
+        dados.put("Preço", "R$"+item.getPreco());
 
         return dados;
     }
@@ -272,15 +273,15 @@ public class OrdensCard extends ComponenteJavaFx {
         StringBuilder builder = new StringBuilder();
 
         if (item.getInstalacoes().size() > 0)
-            builder.append("Instalação\n");
+            builder.append("Instalação/");
 
         if (item.getLimpezas().size() > 0)
-            builder.append("Limpeza\n");
+            builder.append("Limpeza/");
 
         if (item.getMontagens().size() > 0)
-            builder.append("Montagem\n");
+            builder.append("Montagem/");
 
-
-        return builder.toString();
+        String texto = builder.toString();
+        return texto.substring(0, texto.length() - 1);
     }
 }

@@ -12,9 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ClienteCard extends ComponenteJavaFx {
     private static HBox criarComponenteNovo(Map<String, String> dados, int width, int height){
@@ -28,7 +26,9 @@ public class ClienteCard extends ComponenteJavaFx {
 
         Label objLabel;
         Label objLabelInfo;
-        for (String nome : dados.keySet()){
+
+        List<String> listaNomes = new ArrayList<>(Arrays.asList("Cliente", "Email", "Telefone", "Endereço"));
+        for (String nome : listaNomes){
             if (!nome.equals("Id")){
                 objLabel = new Label(nome);
                 objLabelInfo = new Label(dados.get(nome));
