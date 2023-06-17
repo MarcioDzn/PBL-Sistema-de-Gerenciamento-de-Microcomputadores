@@ -72,7 +72,7 @@ public class ManipularOrdensWindow {
 
             if (this.listaOrdens.size() > 0) {
                 try {
-                    this.flowPaneOrdens = OrdensCard.criarTabelaOrdemAtual(this.listaOrdens, 196, 250);
+                    this.flowPaneOrdens = OrdensCard.criarTabelaOrdemAtual(this.listaOrdens, 220, 250);
                 } catch (InvocationTargetException | IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }
