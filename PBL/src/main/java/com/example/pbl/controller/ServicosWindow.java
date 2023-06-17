@@ -7,7 +7,10 @@ import java.util.*;
 
 import com.example.pbl.HelloApplication;
 import com.example.pbl.dao.DAO;
+import com.example.pbl.exceptions.ObjetoNaoEncontradoException;
+import com.example.pbl.exceptions.QuantidadeException;
 import com.example.pbl.model.Montagem;
+import com.example.pbl.model.Peca;
 import com.example.pbl.model.Servico;
 import com.example.pbl.utils.componentesJavafx.ServicoCard;
 import javafx.event.ActionEvent;
@@ -81,7 +84,6 @@ public class ServicosWindow {
             }
 
             this.gerenciarOrdensController.listaMontagensSelecionadas = this.listaServicosSelecionados;
-
             this.fecharJanela(event);
         }
     }
@@ -103,7 +105,6 @@ public class ServicosWindow {
         this.selecionarBotoesServicos();
         this.mudarStatusBotao();
     }
-
 
     void carregarListaServico(){
         List<Montagem> lista = new LinkedList<>();
@@ -170,6 +171,25 @@ public class ServicosWindow {
                             }
                         }
                     }
+                }
+            }
+        }
+
+        this.validarQuantidadePecas();
+    }
+
+    void validarQuantidadePecas(){
+        for (Button botao : this.mapBotoes.keySet()) {
+            String idBotao = this.mapBotoes.get(botao);
+            int indexHifen = idBotao.indexOf("-");
+
+            int idDAO = Integer.parseInt(idBotao.substring(indexHifen + 1));
+
+            Montagem montagem = DAO.getMontagem().buscarPorId(idDAO);
+            for (Peca peca : montagem.getPecas()){
+                if (peca.getQuantidade() < Collections.frequency(montagem.getPecas(), peca)){
+                    botao.setText("Peças Insuficientes!");
+                    botao.setDisable(true);
                 }
             }
         }
