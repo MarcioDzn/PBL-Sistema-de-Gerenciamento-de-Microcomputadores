@@ -2,6 +2,8 @@ package com.example.pbl.utils.componentesJavafx;
 
 import com.example.pbl.dao.DAO;
 import com.example.pbl.model.Montagem;
+import com.example.pbl.model.OutroComponente;
+import com.example.pbl.model.Peca;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -13,9 +15,7 @@ import javafx.scene.paint.Color;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ServicoCard extends ComponenteJavaFx {
     // Pega os dados dos getters e setters e armazena em um hashmap
@@ -57,6 +57,19 @@ public class ServicoCard extends ComponenteJavaFx {
             }
         }
 
+        if (item instanceof Montagem){
+            StringBuilder builder = new StringBuilder();
+
+            for (Peca peca : ((Montagem) item).getPecas())
+                builder.append(peca.getNome()).append(", ");
+
+            for (OutroComponente pecaExtra : ((Montagem) item).getOutrosComponentes())
+                builder.append(pecaExtra.getDescricao()).append(", ");
+
+            String texto = builder.toString();
+            dados.put("Peças", texto.substring(0, texto.length() - 2));
+        }
+
         return dados;
     }
 
@@ -73,7 +86,12 @@ public class ServicoCard extends ComponenteJavaFx {
 
         Label objLabel;
         Label objLabelInfo;
-        for (String nome : dados.keySet()){
+
+        List<String> listaNomes = new ArrayList<>(Arrays.asList("Nome", "Descricao", "Preco", "Custo"));
+        if (dados.containsKey("Peças"))
+            listaNomes.add("Peças");
+
+        for (String nome : listaNomes){
             objLabel = new Label(nome);
             objLabelInfo = new Label(dados.get(nome));
 
@@ -179,6 +197,19 @@ public class ServicoCard extends ComponenteJavaFx {
             }
         }
 
+        if (item instanceof Montagem){
+            StringBuilder builder = new StringBuilder();
+
+            for (Peca peca : ((Montagem) item).getPecas())
+                builder.append(peca.getNome()).append(", ");
+
+            for (OutroComponente pecaExtra : ((Montagem) item).getOutrosComponentes())
+                builder.append(pecaExtra.getDescricao()).append(", ");
+
+            String texto = builder.toString();
+            dados.put("Peças", texto.substring(0, texto.length() - 2));
+        }
+
         return dados;
     }
 
@@ -193,7 +224,12 @@ public class ServicoCard extends ComponenteJavaFx {
 
         Label objLabel;
         Label objLabelInfo;
-        for (String nome : dados.keySet()){
+
+        List<String> listaNomes = new ArrayList<>(Arrays.asList("Nome", "Descricao"));
+        if (dados.containsKey("Peças"))
+            listaNomes.add("Peças");
+
+        for (String nome : listaNomes){
             objLabel = new Label(nome);
             objLabelInfo = new Label(dados.get(nome));
 
