@@ -1,72 +1,133 @@
 package com.example.pbl.controller;
 
-import com.example.pbl.HelloApplication;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import java.net.URL;
+import java.text.DecimalFormat;
+import java.util.List;
+import java.util.ResourceBundle;
 
-import java.io.IOException;
+import com.example.pbl.dao.DAO;
+import com.example.pbl.model.*;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 
 public class GerarRelatorioWindow {
 
     @FXML
-    private Button btnCustos;
+    private ResourceBundle resources;
 
     @FXML
-    private Button btnFaturamento;
+    private URL location;
 
     @FXML
-    private Button btnSatisfacao;
+    private Label idCustos;
 
     @FXML
-    private Button btnTempoAtendimento;
-    @FXML
-    private BorderPane painelnformacoes;
-
-    private Parent rootTempoMedio;
+    private Label idFaturamento;
 
     @FXML
-    void btnCustosAction(ActionEvent event) {
-        this.openPage("CustosWindow.fxml");
-    }
+    private Label idSatisfacao;
 
     @FXML
-    void btnFaturamentoAction(ActionEvent event) {
-        this.openPage("FaturamentoWindow.fxml");
-        //FaturamentoWindow
-    }
+    private Label idTempo;
 
-    @FXML
-    void btnSatisfacaoAction(ActionEvent event) {
-        this.openPage("SatisfacaoWindow.fxml");
-        //SatisfacaoWindow
-    }
+    private String tempoMedioHoras;
 
-    @FXML
-    void btnTempoAtendimentoAction(ActionEvent event) {
-        this.openPage("TempoMedioWindow.fxml");
-    }
+    public String calculoTempoMedio(){
+        List<OrdemServico> lista = DAO.getOrdemServico().buscarTodos();
+        DecimalFormat formato = new DecimalFormat("0.##");
+        int totalOrdens = DAO.getOrdemServico().buscarTodos().size();
+        long tempoTotalMiliseg = 0;
 
-    private void openPage(String url) {
-        Parent root = null;
-        try{
-            root = FXMLLoader.load(HelloApplication.class.getResource(url));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        for(OrdemServico ordemServico: lista){
+            if(ordemServico.isFinalizado()){
+                tempoTotalMiliseg += ordemServico.getTempoTotal();
+            }
         }
-        this.painelnformacoes.setCenter(root);
+
+        double tempoTotalDouble = (double) tempoTotalMiliseg;
+
+        // Convertendo para horas
+        this.tempoMedioHoras = formato.format(tempoTotalDouble/3600000);
+
+        System.out.println(tempoMedioHoras);
+
+        return this.tempoMedioHoras;
     }
+
+    public String custosPecas(){
+        List<Peca> listaPecas = DAO.getPeca().buscarTodos();
+        List<OutroComponente> listaOutros = DAO.getOutroComponente().buscarTodos();
+        int custoPecas = 0;
+        int custoOutros = 0;
+        DecimalFormat format = new DecimalFormat("0.##");
+
+        for(Peca peca: listaPecas){
+            custoPecas += peca.getCusto();
+        }
+
+        for(OutroComponente outroComponente: listaOutros){
+            custoOutros += outroComponente.getCusto();
+        }
+        return format.format(custoPecas + custoOutros);
+    }
+
+    public String faturamento(){
+        List<OrdemServico> listaOrdens = DAO.getOrdemServico().buscarTodos();
+        double pagamentoTotal = 0;
+        double custoTotal = 0;
+
+        for(OrdemServico ordemServico: listaOrdens){
+            if(ordemServico.isFinalizado() && ordemServico.getPreco() != 0) {
+                pagamentoTotal += ordemServico.getPreco();
+            }
+        }
+
+        List<Montagem> listaMontagem;
+        List<Limpeza> listaLimpezas;
+        List<Instalacao> listaInstalacao;
+        for(OrdemServico ordemServico: listaOrdens){
+            if(ordemServico.isFinalizado()) {
+                listaMontagem = ordemServico.getMontagens();
+                listaLimpezas = ordemServico.getLimpezas();
+                listaInstalacao = ordemServico.getInstalacoes();
+
+                for (Montagem montagem : listaMontagem) {
+                    if(montagem != null) {
+                        custoTotal += montagem.getCusto();
+                    }
+                }
+                for (Limpeza limpeza : listaLimpezas) {
+                    if(limpeza != null) {
+                        custoTotal += limpeza.getCusto();
+                    }
+                }
+                for (Instalacao instalacao : listaInstalacao) {
+                    if(instalacao != null) {
+                        custoTotal += instalacao.getCusto();
+                    }
+                }
+            }
+        }
+
+        return String.valueOf(pagamentoTotal - custoTotal);
+    }
+
+    //public String satisfacao(){
+        //
+    //}
 
     @FXML
     void initialize() {
-        assert btnCustos != null : "fx:id=\"btnCustos\" was not injected: check your FXML file 'GerarRelatorioWindow.fxml'.";
-        assert btnFaturamento != null : "fx:id=\"btnFaturamento\" was not injected: check your FXML file 'GerarRelatorioWindow.fxml'.";
-        assert btnSatisfacao != null : "fx:id=\"btnSatisfacao\" was not injected: check your FXML file 'GerarRelatorioWindow.fxml'.";
-        assert btnTempoAtendimento != null : "fx:id=\"btnTempoAtendimento\" was not injected: check your FXML file 'GerarRelatorioWindow.fxml'.";
+        assert idCustos != null : "fx:id=\"idCustos\" was not injected: check your FXML file 'GerarRelatorioWindow.fxml'.";
+        assert idFaturamento != null : "fx:id=\"idFaturamento\" was not injected: check your FXML file 'GerarRelatorioWindow.fxml'.";
+        assert idSatisfacao != null : "fx:id=\"idSatisfacao\" was not injected: check your FXML file 'GerarRelatorioWindow.fxml'.";
+        assert idTempo != null : "fx:id=\"idTempo\" was not injected: check your FXML file 'GerarRelatorioWindow.fxml'.";
+
+        this.idTempo.setText(calculoTempoMedio()+" Horas");
+        this.idCustos.setText(custosPecas()+" Reais");
+        this.idFaturamento.setText(faturamento()+" Reais");
+        //this.idSatisfacao.setText();
+
     }
 
 }
