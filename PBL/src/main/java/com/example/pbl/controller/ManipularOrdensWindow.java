@@ -142,7 +142,7 @@ public class ManipularOrdensWindow {
                         this.abrirPagina("AvaliacaoWindow.fxml");
                         OrdemServico ordem = tecnicoAtualizado.getOrdemServicoAtual();
 
-                        if (ordem.getAvaliacao() != null) {
+                        if (ordem.getAvaliacao() != 0) {
                             ordem.finalizar();
                             DAO.getOrdemServico().atualizar(ordem);
                             tecnicoAtualizado.addOrdemServicoAtual(-1);

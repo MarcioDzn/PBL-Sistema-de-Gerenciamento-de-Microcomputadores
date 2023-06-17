@@ -36,7 +36,7 @@ public class OrdemServico implements Serializable{
     private List<Integer> limpezas;
     private List<Integer> instalacoes;
     private String descricao;
-    private String avaliacao;
+    private int avaliacao;
     private long criadoEm;
     private long finalizadoEm;
     private String metodoPagamento;
@@ -384,11 +384,11 @@ public class OrdemServico implements Serializable{
         this.descricao = descricao;
     }
 
-    public String getAvaliacao() {
+    public int getAvaliacao() {
         return avaliacao;
     }
 
-    public void setAvaliacao(String avaliacao) throws OrdemServicoException {
+    public void setAvaliacao(int avaliacao) throws OrdemServicoException {
         if (this.isFinalizado() || this.isCancelado())
             throw new OrdemServicoException(this.status);
 
