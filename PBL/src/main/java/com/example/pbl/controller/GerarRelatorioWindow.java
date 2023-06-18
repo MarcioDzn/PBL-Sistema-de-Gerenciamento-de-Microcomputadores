@@ -109,7 +109,7 @@ public class GerarRelatorioWindow {
 
         return String.valueOf(pagamentoTotal - custoTotal);
     }
-    
+
     public String satisfacao(){
         List<OrdemServico> listaOrdens = DAO.getOrdemServico().buscarTodos();
         int avaliacaoTotal = 0;
@@ -121,16 +121,22 @@ public class GerarRelatorioWindow {
                 quantOrdens += 1;
             }
         }
+        int resultadoAvaliacao = 0;
 
-        if(avaliacaoTotal/quantOrdens == 5){
+        if(quantOrdens != 0){
+            resultadoAvaliacao = avaliacaoTotal/quantOrdens;
+        }
+
+
+        if(resultadoAvaliacao == 5){
             return "Ótimo";
-        } else if (avaliacaoTotal/quantOrdens == 4){
+        } else if (resultadoAvaliacao == 4){
             return "Bom";
-        } else if(avaliacaoTotal/quantOrdens == 3){
+        } else if(resultadoAvaliacao == 3){
             return "Mediano";
-        } else if(avaliacaoTotal/quantOrdens == 2){
+        } else if(resultadoAvaliacao == 2){
             return "Ruim";
-        } else if(avaliacaoTotal/quantOrdens == 1){
+        } else if(resultadoAvaliacao == 1){
             return "Péssimo";
         } else{
             return "Indeterminado";
