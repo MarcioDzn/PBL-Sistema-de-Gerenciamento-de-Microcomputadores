@@ -91,7 +91,10 @@ public class GerarRelatorioWindow {
 
                 for (Montagem montagem : listaMontagem) {
                     if(montagem != null) {
-                        custoTotal += montagem.getCusto();
+                        List<Peca> listaPeca = montagem.getPecas();
+                        for(Peca peca: listaPeca){
+                            custoTotal+= peca.getCusto();
+                        }
                     }
                 }
                 for (Limpeza limpeza : listaLimpezas) {
